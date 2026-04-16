@@ -85,12 +85,12 @@ const Jobs = () => {
             className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16"
         >
           <div>
-            <div className="flex items-center gap-4 mb-2">
-                <span className="h-0.5 w-12 bg-primary rounded-full" />
-                <p className="text-primary font-black uppercase tracking-[0.3em] text-[10px]">Marketplace Discovery</p>
+            <div className="flex items-center gap-4 mb-4">
+                <span className="h-0.5 w-16 bg-primary rounded-full" />
+                <p className="text-primary font-black uppercase tracking-[0.4em] text-[10px]">Marketplace Discovery</p>
             </div>
-            <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic">
-                Active <span className="text-primary">Opportunities</span>
+            <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic leading-none">
+                Active <span className="text-primary italic">Vacancies</span>
             </h1>
           </div>
           
@@ -186,8 +186,8 @@ const Jobs = () => {
 
                 <div className="flex items-center justify-between pt-10 border-t border-slate-100 dark:border-slate-800/50">
                   <div className="flex flex-col">
-                    <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-1">Monthly Salary</p>
-                    <div className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter italic">
+                    <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] mb-1">Monthly Salary</p>
+                    <div className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic">
                         {element.fixedSalary
                         ? `₹${element.fixedSalary.toLocaleString()}`
                         : `₹${element.salaryFrom.toLocaleString()} - ₹${element.salaryTo.toLocaleString()}`}

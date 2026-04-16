@@ -105,31 +105,38 @@ const Register = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-primary/10 border border-primary/20 backdrop-blur-md text-primary font-black text-xs uppercase tracking-widest mb-8 w-fit"
+              className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black text-[10px] uppercase tracking-[0.4em] mb-10 w-fit"
             >
-              Join the Network
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              Registration Hub
             </motion.div>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black text-slate-900 dark:text-white leading-[1.1] mb-8 tracking-tighter">
-              Start your <span className="text-primary">Hyperlocal</span> journey today.
+            <h1 className="text-6xl sm:text-7xl md:text-8xl font-black text-slate-900 dark:text-white leading-[0.9] mb-10 tracking-tighter uppercase italic">
+              Start your <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-orange-400 italic">Hyperlocal</span> <br />
+              Journey.
             </h1>
-            <p className="text-lg text-slate-500 dark:text-slate-400 font-bold max-w-lg leading-relaxed mb-12">
-                Connect with local opportunities and grow your career within your community.
+            <p className="text-xl text-slate-500 dark:text-slate-400 font-bold max-w-lg leading-relaxed mb-12">
+                Join the neighborhood network that values your skills. Connect with local business owners and grow together.
             </p>
             
             <motion.div 
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ y: -5, scale: 1.02 }}
               onClick={startVoiceSetup}
-              className={`glass-card p-8 flex items-center gap-6 cursor-pointer border-dashed border-primary/50 group transition-all ${isRecording ? 'border-primary bg-primary/5 ring-4 ring-primary/10' : ''}`}
+              className={`glass-card p-10 flex items-center gap-8 cursor-pointer border-dashed border-primary/30 group transition-all relative overflow-hidden ${isRecording ? 'border-primary bg-primary/5 ring-8 ring-primary/5 shadow-2xl shadow-primary/20' : ''}`}
             >
-              <div className={`w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all ${isRecording ? 'bg-red-500 animate-pulse' : 'bg-primary'}`}>
-                <span className="material-symbols-outlined text-white text-3xl">{isRecording ? 'mic' : 'mic_none'}</span>
+              <div className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-2xl transition-all duration-500 ${isRecording ? 'bg-red-500 animate-pulse scale-110 rotate-12' : 'bg-primary'}`}>
+                <span className="material-symbols-outlined text-white text-4xl font-bold">{isRecording ? 'mic' : 'mic_none'}</span>
               </div>
               <div>
-                <h3 className="text-xl font-black text-slate-900 dark:text-white mb-1">AI Voice Auto-Fill</h3>
-                <p className="text-sm font-bold text-slate-500 dark:text-slate-400">
-                  {isRecording ? "Listening to you..." : "Talk to fill the entire form instantly."}
+                <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase italic">AI Voice Setup</h3>
+                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                  {isRecording ? "Listening to your voice..." : "Auto-fill this entire form instantly."}
                 </p>
               </div>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-[40px] -mr-10 -mt-10" />
             </motion.div>
           </div>
 
@@ -140,7 +147,7 @@ const Register = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3 }}
               onSubmit={handleRegister} 
-              className="glass-card p-8 sm:p-12 space-y-8"
+              className="glass-card-premium !p-8 sm:!p-12 space-y-12"
             >
               <div className="space-y-4">
                 <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Select Your Entry Role</label>

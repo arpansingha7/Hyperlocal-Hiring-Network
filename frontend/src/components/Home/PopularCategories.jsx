@@ -87,34 +87,32 @@ const PopularCategories = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-block px-4 py-1 mb-4 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-xs uppercase tracking-widest">
-            Local Job Markets
+          <div className="inline-block px-4 py-2 mb-6 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-[10px] uppercase tracking-[0.4em]">
+            Hiring Hotspots
           </div>
-          <h3 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter">
-            Popular Job <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">Categories</span>
+          <h3 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter leading-none mb-4">
+             Top Job <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-orange-400">Hubs</span>
           </h3>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((category, i) => (
             <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              key={category.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              key={category.id} 
-              className="bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all cursor-pointer group"
+              transition={{ delay: i * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -10, scale: 1.05 }}
+              className="glass-card p-10 flex flex-col items-center text-center group cursor-pointer border border-white/20 dark:border-white/5"
             >
-              <div className={`w-14 h-14 ${category.bg} ${category.color} rounded-2xl flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition-transform`}>
+              <div className={`w-20 h-20 rounded-[1.5rem] ${category.bg} ${category.color} flex items-center justify-center text-3xl mb-8 transition-transform group-hover:rotate-12 duration-500`}>
                 {category.icon}
               </div>
-              <p className="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
-                {category.title}
-              </p>
-              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
-                {category.subTitle}
-              </p>
+              <div className="space-y-3">
+                <h4 className="text-xl font-black text-slate-900 dark:text-white uppercase italic tracking-tight">{category.title}</h4>
+                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest border-t border-slate-100 dark:border-slate-800 pt-4">{category.subTitle}</p>
+              </div>
             </motion.div>
           ))}
         </div>

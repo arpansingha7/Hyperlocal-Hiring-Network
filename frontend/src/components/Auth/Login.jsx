@@ -81,26 +81,36 @@ const Login = () => {
 
   return (
     <div className="bg-white dark:bg-slate-900 min-h-screen flex items-center justify-center p-4 sm:p-6 overflow-hidden relative">
-       {/* Background Aesthetics */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full filter blur-[120px] animate-blob" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full filter blur-[120px] animate-blob animation-delay-4000" />
+      {/* Background Aesthetics */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <motion.div 
+          animate={{ scale: [1, 1.2, 1], x: [0, 50, 0], y: [0, 30, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-24 -left-24 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px]" 
+        />
+        <motion.div 
+          animate={{ scale: [1.2, 1, 1.2], x: [0, -50, 0], y: [0, -30, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[100px]" 
+        />
+      </div>
 
       <motion.div 
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         className="w-full max-w-lg relative z-10"
       >
-        <div className="glass-card p-8 sm:p-12">
+        <div className="glass-card-premium !p-8 sm:!p-12">
           <div className="text-center mb-10">
             <motion.div 
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-primary/20 transition-transform hover:rotate-6"
+                className="w-20 h-20 bg-primary rounded-[1.5rem] flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-primary/30 transition-transform hover:rotate-6"
             >
-              <span className="material-symbols-outlined text-white text-3xl">login</span>
+              <span className="material-symbols-outlined text-white text-4xl font-bold">login</span>
             </motion.div>
-            <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 uppercase">Welcome Back</h2>
-            <p className="text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest text-[10px]">Access your hyperlocal dashboard</p>
+            <h2 className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 uppercase italic">Welcome <span className="text-primary italic">Back</span></h2>
+            <p className="text-slate-500 dark:text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">Access your professional world</p>
           </div>
 
           <div className="flex bg-slate-100 dark:bg-slate-800/50 p-1.5 rounded-2xl mb-10 shadow-inner">

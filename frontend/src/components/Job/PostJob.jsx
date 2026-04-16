@@ -131,11 +131,11 @@ const PostJob = () => {
             animate={{ opacity: 1, y: 0 }}
             className="mb-16"
         >
-          <div className="flex items-center gap-4 mb-2">
-            <span className="h-0.5 w-12 bg-primary rounded-full" />
-            <p className="text-primary font-black uppercase tracking-[0.3em] text-[10px]">Admin Dashboard</p>
+          <div className="flex items-center gap-4 mb-4">
+            <span className="h-0.5 w-16 bg-primary rounded-full" />
+            <p className="text-primary font-black uppercase tracking-[0.4em] text-[10px]">Employer Studio</p>
           </div>
-          <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic">
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic leading-none">
             Post <span className="text-primary italic">a New Vacancy</span>
           </h1>
         </motion.div>
@@ -148,11 +148,13 @@ const PostJob = () => {
             transition={{ delay: 0.1 }}
             className="lg:col-span-8 space-y-8"
           >
-            <div className="glass-card p-8 sm:p-12 space-y-12">
+            <div className="glass-card-premium !p-8 sm:!p-12 space-y-12">
               <section className="space-y-8">
-                <div className="flex items-center gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
-                    <span className="material-symbols-outlined text-primary">edit_note</span>
-                    <h2 className="font-black text-xs uppercase tracking-widest text-slate-400">Core Details</h2>
+                <div className="flex items-center gap-4 border-b border-slate-100 dark:border-slate-800 pb-6">
+                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                        <span className="material-symbols-outlined text-primary font-bold">edit_note</span>
+                    </div>
+                    <h2 className="font-black text-xs uppercase tracking-[0.3em] text-slate-400">Core Vacancy Details</h2>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">

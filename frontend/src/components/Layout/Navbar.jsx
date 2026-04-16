@@ -12,7 +12,14 @@ const Navbar = () => {
   const { isAuthorized, setIsAuthorized, user } = useContext(Context);
   const navigateTo = useNavigate();
   const { t, i18n } = useTranslation();
-  const { scrollYProgress } = useScroll();
+  const { scrollY } = useScroll();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  React.useEffect(() => {
+    return scrollY.onChange((latest) => {
+        setIsScrolled(latest > 50);
+    });
+  }, [scrollY]);
 
   React.useEffect(() => {
     if (theme === "dark") {
@@ -59,15 +66,27 @@ const Navbar = () => {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[60] bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-800/50">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <header 
+      className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 py-4 ${
+        isScrolled 
+        ? "px-4 sm:px-6 lg:px-8" 
+        : "px-0"
+      }`}
+    >
+      <div 
+        className={`mx-auto flex h-20 max-w-7xl items-center justify-between px-8 transition-all duration-500 ${
+          isScrolled 
+          ? "glass rounded-[2rem] shadow-2xl shadow-primary/5 border border-white/20 dark:border-white/10" 
+          : "bg-transparent border-b border-transparent"
+        }`}
+      >
         <div className="flex items-center gap-12">
-          <Link to="/" className="flex items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
-            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
-              <span className="material-symbols-outlined text-white text-2xl">work</span>
+          <Link to="/" className="flex items-center gap-3 group transition-transform hover:scale-105 active:scale-95">
+            <div className="w-11 h-11 bg-primary rounded-2xl flex items-center justify-center shadow-lg shadow-primary/30 transition-transform group-hover:rotate-12">
+              <span className="material-symbols-outlined text-white text-2xl font-bold">work</span>
             </div>
-            <h2 className="text-2xl font-black tracking-tighter uppercase italic text-slate-900 dark:text-white">
-              Hyperlocal <span className="text-primary">Hiring</span> Network (HHN)
+            <h2 className="text-xl font-black tracking-tighter uppercase italic text-slate-900 dark:text-white hidden sm:block">
+              Hyperlocal <span className="text-primary italic">Hiring</span> (HHN)
             </h2>
           </Link>
 
@@ -91,13 +110,13 @@ const Navbar = () => {
               <button
                 key={lng}
                 onClick={() => changeLanguage(lng)}
-                className={`px-3 py-1.5 text-xs font-black rounded-lg transition-all ${
+                className={`px-4 py-2 text-[10px] font-black rounded-xl transition-all uppercase tracking-widest ${
                   i18n.language === lng 
-                  ? 'bg-white dark:bg-slate-700 shadow-sm text-primary' 
+                  ? 'bg-white dark:bg-slate-700 shadow-xl text-primary scale-105' 
                   : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
                 }`}
               >
-                {lng.toUpperCase()}
+                {lng}
               </button>
             ))}
           </div>

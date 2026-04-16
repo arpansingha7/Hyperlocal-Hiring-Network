@@ -42,18 +42,36 @@
     }
 
     body {
-        @apply font-sans bg-background text-foreground antialiased transition-colors duration-500;
+        font-family: 'Inter', sans-serif;
+        @apply bg-background text-foreground antialiased transition-colors duration-500;
         line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Outfit', sans-serif;
     }
 }
 
 @layer components {
     .glass {
-        @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-xl;
+        @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-xl;
     }
     
     .glass-card {
-        @apply glass rounded-3xl transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10;
+        @apply glass rounded-[2rem] transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-1;
+    }
+
+    .glass-card-premium {
+        @apply glass rounded-[2.5rem] p-12 relative overflow-hidden transition-all duration-700 hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] dark:hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)] hover:-translate-y-2;
+    }
+
+    .glass-card-premium::before {
+        content: '';
+        @apply absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-700;
+    }
+
+    .glass-card-premium:hover::before {
+        @apply opacity-100;
     }
 
     .page {
@@ -61,15 +79,15 @@
     }
 
     .section-title {
-        @apply text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-8 tracking-tighter uppercase italic;
+        @apply text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-10 tracking-tighter uppercase italic leading-[0.9];
     }
 
     .desi-heading {
-        @apply font-black uppercase italic tracking-tighter text-slate-900 dark:text-white;
+        @apply font-black uppercase italic tracking-widest text-slate-900 dark:text-white;
     }
 
     .badge-desi {
-        @apply px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-primary/20 bg-primary/10 text-primary;
+        @apply px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] border border-primary/20 bg-primary/10 text-primary shadow-sm;
     }
 }
 

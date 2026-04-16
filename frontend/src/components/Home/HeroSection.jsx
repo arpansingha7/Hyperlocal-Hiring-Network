@@ -44,9 +44,21 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-slate-900 pb-20 pt-32 px-4 sm:px-6 lg:px-8">
       {/* Dynamic Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div style={{ y: y1 }} className="absolute -top-24 -left-24 w-96 h-96 bg-primary/20 rounded-full blur-[120px] dark:bg-primary/5" />
-        <motion.div style={{ y: y2 }} className="absolute top-1/2 right-12 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[100px] dark:bg-indigo-500/5" />
-        <div className="absolute bottom-0 left-1/4 w-[800px] h-[300px] bg-blue-500/5 rounded-full blur-[150px]" />
+        <motion.div 
+          animate={{ scale: [1, 1.2, 1], x: [0, 50, 0], y: [0, 30, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-24 -left-24 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] dark:bg-primary/10" 
+        />
+        <motion.div 
+          animate={{ scale: [1.2, 1, 1.2], x: [0, -50, 0], y: [0, -30, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-indigo-500/15 rounded-full blur-[100px] dark:bg-indigo-500/10" 
+        />
+        <motion.div 
+          animate={{ scale: [0.8, 1, 0.8], x: [0, 30, 0], y: [0, 50, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-1/4 left-1/3 w-[700px] h-[400px] bg-sky-500/10 rounded-full blur-[150px]" 
+        />
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center">
@@ -123,23 +135,23 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full">
           {details.map((element, index) => (
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -12, scale: 1.02 }}
+              transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -15, scale: 1.05 }}
               key={element.id}
-              className={`group p-10 rounded-[3rem] bg-slate-50/50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 backdrop-blur-sm transition-all relative overflow-hidden`}
+              className={`glass-card-premium p-10 !rounded-[3rem] bg-white/40 dark:bg-slate-800/20 border border-white/30 dark:border-slate-800/50 backdrop-blur-xl transition-all shadow-2xl shadow-slate-200/50 dark:shadow-none`}
             >
               <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${element.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-[40px]`} />
               
-              <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-none mb-10 flex items-center justify-center transition-transform group-hover:rotate-12 group-hover:scale-110 relative z-10">
+              <div className="w-16 h-16 bg-white dark:bg-slate-700/50 rounded-[1.25rem] shadow-2xl mb-10 flex items-center justify-center transition-transform group-hover:rotate-12 group-hover:scale-110 relative z-10 border border-white/50 dark:border-white/10">
                 {element.icon}
               </div>
-              <h3 className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 relative z-10 italic uppercase">
-                {element.title}
+              <h3 className="text-5xl font-black text-slate-900 dark:text-white tracking-[1.2rem] mb-4 relative z-10 italic uppercase -mr-[1.2rem]">
+                {element.title.split(',').join('')}
               </h3>
-              <p className="text-slate-400 dark:text-slate-500 font-black uppercase tracking-[0.2em] text-[10px] relative z-10">
+              <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em] relative z-10 border-t border-slate-100 dark:border-slate-800 pt-4">
                 {element.subTitle}
               </p>
             </motion.div>

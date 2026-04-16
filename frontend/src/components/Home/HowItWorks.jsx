@@ -50,7 +50,7 @@ const HowItWorks = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-6 uppercase italic tracking-tighter"
+            className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-6 uppercase italic tracking-tighter leading-none"
           >
              How <span className="text-primary italic">HHN</span> Works
           </motion.h3>
@@ -58,44 +58,23 @@ const HowItWorks = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-slate-500 dark:text-slate-400 font-bold max-w-2xl mx-auto text-lg leading-relaxed"
+            transition={{ delay: 0.2 }}
+            className="text-slate-500 dark:text-slate-400 font-bold uppercase tracking-[0.4em] text-[10px]"
           >
-            A high-velocity pipeline designed to eliminate geography-based hiring friction.
+            Efficiency at the speed of Neighborhood.
           </motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {steps.map((step, index) => (
-            <motion.div 
-              key={step.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+          {steps.map((element, index) => (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="glass-card p-12 relative group flex flex-col items-center text-center"
+              transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              key={element.id}
+              className="glass-card p-10 flex flex-col items-center text-center group"
             >
-              <div className="absolute top-0 right-10 -translate-y-1/2 text-9xl font-black text-slate-50 dark:text-white/5 pointer-events-none group-hover:text-primary/10 transition-colors">
-                0{step.id}
-              </div>
-              
-              <div className={`w-24 h-24 rounded-[2rem] ${step.color} flex items-center justify-center text-5xl mb-10 shadow-2xl transition-transform group-hover:rotate-12 duration-500`}>
-                {step.icon}
-              </div>
-              
-              <div className="space-y-4">
-                <p className="text-[10px] font-black text-primary uppercase tracking-[0.35em]">{step.subTitle}</p>
-                <h4 className="text-2xl font-black text-slate-900 dark:text-white uppercase italic tracking-tight">{step.title}</h4>
-                <p className="text-slate-500 dark:text-slate-400 font-bold text-sm leading-relaxed">
-                  {step.description}
-                </p>
-              </div>
-              
-              <motion.div 
-                className="mt-10 w-12 h-1 bg-primary/20 rounded-full overflow-hidden"
-              >
-                <motion.div 
-                   className="h-full bg-primary w-0"
                    whileInView={{ w: "100%" }}
                    viewport={{ once: true }}
                    transition={{ delay: 0.5, duration: 1 }}
