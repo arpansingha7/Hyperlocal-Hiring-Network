@@ -4,10 +4,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import Loading from "../Layout/Loading";
 
 const MyApplications = () => {
   const { user, isAuthorized } = useContext(Context);
   const [applications, setApplications] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigateTo = useNavigate();
 
   useEffect(() => {
@@ -17,6 +19,7 @@ const MyApplications = () => {
     
     const fetchApps = async () => {
       try {
+        setLoading(true);
         const endpoint = user?.role === "Employer" 
           ? "/api/v1/application/employer/getall"
           : "/api/v1/application/jobseeker/getall";
@@ -25,6 +28,8 @@ const MyApplications = () => {
         setApplications(data.applications);
       } catch (error) {
         toast.error(error.response?.data?.message || "Failed to fetch applications");
+      } finally {
+        setLoading(false);
       }
     };
     
@@ -55,92 +60,126 @@ const MyApplications = () => {
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.1 } }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    show: { opacity: 1, scale: 1, transition: { type: "spring" } }
-  };
-
   const getStatusBadge = (status) => {
     const s = status || "Pending";
-    if (s === "Accepted") return <span className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest animate-pulse border border-emerald-200 dark:border-emerald-800">Accepted</span>;
-    if (s === "Rejected") return <span className="bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest border border-red-200 dark:border-red-800">Rejected</span>;
-    return <span className="bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest border border-amber-200 dark:border-amber-800">Pending</span>;
+    const styles = {
+        Accepted: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
+        Rejected: "bg-red-500/10 text-red-500 border-red-500/20",
+        Pending: "bg-amber-500/10 text-amber-500 border-amber-500/20"
+    };
+    return (
+        <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border shadow-sm ${styles[s] || styles.Pending}`}>
+            {s}
+        </span>
+    );
   };
 
+  if (loading) return <Loading />;
+
   return (
-    <div className="bg-background-light dark:bg-background-dark min-h-screen py-10 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-black text-slate-900 dark:text-white mb-2">
-            {user?.role === "Employer" ? "Application Pipeline" : "My Applications"}
+    <div className="bg-white dark:bg-slate-900 min-h-screen pt-28 pb-20 px-4 sm:px-6">
+      <main className="max-w-5xl mx-auto">
+        <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-16 text-center"
+        >
+          <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic">
+            Application <span className="text-primary">Pipeline</span>
           </h1>
-          <p className="text-slate-500 font-medium">Review and manage your hiring operations</p>
-        </div>
+          <p className="text-slate-500 dark:text-slate-400 font-bold mt-2 uppercase tracking-[0.3em] text-[10px]">
+            {user?.role === "Employer" ? "Track & Manage Candidate Progress" : "Manage Your Professional Journey"}
+          </p>
+        </motion.div>
 
         {applications.length <= 0 ? (
-          <div className="text-center py-20 bg-white dark:bg-slate-900/50 rounded-3xl border border-slate-200 dark:border-slate-800 border-dashed">
-            <span className="material-symbols-outlined text-6xl text-slate-300 dark:text-slate-700">inventory_2</span>
-            <p className="mt-4 text-slate-500 font-medium">No applications found in the pipeline.</p>
-          </div>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center py-24 glass-card border-dashed border-2"
+          >
+            <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-300 dark:text-slate-600">
+                <span className="material-symbols-outlined text-4xl">inbox</span>
+            </div>
+            <p className="text-xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic mb-2">The Pipeline is Empty</p>
+            <p className="text-slate-500 font-bold text-xs uppercase tracking-widest">No active applications found at this time.</p>
+          </motion.div>
         ) : (
-          <motion.div variants={containerVariants} initial="hidden" animate="show" className="space-y-6">
+          <div className="grid grid-cols-1 gap-8">
             <AnimatePresence>
-              {applications.map((element) => (
+              {applications.map((element, index) => (
                 <motion.div
-                  variants={itemVariants}
-                  exit={{ opacity: 0, x: -100, transition: { duration: 0.2 } }}
-                  layout
                   key={element._id}
-                  className="bg-white dark:bg-slate-900 overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/20 dark:shadow-none"
+                  layout
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="glass-card overflow-hidden group hover:border-primary/30 transition-all"
                 >
-                  <div className="bg-slate-50 dark:bg-slate-950 p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
-                    <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 bg-primary/10 text-primary rounded-full flex items-center justify-center font-black border border-primary/20">
-                        {element.name.charAt(0)}
+                  <div className="p-8 sm:p-10">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+                      <div className="flex items-center gap-5">
+                        <div className="h-16 w-16 bg-primary dark:bg-slate-800 text-white rounded-[1.5rem] flex items-center justify-center font-black text-2xl shadow-xl shadow-primary/20 rotate-3 group-hover:rotate-0 transition-transform">
+                          {element.name.charAt(0)}
+                        </div>
+                        <div className="space-y-1">
+                          <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-none italic">{element.name}</h3>
+                          <p className="text-slate-500 font-bold text-xs uppercase tracking-widest">{element.email}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-sm font-bold text-slate-900 dark:text-white">{element.name}</p>
-                        <p className="text-xs text-slate-500">{element.email}</p>
-                      </div>
-                    </div>
-                    <div>{getStatusBadge(element.status)}</div>
-                  </div>
-
-                  <div className="p-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
-                      <div>
-                        <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Phone</p>
-                        <p className="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2"><span className="material-symbols-outlined text-[16px] text-slate-400">call</span> {element.phone}</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Address</p>
-                        <p className="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2"><span className="material-symbols-outlined text-[16px] text-slate-400">location_on</span> {element.address}</p>
+                      <div className="flex md:flex-col items-center md:items-end gap-3">
+                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest hidden md:block">Current Status</p>
+                         {getStatusBadge(element.status)}
                       </div>
                     </div>
 
-                    <div>
-                      <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Cover Letter</p>
-                      <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed p-4 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800">{element.coverLetter}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-10">
+                      <div className="space-y-4">
+                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Communication</label>
+                        <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 flex items-center gap-3">
+                            <span className="material-symbols-outlined text-primary text-xl">phone</span>
+                            <span className="font-black text-slate-900 dark:text-white text-sm tracking-tight">{element.phone}</span>
+                        </div>
+                      </div>
+                      <div className="space-y-4">
+                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Operational Zone</label>
+                        <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 flex items-center gap-3">
+                            <span className="material-symbols-outlined text-primary text-xl">location_on</span>
+                            <span className="font-black text-slate-900 dark:text-white text-sm tracking-tight truncate">{element.address}</span>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-3">
+                    <div className="space-y-4">
+                      <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Professional Pitch</label>
+                      <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed p-6 bg-slate-50 dark:bg-slate-950 rounded-[2rem] border border-slate-100 dark:border-slate-800 italic font-medium">
+                        "{element.coverLetter}"
+                      </p>
+                    </div>
+
+                    <div className="mt-10 pt-10 border-t border-slate-100 dark:border-slate-800/50 flex flex-wrap justify-end gap-4">
                       {user?.role === "Employer" ? (
                         <>
-                          <button onClick={() => updateStatus(element._id, "Rejected")} className="px-5 py-2 hover:bg-red-50 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 text-sm font-bold rounded-xl transition-all border border-red-200 dark:border-red-800/50">
-                            Reject
+                          <button 
+                            onClick={() => updateStatus(element._id, "Rejected")} 
+                            className="px-8 py-4 bg-white dark:bg-slate-900 text-red-500 border border-red-500/20 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all shadow-lg shadow-red-500/5"
+                          >
+                            Decline Entry
                           </button>
-                          <button onClick={() => updateStatus(element._id, "Accepted")} className="px-5 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/25">
-                            Accept Candidate
+                          <button 
+                            onClick={() => updateStatus(element._id, "Accepted")} 
+                            className="px-10 py-4 bg-primary text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-2xl shadow-primary/30 hover:brightness-110 active:scale-[0.98] transition-all"
+                          >
+                            Approve Candidate
                           </button>
                         </>
                       ) : (
-                        <button onClick={() => deleteApplication(element._id)} className="px-5 py-2 bg-red-50 text-red-600 hover:bg-red-500 hover:text-white dark:bg-red-900/20 dark:text-red-400 border border-red-200 dark:border-red-800/50 text-sm font-bold rounded-xl transition-all">
-                          Withdraw Application
+                        <button 
+                            onClick={() => deleteApplication(element._id)} 
+                            className="px-8 py-4 bg-white dark:bg-slate-900 text-slate-500 border border-slate-200 dark:border-slate-800 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-red-500 hover:text-white hover:border-red-500 transition-all shadow-xl"
+                        >
+                            Withdraw From Pipeline
                         </button>
                       )}
                     </div>
@@ -148,9 +187,9 @@ const MyApplications = () => {
                 </motion.div>
               ))}
             </AnimatePresence>
-          </motion.div>
+          </div>
         )}
-      </div>
+      </main>
     </div>
   );
 };

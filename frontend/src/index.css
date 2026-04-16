@@ -34,12 +34,15 @@
 
     html {
         font-size: 16px;
-        @apply scroll-smooth selection:bg-primary/30 selection:text-primary;
+        @apply scroll-smooth;
+    }
+
+    ::selection {
+        @apply bg-primary/30 text-primary;
     }
 
     body {
-        @apply font-sans bg-background text-foreground antialiased;
-        @apply transition-colors duration-500;
+        @apply font-sans bg-background text-foreground antialiased transition-colors duration-500;
         line-height: 1.6;
     }
 }

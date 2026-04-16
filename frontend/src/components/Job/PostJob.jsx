@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../main";
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
@@ -76,169 +77,186 @@ const PostJob = () => {
   };
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="mb-8">
-          <h2 className="text-3xl font-black text-slate-900 dark:text-white">Create Job Post</h2>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">Recruit the best talent in your neighborhood.</p>
-        </div>
+    <div className="bg-white dark:bg-slate-900 min-h-screen pt-28 pb-20 px-4 sm:px-6">
+      <main className="max-w-7xl mx-auto">
+        <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-12"
+        >
+          <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter">
+            Post a <span className="text-primary">New Role</span>
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 font-bold mt-2 uppercase tracking-widest text-xs">
+            Reach the top talent in your community instantly.
+          </p>
+        </motion.div>
 
-        <form onSubmit={handleJobPost} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-              <div className="p-6 sm:p-8 space-y-6">
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Job Title</label>
-                    <div className="relative">
-                      <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">work</span>
-                      <input
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
-                        placeholder="e.g. Senior Barista"
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Category</label>
-                    <div className="relative">
-                      <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">category</span>
-                      <select
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none appearance-none transition-all"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                      >
-                        <option>Food & Beverage</option>
-                        <option>Retail</option>
-                        <option>Logistics</option>
-                        <option>Healthcare</option>
-                        <option>Customer Service</option>
-                        <option>Technology</option>
-                      </select>
-                      <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Country</label>
-                    <input
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 outline-none"
-                      placeholder="Country"
-                      value={country}
-                      onChange={(e) => setCountry(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">City</label>
-                    <input
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 outline-none"
-                      placeholder="City"
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-6 pt-4">
-                  <div className="flex justify-between items-center">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Salary Range</label>
-                    <span className="text-primary font-bold bg-primary/10 px-3 py-1 rounded-full text-sm">
-                      ${salaryFrom} - ${salaryTo}
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <input
-                      type="number"
-                      className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"
-                      placeholder="Min Salary"
-                      value={salaryFrom}
-                      onChange={(e) => setSalaryFrom(e.target.value)}
-                    />
-                    <input
-                      type="number"
-                      className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"
-                      placeholder="Max Salary"
-                      value={salaryTo}
-                      onChange={(e) => setSalaryTo(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2 pt-2">
-                  <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Job Description</label>
-                  <textarea
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all resize-none"
-                    placeholder="Describe the role and what you are looking for..."
-                    rows="4"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+        <form onSubmit={handleJobPost} className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Main Form Area */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 }}
+            className="lg:col-span-8 space-y-8"
+          >
+            <div className="glass-card p-8 sm:p-12 space-y-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Job Title / Designation</label>
+                  <input
+                    className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
+                    placeholder="e.g. Senior Barista"
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                     required
-                  ></textarea>
+                  />
+                </div>
+
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Choose Category</label>
+                  <select
+                    className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner appearance-none relative"
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
+                    <option>Food & Beverage</option>
+                    <option>Retail</option>
+                    <option>Logistics</option>
+                    <option>Healthcare</option>
+                    <option>Customer Service</option>
+                    <option>Technology</option>
+                  </select>
                 </div>
               </div>
 
-              <div className="px-8 py-5 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-4">
-                <button type="submit" className="px-8 py-2.5 bg-primary text-white rounded-xl text-sm font-bold shadow-lg shadow-primary/25 hover:bg-primary/90 transition-all transform hover:-translate-y-0.5">
-                  Post Job
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Country</label>
+                  <input
+                    className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
+                    placeholder="India"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">City</label>
+                  <input
+                    className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
+                    placeholder="Kolkata"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex justify-between items-end">
+                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Salary Range (Monthly)</label>
+                    <p className="text-xl font-black text-primary tracking-tighter">${salaryFrom.toLocaleString()} - ${salaryTo.toLocaleString()}</p>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <input
+                    type="number"
+                    className="w-full px-6 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 font-bold"
+                    placeholder="Min"
+                    value={salaryFrom}
+                    onChange={(e) => setSalaryFrom(e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    className="w-full px-6 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 font-bold"
+                    placeholder="Max"
+                    value={salaryTo}
+                    onChange={(e) => setSalaryTo(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Job Description & Requirements</label>
+                <textarea
+                  className="w-full px-6 py-5 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner resize-none"
+                  placeholder="Tell us about the role, responsibilities, and key requirements..."
+                  rows="6"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                ></textarea>
+              </div>
+
+              <div className="pt-6 border-t border-slate-100 dark:border-slate-800/50 flex justify-end">
+                <button type="submit" className="px-12 py-5 bg-primary text-white rounded-3xl font-black text-sm uppercase tracking-widest shadow-2xl shadow-primary/30 hover:brightness-110 active:scale-[0.98] transition-all">
+                  Publish Your Role
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="space-y-6">
-            <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-              <div className="p-6 border-b border-slate-200 dark:border-slate-800">
-                <h3 className="font-bold text-lg flex items-center gap-2">
-                  <span className="material-symbols-outlined text-primary">location_on</span>
-                  Set Shop Location
-                </h3>
+          {/* Sidebar Area */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="lg:col-span-4 space-y-8"
+          >
+            <div className="glass-card p-8">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+                    <span className="material-symbols-outlined text-primary text-xl">location_on</span>
+                </div>
+                <h3 className="font-black text-lg tracking-tight">Set GPS Location</h3>
               </div>
-              <div className="p-6 space-y-4">
-                <div className="relative w-full aspect-square rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-inner group z-0">
-                  <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
-                    <TileLayer
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
+              
+              <div className="space-y-6">
+                <div className="relative w-full aspect-square rounded-[2rem] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-inner group z-0 ring-1 ring-slate-100 dark:ring-slate-800">
+                  <MapContainer center={[22.5726, 88.3639]} zoom={11} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
+                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                     <LocationMarker lat={lat} lng={lng} setLat={setLat} setLng={setLng} />
                   </MapContainer>
+                  <AnimatePresence>
+                    {lat && lng && (
+                        <motion.div 
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute bottom-4 left-4 right-4 bg-green-500 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase text-center backdrop-blur-md shadow-lg"
+                        >
+                            Location Data Captured
+                        </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-                {lat && lng && (
-                  <p className="text-xs text-green-600 font-bold">Pin dropped successfully!</p>
-                )}
-                <div className="space-y-3">
-                  <div className="relative">
-                    <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
-                    <input
-                      className="w-full pl-9 pr-4 py-2.5 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-1 focus:ring-primary focus:border-primary outline-none"
-                      placeholder="Full Address / Location"
-                      type="text"
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                      required
-                    />
-                  </div>
+
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Specific Address</label>
+                  <input
+                    className="w-full px-6 py-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 font-bold focus:border-primary outline-none"
+                    placeholder="Building, Landmark, etc."
+                    type="text"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    required
+                  />
                 </div>
               </div>
             </div>
 
-            <div className="bg-primary/10 border border-primary/20 rounded-xl p-6 relative overflow-hidden">
+            <div className="glass-card p-8 bg-primary/5 border border-primary/20 relative overflow-hidden group">
               <div className="relative z-10">
-                <h4 className="font-bold text-slate-900 dark:text-white mb-2">Hyperlocal Boost</h4>
-                <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">Target workers within your radius automatically.</p>
+                <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-xl flex items-center justify-center mb-6 shadow-sm">
+                    <span className="material-symbols-outlined text-primary text-2xl">auto_awesome</span>
+                </div>
+                <h4 className="font-black text-slate-900 dark:text-white mb-2 uppercase tracking-tight">AI Matching Enabled</h4>
+                <p className="text-sm font-bold text-slate-500 dark:text-slate-400 leading-relaxed">By setting a GPS location, our AI will automatically notify nearby qualified candidates.</p>
               </div>
-              <span className="material-symbols-outlined absolute -right-4 -bottom-4 text-primary/10 text-8xl rotate-12 select-none">rocket_launch</span>
+              <span className="material-symbols-outlined absolute -right-6 -bottom-6 text-primary/10 text-9xl rotate-12 transition-transform group-hover:scale-110">rocket_launch</span>
             </div>
-          </div>
+          </motion.div>
         </form>
       </main>
     </div>

@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { motion, AnimatePresence } from "framer-motion";
 import { Context } from "../../main";
 
 const Register = () => {
@@ -61,8 +62,7 @@ const Register = () => {
         
         toast.success("Form magically auto-filled!", { id: "ai-parse" });
       } catch (error) {
-        console.error(error);
-        toast.error(error.response?.data?.message || "AI parsing failed.", { id: "ai-parse" });
+        toast.error("AI parsing failed.", { id: "ai-parse" });
       } finally {
         setIsProcessing(false);
       }
@@ -78,156 +78,131 @@ const Register = () => {
         "/api/v1/user/register",
         { name, phone, email, role, password },
         {
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
       toast.success(data.message);
-      setName("");
-      setEmail("");
-      setPassword("");
-      setPhone("");
-      setRole("");
       setIsAuthorized(true);
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");
     }
   };
 
-  if (isAuthorized) {
-    return <Navigate to={"/"} />;
-  }
+  if (isAuthorized) return <Navigate to={"/"} />;
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-[calc(100vh-64px)] overflow-x-hidden">
-      <main className="max-w-7xl mx-auto px-6 lg:px-20 py-10">
-        <form onSubmit={handleRegister} className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Left Column - Form Fields */}
-          <div className="lg:col-span-7 flex flex-col gap-8">
-            <div>
-              <h2 className="text-5xl font-black text-slate-900 dark:text-white leading-tight">Create Profile</h2>
-              <p className="text-slate-500 dark:text-slate-400 text-lg mt-2 font-medium">Easy Registration for the Hyperlocal Network</p>
-            </div>
-
-            <div className="flex flex-col gap-6 bg-white dark:bg-slate-900/50 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-              <div className="w-full">
-                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-3 uppercase tracking-wider">Select Your Role</label>
-                <div className="grid grid-cols-2 gap-4">
-                  <button
-                    type="button"
-                    onClick={() => setRole("Job Seeker")}
-                    className={`flex flex-col items-center gap-3 p-6 rounded-2xl border-2 transition-all group ${role === "Job Seeker" ? 'border-primary bg-primary/10' : 'border-slate-100 dark:border-slate-800 hover:border-primary/50'}`}
-                  >
-                    <span className={`material-symbols-outlined text-4xl ${role === "Job Seeker" ? 'text-primary' : 'text-slate-400 group-hover:text-primary'}`}>engineering</span>
-                    <span className={`font-bold ${role === "Job Seeker" ? 'text-primary' : 'text-slate-700 dark:text-slate-300 group-hover:text-primary'}`}>Job Seeker</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setRole("Employer")}
-                    className={`flex flex-col items-center gap-3 p-6 rounded-2xl border-2 transition-all group ${role === "Employer" ? 'border-primary bg-primary/10' : 'border-slate-100 dark:border-slate-800 hover:border-primary/50'}`}
-                  >
-                    <span className={`material-symbols-outlined text-4xl ${role === "Employer" ? 'text-primary' : 'text-slate-400 group-hover:text-primary'}`}>storefront</span>
-                    <span className={`font-bold ${role === "Employer" ? 'text-primary' : 'text-slate-700 dark:text-slate-300 group-hover:text-primary'}`}>Employer</span>
-                  </button>
-                </div>
-              </div>
-
-              <div className="w-full">
-                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wider">Full Name</label>
-                <div className="relative">
-                  <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">person</span>
-                  <input className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 font-medium focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all outline-none"
-                    placeholder="Enter your full name" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-                </div>
-              </div>
-
-              <div className="w-full">
-                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wider">Email Address</label>
-                <div className="relative">
-                  <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">mail</span>
-                  <input className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 font-medium focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all outline-none"
-                    placeholder="Enter your email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="w-full">
-                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wider">Phone</label>
-                  <div className="relative">
-                    <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">phone</span>
-                    <input className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 font-medium focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all outline-none"
-                      placeholder="Phone number" type="text" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-                  </div>
-                </div>
-                <div className="w-full">
-                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wider">Password</label>
-                  <div className="relative">
-                    <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">lock</span>
-                    <input className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 font-medium focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all outline-none"
-                      placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div 
-              onClick={startVoiceSetup}
-              className={`bg-primary/5 border cursor-pointer transition-all border-dashed rounded-2xl p-6 flex items-center justify-between ${isRecording ? 'border-primary bg-primary/10 shadow-lg shadow-primary/20' : 'border-primary/30 hover:border-primary/50'}`}
+    <div className="bg-white dark:bg-slate-900 min-h-screen pt-28 pb-12 overflow-x-hidden">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-col lg:flex-row gap-16"
+        >
+          {/* Left: Branding & Messaging */}
+          <div className="lg:w-1/2 flex flex-col justify-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-primary/10 border border-primary/20 backdrop-blur-md text-primary font-black text-xs uppercase tracking-widest mb-8 w-fit"
             >
-              <div className="flex items-center gap-6 pointer-events-none">
-                <div className={`text-white h-16 w-16 rounded-full flex items-center justify-center shadow-lg transition-all ${isRecording ? 'bg-red-500 animate-pulse scale-110 shadow-red-500/50' : 'bg-primary shadow-primary/30'}`}>
-                  <span className="material-symbols-outlined text-3xl">{isRecording ? 'mic' : (isProcessing ? 'hourglass_empty' : 'mic')}</span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-primary">{isRecording ? 'Listening...' : (isProcessing ? 'Analyzing Voice...' : 'AI Voice Setup')}</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                    {isRecording ? "Speak normally now..." : "Tell Groq & GitHub AI your details to auto-fill!"}
-                  </p>
-                </div>
+              Join the Network
+            </motion.div>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black text-slate-900 dark:text-white leading-[1.1] mb-8 tracking-tighter">
+              Start your <span className="text-primary">Hyperlocal</span> journey today.
+            </h1>
+            <p className="text-lg text-slate-500 dark:text-slate-400 font-bold max-w-lg leading-relaxed mb-12">
+                Connect with local opportunities and grow your career within your community.
+            </p>
+            
+            <motion.div 
+              whileHover={{ scale: 1.02 }}
+              onClick={startVoiceSetup}
+              className={`glass-card p-8 flex items-center gap-6 cursor-pointer border-dashed border-primary/50 group transition-all ${isRecording ? 'border-primary bg-primary/5 ring-4 ring-primary/10' : ''}`}
+            >
+              <div className={`w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all ${isRecording ? 'bg-red-500 animate-pulse' : 'bg-primary'}`}>
+                <span className="material-symbols-outlined text-white text-3xl">{isRecording ? 'mic' : 'mic_none'}</span>
               </div>
-            </div>
-          </div>
-
-          {/* Right Column - Map & Submit */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            <div className="bg-white dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm h-full flex flex-col justify-between">
-
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold flex items-center gap-2">
-                    <span className="material-symbols-outlined text-primary">location_on</span>
-                    Confirm Your Location
-                  </h3>
-                  <span className="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">LIVE GPS</span>
-                </div>
-
-                <div className="relative w-full h-[300px] rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                  <div className="absolute inset-0 bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-                    <div className="w-full h-full bg-cover bg-center grayscale opacity-60 dark:opacity-30" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAjTN_aGznEX1RHai6I1d7F5THlBWkZmiSfVUQDZd5hI25LDRyOUiSsh0rEoEFGAXROjU2jINxOIktdGiXUZj-4_idSRdYVeJV3OxfwJiE0j5Lk-OEscyIxkBtcp1STL0wKios1ZVNGwCDj-MplHlLkD5Dd1a3ZISZOemMDVDGpPnF_bPn_BN4KRJISxqgN_8qhpQiyfcEtsNUGlSnW_1siWPeAZb4BUYbWZEsLR1RCcPYqKQeQT-jhTZiIb2yqJ_Fb-_2bgo-w62c-')" }}></div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="relative">
-                        <div className="absolute -inset-4 bg-primary/20 rounded-full animate-ping"></div>
-                        <span className="material-symbols-outlined text-primary text-5xl relative z-10">location_on</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <h3 className="text-xl font-black text-slate-900 dark:text-white mb-1">AI Voice Auto-Fill</h3>
+                <p className="text-sm font-bold text-slate-500 dark:text-slate-400">
+                  {isRecording ? "Listening to you..." : "Talk to fill the entire form instantly."}
+                </p>
               </div>
-
-              <div className="mt-8 flex flex-col gap-4">
-                <button type="submit" className="w-full bg-primary text-white py-4 rounded-2xl font-black text-lg shadow-xl shadow-primary/30 hover:brightness-110 active:scale-[0.98] transition-all">
-                  REGISTER NOW
-                </button>
-                <div className="text-center text-sm font-medium">
-                  Already have an account? <Link to="/login" className="text-primary hover:underline">Login Now</Link>
-                </div>
-              </div>
-
-            </div>
+            </motion.div>
           </div>
-        </form>
+
+          {/* Right: Registration Form */}
+          <div className="lg:w-1/2">
+            <motion.form 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3 }}
+              onSubmit={handleRegister} 
+              className="glass-card p-8 sm:p-12 space-y-8"
+            >
+              <div className="space-y-4">
+                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Select Your Entry Role</label>
+                <div className="grid grid-cols-2 gap-4">
+                  {["Job Seeker", "Employer"].map((r) => (
+                    <button
+                      key={r}
+                      type="button"
+                      onClick={() => setRole(r)}
+                      className={`flex flex-col items-center gap-3 p-6 rounded-3xl border-2 transition-all group ${role === r ? 'border-primary bg-primary/5 shadow-inner' : 'border-slate-100 dark:border-slate-800 hover:border-primary/30'}`}
+                    >
+                      <span className={`material-symbols-outlined text-3xl ${role === r ? 'text-primary' : 'text-slate-400'}`}>
+                        {r === "Job Seeker" ? 'person_search' : 'business_center'}
+                      </span>
+                      <span className={`text-xs font-black uppercase tracking-widest ${role === r ? 'text-primary' : 'text-slate-500'}`}>{r}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Full Name</label>
+                  <input className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all"
+                    placeholder="Arpan Singha" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+                </div>
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Email Address</label>
+                  <input className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all"
+                    placeholder="arpan@example.com" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Mobile Number</label>
+                  <input className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all"
+                    placeholder="+91 9999999999" type="text" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+                </div>
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Secure Password</label>
+                  <input className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all"
+                    placeholder="••••••••" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                </div>
+              </div>
+
+              <div className="pt-6">
+                <button type="submit" className="w-full bg-primary text-white py-5 rounded-[2rem] font-black text-lg shadow-2xl shadow-primary/30 hover:brightness-110 active:scale-[0.98] transition-all tracking-widest uppercase">
+                  Create My Profile
+                </button>
+                <p className="text-center text-xs font-bold text-slate-500 dark:text-slate-400 mt-8">
+                  By joining, you agree to our <span className="text-primary hover:underline cursor-pointer">Terms of Service</span>
+                </p>
+                <div className="mt-8 pt-8 border-t border-slate-100 dark:border-slate-800/50 text-center">
+                    <p className="text-sm font-bold text-slate-500">
+                        Member of the network? <Link to="/login" className="text-primary hover:underline">Log in here</Link>
+                    </p>
+                </div>
+              </div>
+            </motion.form>
+          </div>
+        </motion.div>
       </main>
     </div>
   );
