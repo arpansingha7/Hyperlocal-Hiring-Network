@@ -1,6 +1,7 @@
 import { FaMicrosoft, FaApple } from "react-icons/fa";
 import { SiTesla } from "react-icons/si";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const PopularCompanies = () => {
   const companies = [
@@ -42,41 +43,44 @@ const PopularCompanies = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h3 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter">
-            Top Hiring <span className="text-primary italic">Partners</span>
+          <h3 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter leading-none mb-6">
+            Elite Hiring <span className="text-primary italic">Allies</span>
           </h3>
-          <p className="text-slate-500 dark:text-slate-400 mt-6 max-w-2xl mx-auto font-bold text-lg">
-            These top brands are looking for skilled workers in your area. Apply today and start working.
+          <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-black uppercase tracking-[0.4em] text-[10px]">
+            Direct pipelines to neighborhood powerhouses.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {companies.map((company, i) => (
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
+              transition={{ delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               key={company.id} 
-              className={`bg-slate-50 dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 flex flex-col justify-between group transition-all hover:bg-white dark:hover:bg-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-2 ring-1 ring-transparent ${company.hoverRing}`}
+              className="glass-card-premium !p-10 group"
             >
-              <div className="flex items-start justify-between mb-8">
-                <div className={`text-6xl ${company.color} transition-transform group-hover:scale-110`}>
+              <div className="flex items-start justify-between mb-10">
+                <div className={`w-20 h-20 rounded-2xl bg-white dark:bg-slate-800 shadow-xl flex items-center justify-center text-4xl ${company.color} transition-transform group-hover:rotate-12`}>
                   {company.icon}
                 </div>
-                <div className="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
-                  <span className="material-symbols-outlined text-[14px]">local_fire_department</span> Hot
+                <div className="badge-desi flex items-center gap-1.5 border-primary/30">
+                  <span className="material-symbols-outlined text-[10px] animate-pulse">local_fire_department</span> Hot
                 </div>
               </div>
               
-              <div>
-                <h4 className="text-2xl font-black text-slate-900 dark:text-white mb-2">{company.title}</h4>
-                <p className="text-sm font-medium text-slate-500 dark:text-slate-400 flex items-center gap-1 mb-6">
-                  <span className="material-symbols-outlined text-[16px]">location_on</span> {company.location}
-                </p>
-                <div className="w-full bg-blue-100 hover:bg-blue-600 dark:bg-blue-900/40 dark:hover:bg-blue-600 text-blue-700 hover:text-white dark:text-blue-400 outline-none flex items-center justify-center py-3 rounded-xl font-bold transition-colors cursor-pointer">
-                  {company.openPositions} Open Positions
+              <div className="space-y-6">
+                <div>
+                  <h4 className="text-3xl font-black text-slate-900 dark:text-white mb-2 uppercase italic tracking-tight">{company.title}</h4>
+                  <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 flex items-center gap-2 uppercase tracking-widest border-t border-slate-100 dark:border-slate-800/50 pt-4">
+                    <span className="material-symbols-outlined text-sm">location_on</span> {company.location}
+                  </p>
                 </div>
+                
+                <Link to="/job/getall" className="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center py-5 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] transition-all hover:bg-primary group-hover:shadow-2xl shadow-primary/20 active:scale-95">
+                  {company.openPositions} Opportunities
+                </Link>
               </div>
             </motion.div>
           ))}

@@ -133,16 +133,36 @@ const Login = () => {
           <form onSubmit={loginMode === "password" ? handlePasswordLogin : (otpSent ? handleVerifyOtp : handleSendOtp)} className="space-y-8">
             <div className="space-y-4">
               <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Identify Your Profile</label>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-6">
                 {["Job Seeker", "Employer"].map((r) => (
                   <button
                     key={r}
                     type="button"
                     onClick={() => setRole(r)}
-                    className={`flex flex-col items-center gap-2 py-4 rounded-2xl border-2 font-black transition-all uppercase tracking-widest text-[10px] ${role === r ? 'border-primary bg-primary/5 text-primary' : 'border-slate-100 dark:border-slate-800 text-slate-500 hover:border-primary/50'}`}
+                    className={`flex flex-col items-center gap-4 p-8 rounded-[2rem] border-2 transition-all group relative overflow-hidden ${
+                      role === r 
+                      ? 'border-primary bg-primary/5 shadow-2xl shadow-primary/20 scale-105' 
+                      : 'border-slate-100 dark:border-slate-800 text-slate-500 hover:border-primary/30'
+                    }`}
                   >
-                    <span className="material-symbols-outlined text-xl mb-1">{r === "Job Seeker" ? 'engineering' : 'storefront'}</span>
-                    {r}
+                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${
+                      role === r ? 'bg-primary text-white rotate-12' : 'bg-slate-100 dark:bg-slate-800'
+                    }`}>
+                      <span className="material-symbols-outlined text-2xl font-bold">
+                        {r === "Job Seeker" ? 'engineering' : 'storefront'}
+                      </span>
+                    </div>
+                    <span className={`text-[10px] font-black uppercase tracking-[0.3em] ${
+                      role === r ? 'text-primary' : 'text-slate-500'
+                    }`}>
+                      {r}
+                    </span>
+                    {role === r && (
+                      <motion.div 
+                        layoutId="active-role"
+                        className="absolute bottom-0 left-0 w-full h-1 bg-primary"
+                      />
+                    )}
                   </button>
                 ))}
               </div>

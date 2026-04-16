@@ -203,16 +203,23 @@ const Jobs = () => {
               </motion.div>
             ))
           ) : (
-            <div className="col-span-full py-40 flex flex-col items-center">
+            <div className="col-span-full py-48 flex flex-col items-center justify-center text-center">
               <motion.div 
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="w-32 h-32 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-8"
+                initial={{ scale: 0.8, opacity: 0, rotate: -12 }}
+                animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                transition={{ type: "spring", damping: 15 }}
+                className="w-40 h-40 bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl rounded-[2.5rem] flex items-center justify-center mb-12 shadow-2xl shadow-primary/5 border border-white/20 dark:border-white/5"
               >
-                <span className="material-symbols-outlined text-6xl text-slate-300 dark:text-slate-600">travel_explore</span>
+                <div className="w-24 h-24 bg-primary/10 rounded-3xl flex items-center justify-center animate-pulse">
+                   <span className="material-symbols-outlined text-7xl text-primary font-bold">radar</span>
+                </div>
               </motion.div>
-              <h4 className="text-2xl font-black text-slate-900 dark:text-white uppercase italic tracking-tight mb-2">No roles found</h4>
-              <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px]">Adjust your filters or check back later</p>
+              <h4 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter mb-4 leading-none">
+                Searching <span className="text-primary italic">Vacuum</span>
+              </h4>
+              <p className="text-slate-500 font-black uppercase tracking-[0.4em] text-[10px] max-w-md leading-relaxed">
+                 No neighborhood opportunities found for this filter. Try expanding your radius.
+              </p>
             </div>
           )}
         </motion.div>

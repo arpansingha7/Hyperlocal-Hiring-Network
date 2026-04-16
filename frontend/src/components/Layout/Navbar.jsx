@@ -105,50 +105,38 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-3 sm:gap-6">
-          <div className="hidden md:flex items-center gap-1 bg-slate-100 dark:bg-slate-800/50 p-1 rounded-xl">
+          <div className="hidden md:flex items-center gap-1 bg-slate-100/50 dark:bg-slate-800/80 p-1.5 rounded-2xl shadow-inner border border-slate-200/20 dark:border-white/5 backdrop-blur-md">
             {['en', 'hi', 'gu'].map((lng) => (
               <button
                 key={lng}
                 onClick={() => changeLanguage(lng)}
-                className={`px-4 py-2 text-[10px] font-black rounded-xl transition-all uppercase tracking-widest ${
+                className={`px-4 py-2 text-[10px] font-black rounded-xl transition-all uppercase tracking-[0.2em] shadow-none ${
                   i18n.language === lng 
-                  ? 'bg-white dark:bg-slate-700 shadow-xl text-primary scale-105' 
+                  ? 'bg-white dark:bg-primary shadow-2xl shadow-primary/20 text-primary dark:text-white scale-105' 
                   : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
                 }`}
               >
                 {lng}
               </button>
             ))}
-          </div>
-
-          <button
-            onClick={toggleTheme}
-            className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 hover:text-primary transition-all active:scale-90"
-          >
-            <span className="material-symbols-outlined text-[22px]">
-              {theme === 'dark' ? 'light_mode' : 'dark_mode'}
-            </span>
-          </button>
-
-          {!isAuthorized ? (
-            <div className="flex items-center gap-3">
-              <Link to="/login" className="hidden sm:block text-sm font-black text-slate-700 dark:text-slate-300 hover:text-primary px-4 py-2">
+            <div className="flex items-center gap-4 border-l border-slate-200/50 dark:border-slate-800/50 pl-6 ml-2">
+            <button
+               onClick={toggleTheme}
+               className="w-12 h-12 flex items-center justify-center rounded-2xl glass-card border border-white/20 dark:border-white/5 transition-all active:scale-90 hover:rotate-12"
+            >
+              <span className="material-symbols-outlined text-xl text-slate-600 dark:text-slate-300">
+                {theme === "dark" ? "light_mode" : "dark_mode"}
+              </span>
+            </button>
+            
+            {!isAuthorized ? (
+              <Link 
+                to="/login" 
+                className="hidden sm:flex items-center gap-3 px-8 py-3 bg-primary text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all hover:-translate-y-0.5"
+              >
+                <span className="material-symbols-outlined text-lg">login</span>
                 {t("Login")}
               </Link>
-              <Link
-                to="/register"
-                className="bg-primary text-white px-6 py-2.5 rounded-xl text-sm font-black hover:bg-primary/90 shadow-xl shadow-primary/20 transition-all hover:-translate-y-0.5"
-              >
-                {t("Sign Up")}
-              </Link>
-            </div>
-          ) : (
-            <div className="flex items-center gap-4">
-              <div className="hidden sm:flex flex-col items-end mr-1">
-                <p className="text-xs font-black text-slate-900 dark:text-white uppercase leading-none mb-1">{user?.name}</p>
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                  <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">{user?.role}</p>
                 </div>
               </div>
               <button

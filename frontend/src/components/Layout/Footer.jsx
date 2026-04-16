@@ -5,9 +5,7 @@ import { FaGithub, FaLinkedin, FaTwitter, FaDiscord } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 function Footer() {
-  const { isAuthorized } = useContext(Context);
-
-  if (!isAuthorized) return null;
+  const { isAuthorized, user } = useContext(Context);
 
   return (
     <footer className="relative bg-slate-900 text-white overflow-hidden pt-24 pb-12 px-4 sm:px-6 lg:px-8 border-t border-white/5">
