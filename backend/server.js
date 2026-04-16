@@ -1,0 +1,53 @@
+// import app from "./app.js";         // Import the app (express app)
+// import cloudinary from "cloudinary"; // Import Cloudinary package
+
+// // Cloudinary configuration
+// cloudinary.v2.config({
+//   cloud_name: process.env.CLOUDINARY_CLIENT_NAME,  // Use env variables for credentials
+//   api_key: process.env.CLOUDINARY_CLIENT_API,
+//   api_secret: process.env.CLOUDINARY_CLIENT_SECRET,
+// });
+
+// // Start the server
+// app.listen(process.env.PORT, () => {
+//   console.log(`Server running at port ${process.env.PORT}`);
+// });
+
+
+import app from "./app.js";
+import dotenv from "dotenv";
+import dbConnection from "./database/dbConnection.js";
+import http from "http";
+import { Server } from "socket.io";
+
+// load environment variables
+dotenv.config({ path: "./config/config.env" });
+
+// connect database
+dbConnection();
+
+const server = http.createServer(app);
+
+export const io = new Server(server, {
+  cors: {
+    origin: [process.env.FRONTEND_URL],
+    credentials: true,
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log(`User connected to sockets: ${socket.id}`);
+
+  socket.on("join", (userId) => {
+    socket.join(userId);
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`User disconnected: ${socket.id}`);
+  });
+});
+
+// start server
+server.listen(process.env.PORT, () => {
+  console.log(`Server running at port ${process.env.PORT}`);
+});
