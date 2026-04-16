@@ -56,11 +56,11 @@ app.use(
     tempFileDir: "/tmp/",
   })
 );
-app.use(["/api/v1/user", "/v1/user"], userRouter);
-app.use(["/api/v1/job", "/v1/job"], jobRouter);
-app.use(["/api/v1/application", "/v1/application"], applicationRouter);
-app.use(["/api/v1/admin", "/v1/admin"], adminRouter);
-app.use(["/api/v1/review", "/v1/review"], reviewRouter);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/job", jobRouter);
+app.use("/api/v1/application", applicationRouter);
+app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/review", reviewRouter);
 dbConnection();
 
 app.use(errorMiddleware);
