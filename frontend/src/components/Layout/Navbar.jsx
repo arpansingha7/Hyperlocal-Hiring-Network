@@ -86,7 +86,7 @@ const Navbar = () => {
               <span className="material-symbols-outlined text-white text-2xl font-bold">work</span>
             </div>
             <h2 className="text-xl font-black tracking-tighter uppercase italic text-slate-900 dark:text-white hidden sm:block">
-              Hyperlocal <span className="text-primary italic">Hiring</span> (HHN)
+              Hyperlocal <span className="text-primary italic">Hiring</span> Network
             </h2>
           </Link>
 
@@ -137,17 +137,15 @@ const Navbar = () => {
                 <span className="material-symbols-outlined text-lg">login</span>
                 {t("Login")}
               </Link>
-                </div>
-              </div>
+            ) : (
               <button
                 onClick={handleLogout}
-                className="w-10 h-10 flex lg:w-auto lg:h-auto items-center justify-center lg:px-4 lg:py-2 rounded-xl bg-red-50 dark:bg-red-500/10 text-red-500 hover:bg-red-100 dark:hover:bg-red-500/20 transition-all font-black text-xs uppercase"
+                className="hidden sm:flex items-center gap-3 px-8 py-3 bg-rose-500 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-2xl shadow-rose-500/30 hover:bg-rose-600 transition-all active:scale-95"
               >
-                <span className="material-symbols-outlined lg:hidden">logout</span>
-                <span className="hidden lg:block">{t("Logout")}</span>
+                <span className="material-symbols-outlined text-lg">logout</span>
+                {t("Logout")}
               </button>
-            </div>
-          )}
+            )}
 
           <button
             className="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 transition-all active:scale-90"
