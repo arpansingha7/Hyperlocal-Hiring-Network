@@ -17,6 +17,7 @@ const app = express();
 config({ path: "./config/config.env" });
 
 app.use(helmet());
+app.set("trust proxy", 1);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
