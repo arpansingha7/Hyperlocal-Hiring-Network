@@ -104,7 +104,8 @@ const Navbar = () => {
           </nav>
         </div>
 
-        <div className="flex items-center gap-3 sm:gap-6">
+        <div className="flex items-center gap-4 sm:gap-6">
+          {/* Language Switcher */}
           <div className="hidden md:flex items-center gap-1 bg-slate-100/50 dark:bg-slate-800/80 p-1.5 rounded-2xl shadow-inner border border-slate-200/20 dark:border-white/5 backdrop-blur-md">
             {['en', 'hi', 'gu'].map((lng) => (
               <button
@@ -119,7 +120,10 @@ const Navbar = () => {
                 {lng}
               </button>
             ))}
-            <div className="flex items-center gap-4 border-l border-slate-200/50 dark:border-slate-800/50 pl-6 ml-2">
+          </div>
+
+          {/* Theme & Auth Cluster */}
+          <div className="flex items-center gap-4 border-l border-slate-200/50 dark:border-slate-800/50 pl-6 ml-2">
             <button
                onClick={toggleTheme}
                className="w-12 h-12 flex items-center justify-center rounded-2xl glass-card border border-white/20 dark:border-white/5 transition-all active:scale-90 hover:rotate-12"
@@ -146,6 +150,7 @@ const Navbar = () => {
                 {t("Logout")}
               </button>
             )}
+          </div>
 
           <button
             className="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 transition-all active:scale-90"
