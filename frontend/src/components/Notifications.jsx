@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { io } from "socket.io-client";
 import { Context } from "../main";
 import toast from "react-hot-toast";
+import { motion, AnimatePresence } from "framer-motion";
 
 let socket;
 
@@ -19,40 +20,36 @@ const Notifications = () => {
             });
 
             socket.on("connect", () => {
-                // Join namespace using user ID
                 socket.emit("join", user._id.toString());
             });
 
-            // Listen for specific business logic events
             socket.on("new_application", (data) => {
-                // Trigger generic toast notification anywhere
                 toast.custom((t) => (
-                    <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} max-w-md w-full bg-white dark:bg-slate-900 shadow-2xl rounded-2xl pointer-events-auto flex ring-1 ring-black/5 dark:ring-white/10`}>
-                        <div className="flex-1 w-0 p-4">
+                    <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} max-w-md w-full glass-card p-0 overflow-hidden pointer-events-auto flex shadow-2xl ring-1 ring-primary/20`}>
+                        <div className="flex-1 w-0 p-6">
                             <div className="flex items-start">
                                 <div className="flex-shrink-0 pt-0.5">
-                                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                                        <span className="material-symbols-outlined text-primary">work</span>
+                                    <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                                        <span className="material-symbols-outlined font-black">work_history</span>
                                     </div>
                                 </div>
-                                <div className="ml-3 flex-1">
-                                    <p className="text-sm font-bold text-slate-900 dark:text-white">New Application Received!</p>
-                                    <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{data.message}</p>
+                                <div className="ml-4 flex-1">
+                                    <p className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">System Message</p>
+                                    <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400 italic">"{data.message}"</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="flex border-l border-slate-200 dark:border-slate-800">
+                        <div className="flex border-l border-slate-100 dark:border-slate-800">
                             <button
                                 onClick={() => toast.dismiss(t.id)}
-                                className="w-full border border-transparent rounded-none rounded-r-2xl p-4 flex items-center justify-center text-sm font-medium text-primary hover:text-primary/80 focus:outline-none"
+                                className="w-full border border-transparent rounded-none p-6 flex items-center justify-center text-[10px] font-black uppercase tracking-widest text-primary hover:bg-primary/5 transition-all"
                             >
-                                Close
+                                Dismiss
                             </button>
                         </div>
                     </div>
                 ), { duration: 5000 });
 
-                // Add to internal list
                 setNotifications((prev) => [{ id: Date.now(), text: data.message, time: new Date() }, ...prev]);
                 setUnreadCount((c) => c + 1);
             });
@@ -67,56 +64,68 @@ const Notifications = () => {
 
     return (
         <>
-            {/* Floating Notification Toggle Button */}
-            <div className="fixed bottom-6 right-6 z-50">
-                <button
+            <div className="fixed bottom-10 right-10 z-50">
+                <motion.button
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={() => { setIsOpen(!isOpen); setUnreadCount(0); }}
-                    className="bg-primary hover:bg-primary/90 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center relative transition-transform hover:scale-105"
+                    className="bg-primary text-white w-16 h-16 rounded-[1.5rem] shadow-2xl shadow-primary/40 flex items-center justify-center relative transition-colors"
                 >
-                    <span className="material-symbols-outlined text-2xl">notifications</span>
+                    <span className="material-symbols-outlined text-3xl font-bold">notifications_none</span>
                     {unreadCount > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-black min-w-[20px] h-5 rounded-full flex items-center justify-center px-1 shadow-md">
+                        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-black min-w-[24px] h-6 rounded-full flex items-center justify-center px-1.5 shadow-lg border-2 border-white dark:border-slate-900">
                             {unreadCount}
                         </span>
                     )}
-                </button>
+                </motion.button>
 
-                {/* Notification Panel */}
-                {isOpen && (
-                    <div className="absolute bottom-20 right-0 w-80 md:w-96 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden animate-enter">
-                        <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50">
-                            <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                                <span className="material-symbols-outlined text-primary">notifications_active</span>
-                                Notifications List
-                            </h3>
-                            {notifications.length > 0 && (
-                                <button onClick={() => setNotifications([])} className="text-xs font-bold text-slate-500 hover:text-red-500 transition-colors">
-                                    Clear All
-                                </button>
-                            )}
-                        </div>
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            className="absolute bottom-24 right-0 w-80 md:w-[400px] glass-card overflow-hidden z-50 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)]"
+                        >
+                            <div className="p-8 border-b border-slate-100 dark:border-slate-800/50 flex items-center justify-between">
+                                <h3 className="font-black text-slate-900 dark:text-white uppercase italic tracking-tighter flex items-center gap-3">
+                                    <span className="w-8 h-0.5 bg-primary rounded-full" />
+                                    Telemetry Log
+                                </h3>
+                                {notifications.length > 0 && (
+                                    <button 
+                                        onClick={() => setNotifications([])} 
+                                        className="text-[10px] font-black text-slate-400 hover:text-red-500 uppercase tracking-widest transition-colors"
+                                    >
+                                        Purge Log
+                                    </button>
+                                )}
+                            </div>
 
-                        <div className="max-h-[400px] overflow-y-auto">
-                            {notifications.length === 0 ? (
-                                <div className="p-8 text-center text-slate-500 flex flex-col items-center gap-2">
-                                    <span className="material-symbols-outlined text-4xl opacity-50">notifications_off</span>
-                                    <p className="font-medium text-sm">No new notifications</p>
-                                </div>
-                            ) : (
-                                <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
-                                    {notifications.map(n => (
-                                        <div key={n.id} className="p-4 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                            <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">{n.text}</p>
-                                            <p className="text-xs text-slate-400 mt-2 font-semibold uppercase tracking-wider">
-                                                {n.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                            </p>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                )}
+                            <div className="max-h-[400px] overflow-y-auto">
+                                {notifications.length === 0 ? (
+                                    <div className="p-16 text-center flex flex-col items-center gap-6 opacity-40">
+                                        <span className="material-symbols-outlined text-6xl">cloud_done</span>
+                                        <p className="font-black text-[10px] uppercase tracking-[0.3em] text-slate-500">System Nominal</p>
+                                    </div>
+                                ) : (
+                                    <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
+                                        {notifications.map(n => (
+                                            <div key={n.id} className="p-8 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group">
+                                                <p className="text-sm text-slate-700 dark:text-slate-300 font-bold leading-relaxed italic group-hover:text-primary transition-colors">
+                                                    "{n.text}"
+                                                </p>
+                                                <p className="text-[10px] text-slate-400 mt-4 font-black uppercase tracking-widest opacity-60">
+                                                    Received {n.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                </p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </>
     );

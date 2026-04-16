@@ -120,9 +120,9 @@ const JobDetails = () => {
               </div>
 
               <div className="flex flex-col items-end">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Proposed Salary</p>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Monthly Salary</p>
                 <div className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tighter">
-                   {job.fixedSalary ? `$${job.fixedSalary.toLocaleString()}` : `$${job.salaryFrom?.toLocaleString()} - $${job.salaryTo?.toLocaleString()}`}
+                   {job.fixedSalary ? `₹${job.fixedSalary.toLocaleString()}` : `₹${job.salaryFrom?.toLocaleString()} - ₹${job.salaryTo?.toLocaleString()}`}
                 </div>
               </div>
             </div>

@@ -100,14 +100,14 @@ const HeroSection = () => {
           </motion.div>
           
           <h1 className="text-5xl sm:text-7xl md:text-8xl font-black text-slate-900 dark:text-white leading-[0.95] mb-10 tracking-tighter uppercase italic">
-            Empowering <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-indigo-600 to-blue-600 dark:from-primary dark:via-indigo-400 dark:to-blue-400">
-                Local Talent
+            Connecting <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-600 to-red-600 dark:from-primary dark:via-orange-400 dark:to-red-400">
+                Local Workers
             </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 font-bold max-w-3xl mx-auto leading-relaxed mb-12">
-            The bridge between neighborhood opportunities and skilled professionals. Connect, Hire, and Grow within your own community.
+            The bridge between neighborhood shops and skilled workers. Find jobs, hire locals, and grow together in your own area.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">

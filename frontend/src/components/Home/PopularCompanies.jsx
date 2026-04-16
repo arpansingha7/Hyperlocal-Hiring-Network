@@ -6,30 +6,30 @@ const PopularCompanies = () => {
   const companies = [
     {
       id: 1,
-      title: "Microsoft",
-      location: "Millennium City Centre",
-      openPositions: 10,
+      title: "Tata Group",
+      location: "Gurugram / Mumbai",
+      openPositions: "100+",
       icon: <FaMicrosoft />,
       color: "text-blue-600",
       hoverRing: "group-hover:ring-blue-500/50"
     },
     {
       id: 2,
-      title: "Tesla",
-      location: "Millennium City Centre",
-      openPositions: 5,
+      title: "Reliance Retail",
+      location: "Delhi NCR / Pan India",
+      openPositions: "500+",
       icon: <SiTesla />,
-      color: "text-slate-800 dark:text-white",
-      hoverRing: "group-hover:ring-slate-500/50"
+      color: "text-emerald-600",
+      hoverRing: "group-hover:ring-emerald-500/50"
     },
     {
       id: 3,
-      title: "Apple",
-      location: "Millennium City Centre",
-      openPositions: 20,
+      title: "Swiggy / Zomato",
+      location: "Active Everywhere",
+      openPositions: "Limited Slots",
       icon: <FaApple />,
-      color: "text-slate-900 dark:text-slate-200",
-      hoverRing: "group-hover:ring-slate-400/50"
+      color: "text-orange-600",
+      hoverRing: "group-hover:ring-orange-500/50"
     },
   ];
 
@@ -42,11 +42,11 @@ const PopularCompanies = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h3 className="text-4xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
-            Top Global <span className="font-outline-transparent text-blue-600">Companies</span>
+          <h3 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter">
+            Top Hiring <span className="text-primary italic">Partners</span>
           </h3>
-          <p className="text-slate-500 dark:text-slate-400 mt-4 max-w-2xl mx-auto">
-            These titans of industry are actively recruiting talent in your area. Join their forces today.
+          <p className="text-slate-500 dark:text-slate-400 mt-6 max-w-2xl mx-auto font-bold text-lg">
+            These top brands are looking for skilled workers in your area. Apply today and start working.
           </p>
         </motion.div>
 

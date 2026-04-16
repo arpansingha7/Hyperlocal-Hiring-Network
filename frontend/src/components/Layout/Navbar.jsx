@@ -66,8 +66,8 @@ const Navbar = () => {
             <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
               <span className="material-symbols-outlined text-white text-2xl">work</span>
             </div>
-            <h2 className="text-xl font-black tracking-tight text-slate-900 dark:text-white uppercase hidden sm:block">
-              Hyperlocal <span className="text-primary">Hiring</span> (HHN)
+            <h2 className="text-2xl font-black tracking-tighter uppercase italic text-slate-900 dark:text-white">
+              Hyperlocal <span className="text-primary">Hiring</span> Network (HHN)
             </h2>
           </Link>
 

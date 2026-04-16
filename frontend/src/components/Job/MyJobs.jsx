@@ -195,11 +195,11 @@ const MyJobs = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Monthly Compensation</label>
+                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Monthly Salary</label>
                         <div className="flex gap-2 items-center">
                           {element.fixedSalary ? (
                             <div className="relative w-full">
-                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-primary font-black text-xs">$</span>
+                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-primary font-black text-xs">₹</span>
                                 <input
                                 type="number"
                                 disabled={editingMode !== element._id}

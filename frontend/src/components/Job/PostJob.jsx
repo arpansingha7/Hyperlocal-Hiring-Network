@@ -133,10 +133,10 @@ const PostJob = () => {
         >
           <div className="flex items-center gap-4 mb-2">
             <span className="h-0.5 w-12 bg-primary rounded-full" />
-            <p className="text-primary font-black uppercase tracking-[0.3em] text-[10px]">Employer Studio</p>
+            <p className="text-primary font-black uppercase tracking-[0.3em] text-[10px]">Admin Dashboard</p>
           </div>
           <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic">
-            Publish <span className="text-primary">New Opportunity</span>
+            Post <span className="text-primary italic">a New Vacancy</span>
           </h1>
         </motion.div>
 
@@ -176,13 +176,14 @@ const PostJob = () => {
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
                         >
-                            <option>Food & Beverage</option>
-                            <option>Retail & Sales</option>
-                            <option>Logistics & Delivery</option>
-                            <option>Healthcare</option>
-                            <option>Customer Support</option>
-                            <option>Tech & Digital</option>
-                            <option>Education</option>
+                            <option>Construction & Technical</option>
+                            <option>Retail & Shops</option>
+                            <option>Delivery & Logistics</option>
+                            <option>Healthcare & Care</option>
+                            <option>Security & Guarding</option>
+                            <option>Salon & Beauty</option>
+                            <option>Driving & Transport</option>
+                            <option>Electric & Plumbing</option>
                         </select>
                         <span className="material-symbols-outlined absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">unfold_more</span>
                     </div>
@@ -248,9 +249,9 @@ const PostJob = () => {
                             exit={{ opacity: 0, y: -10 }}
                             className="space-y-4"
                         >
-                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Set Fixed Monthly Payout</label>
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Fixed Monthly Salary</label>
                             <div className="relative">
-                                <span className="absolute left-6 top-1/2 -translate-y-1/2 font-black text-primary">$</span>
+                                <span className="absolute left-6 top-1/2 -translate-y-1/2 font-black text-primary">₹</span>
                                 <input
                                     type="number"
                                     className="w-full pl-12 pr-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 font-black text-2xl tracking-tighter focus:border-primary outline-none transition-all shadow-inner"
@@ -269,9 +270,9 @@ const PostJob = () => {
                             className="grid grid-cols-1 md:grid-cols-2 gap-10"
                         >
                             <div className="space-y-4">
-                                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Minimum Payout</label>
+                                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Kam se Kam (Minimum)</label>
                                 <div className="relative">
-                                    <span className="absolute left-6 top-1/2 -translate-y-1/2 font-black text-primary">$</span>
+                                    <span className="absolute left-6 top-1/2 -translate-y-1/2 font-black text-primary">₹</span>
                                     <input
                                         type="number"
                                         className="w-full pl-12 pr-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 font-black text-xl tracking-tighter focus:border-primary outline-none"
@@ -282,9 +283,9 @@ const PostJob = () => {
                                 </div>
                             </div>
                             <div className="space-y-4">
-                                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Maximum Cap</label>
+                                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Zyada se Zyada (Maximum)</label>
                                 <div className="relative">
-                                    <span className="absolute left-6 top-1/2 -translate-y-1/2 font-black text-primary">$</span>
+                                    <span className="absolute left-6 top-1/2 -translate-y-1/2 font-black text-primary">₹</span>
                                     <input
                                         type="number"
                                         className="w-full pl-12 pr-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 font-black text-xl tracking-tighter focus:border-primary outline-none"

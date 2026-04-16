@@ -186,11 +186,11 @@ const Jobs = () => {
 
                 <div className="flex items-center justify-between pt-10 border-t border-slate-100 dark:border-slate-800/50">
                   <div className="flex flex-col">
-                    <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-1">Compensation</p>
+                    <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-1">Monthly Salary</p>
                     <div className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter italic">
                         {element.fixedSalary
-                        ? `$${element.fixedSalary.toLocaleString()}`
-                        : `$${element.salaryFrom.toLocaleString()} - $${element.salaryTo.toLocaleString()}`}
+                        ? `₹${element.fixedSalary.toLocaleString()}`
+                        : `₹${element.salaryFrom.toLocaleString()} - ₹${element.salaryTo.toLocaleString()}`}
                     </div>
                   </div>
                   <Link

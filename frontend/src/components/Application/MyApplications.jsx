@@ -67,9 +67,15 @@ const MyApplications = () => {
         Rejected: "bg-red-500/10 text-red-500 border-red-500/20",
         Pending: "bg-amber-500/10 text-amber-500 border-amber-500/20"
     };
+
+    const statusLabels = {
+        Accepted: "Shortlisted",
+        Rejected: "Try Again",
+        Pending: "Reviewing"
+    };
     return (
         <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border shadow-sm ${styles[s] || styles.Pending}`}>
-            {s}
+            {statusLabels[s] || s}
         </span>
     );
   };
@@ -85,10 +91,10 @@ const MyApplications = () => {
             className="mb-16 text-center"
         >
           <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic">
-            Application <span className="text-primary">Pipeline</span>
+            My <span className="text-primary italic">Applications</span>
           </h1>
           <p className="text-slate-500 dark:text-slate-400 font-bold mt-2 uppercase tracking-[0.3em] text-[10px]">
-            {user?.role === "Employer" ? "Track & Manage Candidate Progress" : "Manage Your Professional Journey"}
+            {user?.role === "Employer" ? "Manage Your Hiring Process" : "Your Local Job Journey"}
           </p>
         </motion.div>
 

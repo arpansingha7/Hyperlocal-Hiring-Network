@@ -28,7 +28,7 @@ function Footer() {
               </h2>
             </Link>
             <p className="text-slate-400 font-bold leading-relaxed text-lg max-w-md">
-              Bridging the gap between talented professionals and neighborhood opportunities through precise geotagging and AI-assisted matching.
+              The heartbeat of your local neighborhood economy. We bridge the gap between local shops and skilled workers across India.
             </p>
             <div className="flex items-center gap-4">
               {[

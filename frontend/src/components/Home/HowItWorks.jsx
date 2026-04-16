@@ -7,25 +7,25 @@ const HowItWorks = () => {
   const steps = [
     {
       id: 1,
-      title: "Create Account",
-      subTitle: "Profile Synchronization",
-      description: "Quickly sign up and create your authenticated digital profile with precise location data to unlock local opportunities.",
+      title: "Create Profile",
+      subTitle: "Simple Sign-up",
+      description: "Sign up and create your worker profile with your location to see all available jobs near your home.",
       icon: <FaUserPlus />,
-      color: "bg-blue-500/10 text-blue-500",
+      color: "bg-orange-500/10 text-orange-600",
     },
     {
       id: 2,
-      title: "Discovery & Pinning",
-      subTitle: "Geospatial Matching",
-      description: "Discover roles on our interactive network map or post neighborhood openings with accurate GPS coordinates.",
+      title: "Find Local Jobs",
+      subTitle: "Nearby Discovery",
+      description: "Find local work on our interactive map or post a new vacancy in your area with accurate GPS location.",
       icon: <MdFindInPage />,
       color: "bg-primary/10 text-primary",
     },
     {
       id: 3,
-      title: "Frictionless Hire",
-      subTitle: "Direct Network Pivot",
-      description: "Submit AI-assisted pitches instantly and connect with neighborhood teams in real-time through our secure pipeline.",
+      title: "Start Working",
+      subTitle: "Fast Contact",
+      description: "Apply for jobs instantly and contact local business owners directly through our secure hiring system.",
       icon: <IoMdSend />,
       color: "bg-emerald-500/10 text-emerald-500",
     },
@@ -52,7 +52,7 @@ const HowItWorks = () => {
             viewport={{ once: true }}
             className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-6 uppercase italic tracking-tighter"
           >
-            How the <span className="text-primary">HHN</span> Operates
+             How <span className="text-primary italic">HHN</span> Works
           </motion.h3>
           <motion.p 
             initial={{ opacity: 0 }}

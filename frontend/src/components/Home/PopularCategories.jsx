@@ -14,64 +14,64 @@ const PopularCategories = () => {
   const categories = [
     {
       id: 1,
-      title: "Graphics & Design",
-      subTitle: "305 Open Positions",
+      title: "Construction & Technical",
+      subTitle: "305 Local Sites",
       icon: <MdOutlineDesignServices />,
       color: "text-rose-500",
       bg: "bg-rose-100 dark:bg-rose-900/30",
     },
     {
       id: 2,
-      title: "Mobile App Dev",
-      subTitle: "500 Open Positions",
+      title: "Delivery & Logistics",
+      subTitle: "500 Open Roles",
       icon: <TbAppsFilled />,
       color: "text-sky-500",
       bg: "bg-sky-100 dark:bg-sky-900/30",
     },
     {
       id: 3,
-      title: "Frontend Web Dev",
-      subTitle: "200 Open Positions",
+      title: "Electric & Plumbing",
+      subTitle: "200 Nearby Needs",
       icon: <MdOutlineWebhook />,
       color: "text-amber-500",
       bg: "bg-amber-100 dark:bg-amber-900/30",
     },
     {
       id: 4,
-      title: "MERN Stack",
-      subTitle: "1000+ Open Positions",
+      title: "Security Services",
+      subTitle: "1000+ Locations",
       icon: <FaReact />,
       color: "text-emerald-500",
       bg: "bg-emerald-100 dark:bg-emerald-900/30",
     },
     {
       id: 5,
-      title: "Account & Finance",
-      subTitle: "150 Open Positions",
+      title: "Retail & Shops",
+      subTitle: "150 Neighborhood Stores",
       icon: <MdAccountBalance />,
       color: "text-violet-500",
       bg: "bg-violet-100 dark:bg-violet-900/30",
     },
     {
       id: 6,
-      title: "Artificial Intelligence",
-      subTitle: "867 Open Positions",
+      title: "Healthcare & Care",
+      subTitle: "867 Care Centers",
       icon: <GiArtificialIntelligence />,
       color: "text-fuchsia-500",
       bg: "bg-fuchsia-100 dark:bg-fuchsia-900/30",
     },
     {
       id: 7,
-      title: "Video Animation",
-      subTitle: "50 Open Positions",
+      title: "Driving & Transport",
+      subTitle: "50 Open Routes",
       icon: <MdOutlineAnimation />,
       color: "text-orange-500",
       bg: "bg-orange-100 dark:bg-orange-900/30",
     },
     {
       id: 8,
-      title: "Game Development",
-      subTitle: "80 Open Positions",
+      title: "Salon & Beauty",
+      subTitle: "80 Local Studios",
       icon: <IoGameController />,
       color: "text-teal-500",
       bg: "bg-teal-100 dark:bg-teal-900/30",
@@ -88,10 +88,10 @@ const PopularCategories = () => {
           className="text-center mb-16"
         >
           <div className="inline-block px-4 py-1 mb-4 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-xs uppercase tracking-widest">
-            Explore Markets
+            Local Job Markets
           </div>
-          <h3 className="text-4xl font-black text-slate-900 dark:text-white">
-            Discover Popular <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-400">Categories</span>
+          <h3 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter">
+            Popular Job <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">Categories</span>
           </h3>
         </motion.div>
 

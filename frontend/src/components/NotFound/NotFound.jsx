@@ -4,39 +4,39 @@ import { motion } from 'framer-motion';
 
 const NotFound = () => {
   return (
-    <div className="min-h-[calc(100vh-64px)] bg-background-light dark:bg-background-dark flex items-center justify-center p-6 overflow-hidden relative">
+    <div className="min-h-screen bg-white dark:bg-slate-900 flex items-center justify-center p-6 overflow-hidden relative">
       {/* Decorative Blob */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 dark:bg-primary/2 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 dark:bg-primary/2 rounded-full blur-[150px] pointer-events-none"></div>
 
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, type: "spring" }}
-        className="w-full max-w-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-12 rounded-[3rem] border border-slate-200 dark:border-slate-800 shadow-2xl shadow-primary/5 text-center relative z-10"
+        className="w-full max-w-2xl glass-card p-12 sm:p-20 text-center relative z-10"
       >
         <motion.div 
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200 }}
-          className="w-32 h-32 mx-auto bg-primary/10 dark:bg-primary/20 text-primary rounded-[2rem] flex items-center justify-center rotate-12 mb-8 border border-primary/20 shadow-inner"
+          className="w-32 h-32 mx-auto bg-primary/10 dark:bg-primary/20 text-primary rounded-[2.5rem] flex items-center justify-center rotate-12 mb-12 border border-primary/20 shadow-2xl"
         >
-          <span className="material-symbols-outlined text-[5rem]">location_off</span>
+          <span className="material-symbols-outlined text-[5rem] font-bold">explore_off</span>
         </motion.div>
 
-        <h1 className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-br from-slate-900 to-slate-500 dark:from-white dark:to-slate-500 tracking-tighter mb-4">
+        <h1 className="text-9xl font-black text-slate-900 dark:text-white tracking-tighter mb-4 italic uppercase opacity-10 leading-none">
           404
         </h1>
         
-        <h2 className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-slate-200 mb-4 tracking-tight">
-          Oops! You've strayed off the map.
+        <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white mb-6 uppercase italic tracking-tighter leading-tight">
+          Neighborhood <span className="text-primary">Not Found</span>
         </h2>
         
-        <p className="text-slate-500 dark:text-slate-400 text-lg mb-10 max-w-md mx-auto font-medium">
-          The hyperlocal sector you are looking for does not exist or has been relocated by the system.
+        <p className="text-slate-500 dark:text-slate-400 text-lg mb-12 max-w-md mx-auto font-bold uppercase tracking-widest text-xs leading-relaxed">
+          The hyperlocal sector you're searching for is currently offline or unreachable in our network matrix.
         </p>
 
-        <Link to="/" className="inline-flex items-center gap-2 bg-primary text-white font-bold text-lg px-8 py-4 rounded-2xl shadow-xl shadow-primary/30 hover:brightness-110 active:scale-95 transition-all outline-none focus:ring-4 focus:ring-primary/20">
-          <span className="material-symbols-outlined">home</span>
+        <Link to="/" className="inline-flex items-center gap-3 bg-primary text-white font-black text-sm px-12 py-6 rounded-[2rem] shadow-2xl shadow-primary/30 hover:brightness-110 active:scale-95 transition-all outline-none uppercase tracking-widest">
+          <span className="material-symbols-outlined text-xl">hub</span>
           Return to Hub
         </Link>
       </motion.div>
