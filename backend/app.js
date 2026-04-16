@@ -68,6 +68,30 @@ app.get("/api/v1/health", (req, res) => {
   res.status(200).json({ success: true, message: "Backend is alive!", timestamp: new Date().toISOString() });
 });
 
+// Diagnostic endpoint to test DB queries
+app.get("/api/v1/test-db", async (req, res) => {
+  try {
+    const mongoose = await import("mongoose");
+    const state = mongoose.default.connection.readyState;
+    const stateNames = { 0: "disconnected", 1: "connected", 2: "connecting", 3: "disconnecting" };
+    
+    // Try a simple query
+    const collections = await mongoose.default.connection.db.listCollections().toArray();
+    res.status(200).json({
+      success: true,
+      dbState: stateNames[state] || state,
+      collections: collections.map(c => c.name),
+      envCheck: {
+        hasDBUrl: !!process.env.DB_URL,
+        hasJwtKey: !!process.env.JWT_SECRET_KEY,
+        hasCookieExpire: !!process.env.COOKIE_EXPIRE,
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message, stack: error.stack });
+  }
+});
+
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/job", jobRouter);
 app.use("/api/v1/application", applicationRouter);
