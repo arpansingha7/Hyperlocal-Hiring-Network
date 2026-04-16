@@ -63,32 +63,6 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// Health check endpoint for debugging
-app.get("/api/v1/health", (req, res) => {
-  res.status(200).json({ success: true, message: "Backend is alive!", timestamp: new Date().toISOString() });
-});
-
-// Diagnostic endpoint to test DB queries
-app.get("/api/v1/test-db", async (req, res) => {
-  try {
-    const { Job } = await import("./models/jobSchema.js");
-    const jobs = await Job.find({ expired: false }).lean();
-    res.status(200).json({
-      success: true,
-      dbConnected: true,
-      jobCount: jobs.length,
-      envCheck: {
-        hasDBUrl: !!process.env.DB_URL,
-        hasJwtKey: !!process.env.JWT_SECRET_KEY,
-        hasCookieExpire: !!process.env.COOKIE_EXPIRE,
-        hasJwtExpire: !!process.env.JWT_EXPIRE,
-      }
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message, stack: error.stack });
-  }
-});
-
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/job", jobRouter);
 app.use("/api/v1/application", applicationRouter);
