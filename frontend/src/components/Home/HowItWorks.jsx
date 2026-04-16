@@ -75,11 +75,14 @@ const HowItWorks = () => {
               key={element.id}
               className="glass-card p-10 flex flex-col items-center text-center group"
             >
-                   whileInView={{ w: "100%" }}
-                   viewport={{ once: true }}
-                   transition={{ delay: 0.5, duration: 1 }}
-                />
-              </motion.div>
+              <div className={`w-20 h-20 rounded-[1.5rem] ${element.color} flex items-center justify-center text-3xl shadow-2xl mb-10 transition-transform group-hover:rotate-12 group-hover:scale-110`}>
+                {element.icon}
+              </div>
+              <p className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4">{element.subTitle}</p>
+              <h4 className="text-3xl font-black text-slate-900 dark:text-white mb-6 uppercase italic tracking-tight">{element.title}</h4>
+              <p className="text-slate-500 dark:text-slate-400 font-bold text-sm leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-6">
+                {element.description}
+              </p>
             </motion.div>
           ))}
         </div>
