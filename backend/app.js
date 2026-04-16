@@ -56,12 +56,23 @@ app.use(
     tempFileDir: "/tmp/",
   })
 );
+
+// Ensure DB is connected before processing any request (critical for serverless)
+app.use(async (req, res, next) => {
+  await dbConnection();
+  next();
+});
+
+// Health check endpoint for debugging
+app.get("/api/v1/health", (req, res) => {
+  res.status(200).json({ success: true, message: "Backend is alive!", timestamp: new Date().toISOString() });
+});
+
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/job", jobRouter);
 app.use("/api/v1/application", applicationRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/review", reviewRouter);
-dbConnection();
 
 app.use(errorMiddleware);
 export default app;

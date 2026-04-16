@@ -47,11 +47,15 @@ export const login = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const logout = catchAsyncErrors(async (req, res, next) => {
+  const isProduction = process.env.NODE_ENV === "production" || !process.env.NODE_ENV;
   res
     .status(201)
     .cookie("token", "", {
       httpOnly: true,
       expires: new Date(Date.now()),
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
+      path: "/",
     })
     .json({
       success: true,
