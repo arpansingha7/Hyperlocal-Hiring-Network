@@ -4,93 +4,111 @@ import { IoMdSend } from "react-icons/io";
 import { motion } from "framer-motion";
 
 const HowItWorks = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2 },
+  const steps = [
+    {
+      id: 1,
+      title: "Create Account",
+      subTitle: "Profile Synchronization",
+      description: "Quickly sign up and create your authenticated digital profile with precise location data to unlock local opportunities.",
+      icon: <FaUserPlus />,
+      color: "bg-blue-500/10 text-blue-500",
     },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.95, y: 20 },
-    show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring" } },
-  };
+    {
+      id: 2,
+      title: "Discovery & Pinning",
+      subTitle: "Geospatial Matching",
+      description: "Discover roles on our interactive network map or post neighborhood openings with accurate GPS coordinates.",
+      icon: <MdFindInPage />,
+      color: "bg-primary/10 text-primary",
+    },
+    {
+      id: 3,
+      title: "Frictionless Hire",
+      subTitle: "Direct Network Pivot",
+      description: "Submit AI-assisted pitches instantly and connect with neighborhood teams in real-time through our secure pipeline.",
+      icon: <IoMdSend />,
+      color: "bg-emerald-500/10 text-emerald-500",
+    },
+  ];
 
   return (
-    <section className="py-24 bg-white dark:bg-slate-950">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <motion.h3 
-            initial={{ opacity: 0, y: -20 }}
+    <section className="py-32 relative overflow-hidden bg-white dark:bg-slate-900">
+      {/* Decorative BG */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[400px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <div className="text-center mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl font-black text-slate-900 dark:text-white mb-4"
+            className="inline-block px-4 py-1.5 mb-6 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-black text-[10px] uppercase tracking-[0.3em]"
           >
-            How <span className="text-blue-600 dark:text-blue-500">Career Connect</span> Works
+            Operational Workflow
+          </motion.div>
+          <motion.h3 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-6 uppercase italic tracking-tighter"
+          >
+            How the <span className="text-primary">HHN</span> Operates
           </motion.h3>
           <motion.p 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto"
+            className="text-slate-500 dark:text-slate-400 font-bold max-w-2xl mx-auto text-lg leading-relaxed"
           >
-            Follow these simple steps to hyper-charge your regional hiring and find the perfect match right around the corner.
+            A high-velocity pipeline designed to eliminate geography-based hiring friction.
           </motion.p>
         </div>
 
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-        >
-          <motion.div 
-            variants={itemVariants}
-            whileHover={{ y: -5 }}
-            className="bg-slate-50 dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 text-center shadow-lg shadow-slate-200/50 dark:shadow-none hover:shadow-xl hover:shadow-slate-200/80 transition-shadow"
-          >
-            <div className="w-20 h-20 mx-auto bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-sm border border-blue-200 dark:border-blue-800/50">
-              <FaUserPlus />
-            </div>
-            <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Create Account</h4>
-            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-              Quickly sign up on Career Connect and create your authenticated digital profile to get started immediately.
-            </p>
-          </motion.div>
-
-          <motion.div 
-            variants={itemVariants}
-            whileHover={{ y: -5 }}
-            className="bg-slate-50 dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 text-center shadow-lg shadow-slate-200/50 dark:shadow-none hover:shadow-xl hover:shadow-slate-200/80 transition-shadow"
-          >
-            <div className="w-20 h-20 mx-auto bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-sm border border-indigo-200 dark:border-indigo-800/50">
-              <MdFindInPage />
-            </div>
-            <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Find or Post Jobs</h4>
-            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-              Job seekers can find robust roles utilizing our Map Views, and employers can precisely geo-pin job openings.
-            </p>
-          </motion.div>
-
-          <motion.div 
-            variants={itemVariants}
-            whileHover={{ y: -5 }}
-            className="bg-slate-50 dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 text-center shadow-lg shadow-slate-200/50 dark:shadow-none hover:shadow-xl hover:shadow-slate-200/80 transition-shadow"
-          >
-            <div className="w-20 h-20 mx-auto bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-sm border border-purple-200 dark:border-purple-800/50">
-              <IoMdSend />
-            </div>
-            <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Apply / Recruit</h4>
-            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-              Applicants seamlessly shoot over digital resumes, allowing recruiters to acquire the neighborhood's best-fit talent.
-            </p>
-          </motion.div>
-        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {steps.map((step, index) => (
+            <motion.div 
+              key={step.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -10 }}
+              className="glass-card p-12 relative group flex flex-col items-center text-center"
+            >
+              <div className="absolute top-0 right-10 -translate-y-1/2 text-9xl font-black text-slate-50 dark:text-white/5 pointer-events-none group-hover:text-primary/10 transition-colors">
+                0{step.id}
+              </div>
+              
+              <div className={`w-24 h-24 rounded-[2rem] ${step.color} flex items-center justify-center text-5xl mb-10 shadow-2xl transition-transform group-hover:rotate-12 duration-500`}>
+                {step.icon}
+              </div>
+              
+              <div className="space-y-4">
+                <p className="text-[10px] font-black text-primary uppercase tracking-[0.35em]">{step.subTitle}</p>
+                <h4 className="text-2xl font-black text-slate-900 dark:text-white uppercase italic tracking-tight">{step.title}</h4>
+                <p className="text-slate-500 dark:text-slate-400 font-bold text-sm leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
+              
+              <motion.div 
+                className="mt-10 w-12 h-1 bg-primary/20 rounded-full overflow-hidden"
+              >
+                <motion.div 
+                   className="h-full bg-primary w-0"
+                   whileInView={{ w: "100%" }}
+                   viewport={{ once: true }}
+                   transition={{ delay: 0.5, duration: 1 }}
+                />
+              </motion.div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
 };
+
+export default HowItWorks;
 
 export default HowItWorks;

@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -12,6 +12,7 @@ const Navbar = () => {
   const { isAuthorized, setIsAuthorized, user } = useContext(Context);
   const navigateTo = useNavigate();
   const { t, i18n } = useTranslation();
+  const { scrollYProgress } = useScroll();
 
   React.useEffect(() => {
     if (theme === "dark") {
@@ -66,7 +67,7 @@ const Navbar = () => {
               <span className="material-symbols-outlined text-white text-2xl">work</span>
             </div>
             <h2 className="text-xl font-black tracking-tight text-slate-900 dark:text-white uppercase hidden sm:block">
-              Hyperlocal <span className="text-primary">Hiring</span>
+              Hyperlocal <span className="text-primary">Hiring</span> (HHN)
             </h2>
           </Link>
 
@@ -142,13 +143,19 @@ const Navbar = () => {
           )}
 
           <button
-            className="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300"
+            className="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 transition-all active:scale-90"
             onClick={() => setShow(!show)}
           >
             <span className="material-symbols-outlined text-2xl">{show ? 'close' : 'menu'}</span>
           </button>
         </div>
       </div>
+
+      {/* Progress Bar */}
+      <motion.div 
+        className="h-1 bg-primary origin-left"
+        style={{ scaleX: scrollYProgress }}
+      />
 
       <AnimatePresence>
         {show && (

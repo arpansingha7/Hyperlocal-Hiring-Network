@@ -1,118 +1,155 @@
 import { FaBuilding, FaSuitcase, FaUsers, FaUserPlus } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   const { t } = useTranslation();
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+  const y2 = useTransform(scrollY, [0, 500], [0, -150]);
   
   const details = [
     {
       id: 1,
       title: "1,23,441",
       subTitle: t("Live Jobs"),
-      icon: <FaSuitcase className="text-4xl text-blue-500" />,
+      icon: <FaSuitcase className="text-3xl text-primary" />,
+      color: "from-primary/20",
     },
     {
       id: 2,
       title: "91,220",
       subTitle: t("Companies"),
-      icon: <FaBuilding className="text-4xl text-indigo-500" />,
+      icon: <FaBuilding className="text-3xl text-indigo-500" />,
+      color: "from-indigo-500/20",
     },
     {
       id: 3,
       title: "2,34,200",
       subTitle: t("Job Seekers"),
-      icon: <FaUsers className="text-4xl text-purple-500" />,
+      icon: <FaUsers className="text-3xl text-purple-500" />,
+      color: "from-purple-500/20",
     },
     {
       id: 4,
       title: "1,03,761",
       subTitle: t("Employers"),
-      icon: <FaUserPlus className="text-4xl text-pink-500" />,
+      icon: <FaUserPlus className="text-3xl text-pink-500" />,
+      color: "from-pink-500/20",
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.3 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 20 },
-    show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 100 } },
-  };
-
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-white dark:bg-slate-900 pb-20 pt-32 px-4 sm:px-6 lg:px-8">
-      {/* Dynamic Background Blobs */}
-      <div className="absolute top-0 -left-20 w-[500px] h-[500px] bg-primary/10 rounded-full mix-blend-multiply filter blur-[120px] opacity-70 animate-blob dark:bg-primary/5"></div>
-      <div className="absolute top-0 -right-20 w-[500px] h-[500px] bg-blue-400/10 rounded-full mix-blend-multiply filter blur-[120px] opacity-70 animate-blob animation-delay-2000 dark:bg-blue-600/5"></div>
-      <div className="absolute -bottom-40 left-1/4 w-[600px] h-[600px] bg-purple-400/10 rounded-full mix-blend-multiply filter blur-[120px] opacity-70 animate-blob animation-delay-4000 dark:bg-purple-600/5"></div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-slate-900 pb-20 pt-32 px-4 sm:px-6 lg:px-8">
+      {/* Dynamic Background Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <motion.div style={{ y: y1 }} className="absolute -top-24 -left-24 w-96 h-96 bg-primary/20 rounded-full blur-[120px] dark:bg-primary/5" />
+        <motion.div style={{ y: y2 }} className="absolute top-1/2 right-12 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[100px] dark:bg-indigo-500/5" />
+        <div className="absolute bottom-0 left-1/4 w-[800px] h-[300px] bg-blue-500/5 rounded-full blur-[150px]" />
+      </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center">
         <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center max-w-4xl mb-16 px-4"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center max-w-5xl mb-24 relative"
         >
+          {/* Floating Element */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-2xl bg-primary/10 border border-primary/20 backdrop-blur-md text-primary font-black text-xs uppercase tracking-widest"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="hidden lg:flex absolute -left-20 top-0 items-center gap-3 glass-card p-4 rotate-[-10deg]"
+          >
+            <div className="w-10 h-10 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                <span className="material-symbols-outlined text-emerald-500 text-xl">check_circle</span>
+            </div>
+            <div>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Trust Factor</p>
+                <p className="text-xs font-black text-slate-900 dark:text-white">Verified Roles</p>
+            </div>
+          </motion.div>
+
+          {/* Floating Element 2 */}
+          <motion.div 
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="hidden lg:flex absolute -right-20 bottom-0 items-center gap-3 glass-card p-4 rotate-[12deg]"
+          >
+            <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">
+                <span className="material-symbols-outlined text-primary text-xl">location_on</span>
+            </div>
+            <div>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Hyperlocal</p>
+                <p className="text-xs font-black text-slate-900 dark:text-white">5km Radius</p>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="inline-flex items-center gap-2 px-6 py-2.5 mb-10 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black text-[10px] uppercase tracking-[0.3em]"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            🚀 The #1 Hyperlocal Hiring Network
+            {t("Direct Neighborhood Matching")}
           </motion.div>
           
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-slate-900 dark:text-white leading-[1.1] mb-8 tracking-tighter">
-            Find an opportunity that <br />
+          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black text-slate-900 dark:text-white leading-[0.95] mb-10 tracking-tighter uppercase italic">
+            Empowering <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-indigo-600 to-blue-600 dark:from-primary dark:via-indigo-400 dark:to-blue-400">
-                suits your passion
+                Local Talent
             </span>
           </h1>
           
-          <p className="text-lg md:text-xl text-slate-500 dark:text-slate-400 font-bold max-w-2xl mx-auto leading-relaxed">
-            Discover thousands of local roles tailored to your exact skills.
-            Connect instantly with top employers eager for neighborhood talent.
+          <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 font-bold max-w-3xl mx-auto leading-relaxed mb-12">
+            The bridge between neighborhood opportunities and skilled professionals. Connect, Hire, and Grow within your own community.
           </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <Link to="/job/getall" className="w-full sm:w-auto px-12 py-6 bg-primary text-white rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-2xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all">
+                {t("Explore All Roles")}
+            </Link>
+            <Link to="/register" className="w-full sm:w-auto px-12 py-6 glass dark:bg-slate-800/50 text-slate-900 dark:text-white rounded-[2rem] font-black text-sm uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95">
+                {t("Join the Network")}
+            </Link>
+          </div>
         </motion.div>
 
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 w-full px-4"
-        >
-          {details.map((element) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full">
+          {details.map((element, index) => (
             <motion.div
-              variants={itemVariants}
-              whileHover={{ y: -10, scale: 1.02 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -12, scale: 1.02 }}
               key={element.id}
-              className="group p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 shadow-2xl shadow-slate-200/50 dark:shadow-none backdrop-blur-sm transition-all"
+              className={`group p-10 rounded-[3rem] bg-slate-50/50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 backdrop-blur-sm transition-all relative overflow-hidden`}
             >
-              <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl shadow-inner mb-8 flex items-center justify-center transition-transform group-hover:rotate-6 group-hover:scale-110">
+              <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${element.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-[40px]`} />
+              
+              <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-none mb-10 flex items-center justify-center transition-transform group-hover:rotate-12 group-hover:scale-110 relative z-10">
                 {element.icon}
               </div>
-              <h3 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter mb-2">
+              <h3 className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 relative z-10 italic uppercase">
                 {element.title}
               </h3>
-              <p className="text-slate-400 dark:text-slate-500 font-black uppercase tracking-[0.15em] text-[10px]">
+              <p className="text-slate-400 dark:text-slate-500 font-black uppercase tracking-[0.2em] text-[10px] relative z-10">
                 {element.subTitle}
               </p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 };
+
+export default HeroSection;
 
 export default HeroSection;
