@@ -33,7 +33,14 @@ const frontendOrigins = process.env.FRONTEND_URL
 
 app.use(
   cors({
-    origin: frontendOrigins,
+    origin: function (origin, callback) {
+      // Allow if there's no origin (like mobile apps/postman), if it matches FRONTEND_URL, or if it's hosted natively on Vercel
+      if (!origin || frontendOrigins.includes(origin) || origin.includes('vercel.app')) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
   })
