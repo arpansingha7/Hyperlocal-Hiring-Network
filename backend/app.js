@@ -71,20 +71,17 @@ app.get("/api/v1/health", (req, res) => {
 // Diagnostic endpoint to test DB queries
 app.get("/api/v1/test-db", async (req, res) => {
   try {
-    const mongoose = await import("mongoose");
-    const state = mongoose.default.connection.readyState;
-    const stateNames = { 0: "disconnected", 1: "connected", 2: "connecting", 3: "disconnecting" };
-    
-    // Try a simple query
-    const collections = await mongoose.default.connection.db.listCollections().toArray();
+    const { Job } = await import("./models/jobSchema.js");
+    const jobs = await Job.find({ expired: false }).lean();
     res.status(200).json({
       success: true,
-      dbState: stateNames[state] || state,
-      collections: collections.map(c => c.name),
+      dbConnected: true,
+      jobCount: jobs.length,
       envCheck: {
         hasDBUrl: !!process.env.DB_URL,
         hasJwtKey: !!process.env.JWT_SECRET_KEY,
         hasCookieExpire: !!process.env.COOKIE_EXPIRE,
+        hasJwtExpire: !!process.env.JWT_EXPIRE,
       }
     });
   } catch (error) {
