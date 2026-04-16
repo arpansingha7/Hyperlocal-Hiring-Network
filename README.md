@@ -1,79 +1,79 @@
-# Job Portal App with MERN Stack
+# 🚀 Hyperlocal Hiring Network
 
-A comprehensive job portal application built using the MERN (MongoDB, Express.js, React.js, Node.js) stack. This application allows users to browse job listings, apply for jobs, and manage their applications seamlessly.
+A fully modernized, high-performance web platform built to revolutionize the local job market. This platform completely bridges the gap connecting neighborhood employers with local talent via real-time spatial calculations, dynamic application tracking, and an ultra-premium React interface.
 
-## Features
+---
 
-- **User Authentication:** Secure authentication using JWT (JSON Web Tokens) for both job seekers and employers.
-- **Job Listings:** Browse through a wide range of job listings fetched from MongoDB.
-- **Application Management:** Job seekers can manage their job applications, and employers can view and manage received applications.
-- **Responsive Design:** Ensures a seamless experience across all devices.
+## 🔥 Key Features
 
-## Technologies Used
+- **📍 Haversine Hyperlocal Tracking**: Automatically calculates real-time Euclidean distance between applicants and job locations globally.
+- **⚡ Application Kanban Pipelines**: Employers can dynamically "Accept" or "Reject" applicants, which triggers live UI pulses for Job Seekers via WebSockets (`Socket.IO`).
+- **🎙️ AI Voice-to-Text Registration**: Incorporates intelligent NLP dictation via Groq APIs allowing users to populate complex forms simply by speaking.
+- **🌓 Global Dark Mode**: Fully synchronized persistent Light/Dark environments executed without UI flash vulnerabilities using LocalStorage and Tailwind framework triggers.
+- **📱 Glassmorphism Interface**: Utilitizes 60FPS fluid entrance staggers, spring physics, and frosted-glass panels natively driven by `Framer Motion`.
 
-- **Frontend:** React.js, React Router, Bootstrap
-- **Backend:** Node.js, Express.js, MongoDB
-- **Authentication:** JWT (JSON Web Tokens), Bcrypt (for password hash)
-- **Image Upload:** Cloudinary for storing and managing uploaded images
-- **Deployment:** Vercel (frontend), Render(backend), MongoDB Atlas (database)
+---
 
-## Getting Started
+## 💻 Tech Stack
 
-To get a local copy up and running follow these simple steps.
+- **Frontend Core**: React.js (Vite), React Router
+- **Animations & Styling**: Tailwind CSS (v3), Framer Motion, React-Leaflet (Maps)
+- **Backend Architecture**: Node.js, Express.js
+- **Database & Geospatial**: MongoDB Atlas (leveraging `2dsphere` location indexes)
+- **Real-Time Communication**: Socket.IO
+- **Security Protocols**: JWT HTTP-Only Cookies, Express-Rate-Limit, Helmet
+
+---
+
+## 🚀 Deployment Instructions
+
+This repository is explicitly configured and ready for CI/CD Cloud deployments.
+
+### 1. Backend (Render / Node Server)
+Ensure the following variable definitions exist within your cloud provider's environment variables:
+```env
+PORT=4000
+FRONTEND_URL=https://your-frontend-domain.com
+DB_URL=mongodb+srv://<auth>@<cluster>.mongodb.net/<db>
+JWT_SECRET_KEY=your_secure_string
+JWT_EXPIRE=7d
+COOKIE_EXPIRE=7
+GROQ_API_KEY=your_groq_key
+```
+
+### 2. Frontend (Vercel / Netlify)
+The frontend utilizes dynamic API routing perfectly preparing it for deployment.
+Ensure you assign the production backend root to Vite:
+```env
+VITE_API_BASE_URL=https://your-backend-domain.com/api/v1
+```
+
+---
+
+## ⚙️ Local Development
 
 ### Prerequisites
+- Node.js `v18+`
+- MongoDB Instance 
 
-- Node.js installed on your machine with latest version or v22.2.0 above
-- MongoDB Atlas account (or local MongoDB server)
-- Cloudinary account for image storage
-
-### Installation
-
-1. Clone the repo:
-   ```sh
-   git clone 
+### Setup Commands
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/Hyperlocal-Hiring-Network.git
    ```
-2. Install NPM packages:
-   ```sh
-   cd react-job-portal
+2. **Install Backend Dependencies & Bootup:**
+   ```bash
    cd backend
    npm install
-   cd..
+   npm run dev
+   ```
+3. **Install Frontend Dependencies & Bootup:**
+   ```bash
    cd frontend
-   npm install
-   ```
-3. Set up environment variables:
-   - Create a `config.env` file after creating a `config folder` in the backend directory, containing the following variables:
-   ```env
-   PORT=
-   CLOUDINARY_API_KEY=
-   CLOUDINARY_API_SECRET=
-   CLOUDINARY_CLOUD_NAME=
-   FRONTEND_URL=
-   DB_URL=
-   JWT_SECRET_KEY=
-   JWT_EXPIRE=
-   COOKIE_EXPIRE=
+   npm install --legacy-peer-deps
+   npm run dev
    ```
 
-   Replace each value with your specific configuration details.
+---
 
-4. Run the application:
-   ```sh
-   npm start
-   ```
-5. Open your browser and navigate to `http://localhost:3000` to view the app.
-
-## Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request (`we will merge within 24 hour`)
-
-## Please give a star to the repository if you like it.
-
-## Contact
+*Open Sourced and built to scale. Feel free to Fork, Star, and contribute!*
