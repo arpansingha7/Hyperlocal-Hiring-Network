@@ -1,15 +1,23 @@
-import mongoose from "mongoose"; //just mongoose import!
+import mongoose from "mongoose";
 
-//Database connection here!
- const dbConnection  = ()=>{
-    mongoose.connect(process.env.DB_URL,{
-       dbName: "Job_Portal"
+let isConnected = false;
 
-    }).then(()=>{ //agar connect ho jaye toh!
-       console.log("MongoDB Connected")
-    }).catch((error)=>{
-        console.log(`Failed to connect ${error}`)
-    })
+const dbConnection = async () => {
+    mongoose.set('strictQuery', true);
     
+    if (isConnected) {
+        console.log("MongoDB is already connected securely using Cache");
+        return;
+    }
+
+    try {
+        await mongoose.connect(process.env.DB_URL, {
+            dbName: "Job_Portal",
+        });
+        isConnected = true;
+        console.log("MongoDB Connected Successfully");
+    } catch (error) {
+        console.log(`Failed to connect ${error}`);
+    }
 }
 export default dbConnection;
