@@ -14,7 +14,7 @@ const Notifications = () => {
     useEffect(() => {
         if (isAuthorized && user && user._id) {
             const isDevelopment = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-            socket = io(import.meta.env.VITE_API_BASE_URL || (isDevelopment ? "http://localhost:4000" : window.location.origin), {
+            socket = io(import.meta.env.VITE_API_BASE_URL || (isDevelopment ? "http://localhost:4000" : `${window.location.origin}/_/backend`), {
                 withCredentials: true,
             });
 

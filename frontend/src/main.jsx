@@ -6,7 +6,7 @@ import "./index.css";
 import axios from "axios";
 
 const isDevelopment = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || (isDevelopment ? "http://localhost:4000" : window.location.origin);
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || (isDevelopment ? "http://localhost:4000" : `${window.location.origin}/_/backend`);
 axios.defaults.withCredentials = true;
 
 export const Context = createContext({
