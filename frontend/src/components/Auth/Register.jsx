@@ -149,10 +149,9 @@ const Register = () => {
               </span>
               Verified Registration Hub
             </motion.div>
-            <h1 className="text-7xl sm:text-8xl md:text-9xl font-black text-slate-900 dark:text-white leading-[0.85] mb-12 tracking-tighter uppercase italic italic-safe">
-              Your <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-orange-400 italic italic-safe">Neighborhood</span> <br />
-              Network.
+            <h1 className="text-6xl sm:text-7xl md:text-8xl font-black text-slate-900 dark:text-white leading-[0.9] mb-10 tracking-tighter uppercase italic italic-safe px-2">
+              Neighborhood <br />
+              <span className="text-primary italic italic-safe">Network.</span>
             </h1>
             <p className="text-xl text-slate-500 font-bold max-w-lg leading-relaxed mb-16 mx-auto lg:mx-0">
                 Join our curated neighborhood network where professional roles meet local talent. Every connection is a step toward localized growth.
