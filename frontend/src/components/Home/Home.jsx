@@ -1,3 +1,4 @@
+import React from "react";
 import HeroSection from "./HeroSection";
 import { Helmet } from "react-helmet-async";
 import HowItWorks from "./HowItWorks";
