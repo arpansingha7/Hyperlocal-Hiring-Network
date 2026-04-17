@@ -52,7 +52,7 @@ const HowItWorks = () => {
             viewport={{ once: true }}
             className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-6 uppercase italic tracking-tighter leading-none"
           >
-             How <span className="text-primary italic">HHN</span> Works
+             How <span className="text-primary italic px-2 inline-block">HHN</span> Works
           </motion.h3>
           <motion.p 
             initial={{ opacity: 0 }}

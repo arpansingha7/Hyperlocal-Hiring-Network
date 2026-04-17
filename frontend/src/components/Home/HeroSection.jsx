@@ -108,7 +108,7 @@ const HeroSection = () => {
           
           <h1 className="text-5xl sm:text-7xl md:text-8xl font-black text-slate-900 dark:text-white leading-[0.9] mb-12 tracking-tight uppercase italic px-6">
             Connecting <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-rose-600 dark:from-primary dark:via-orange-400 dark:to-rose-400 pb-2 inline-block">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-rose-600 dark:from-primary dark:via-orange-400 dark:to-rose-400 pb-2 px-4 inline-block">
                 Local Workers
             </span>
           </h1>
@@ -145,7 +145,7 @@ const HeroSection = () => {
               <div className="w-20 h-20 bg-white dark:bg-slate-800 rounded-[1.5rem] shadow-xl mb-12 flex items-center justify-center transition-transform group-hover:rotate-12 group-hover:scale-110 relative z-10 border border-white/10">
                 {element.icon}
               </div>
-              <h3 className="text-6xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 relative z-10 italic uppercase">
+              <h3 className="text-6xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 relative z-10 italic uppercase px-4">
                 {element.title}
               </h3>
               <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.2em] relative z-10 border-t border-slate-100 dark:border-slate-800 pt-5">

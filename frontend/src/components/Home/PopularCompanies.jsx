@@ -44,7 +44,7 @@ const PopularCompanies = () => {
           className="text-center mb-16"
         >
           <h3 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter leading-none mb-6">
-            Elite Hiring <span className="text-primary italic">Allies</span>
+            Elite Hiring <span className="text-primary italic px-2 inline-block">Allies</span>
           </h3>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-black uppercase tracking-[0.4em] text-[10px]">
             Direct pipelines to neighborhood powerhouses.
