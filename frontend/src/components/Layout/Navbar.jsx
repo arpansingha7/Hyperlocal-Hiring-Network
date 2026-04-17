@@ -107,19 +107,22 @@ const Navbar = () => {
         <div className="flex items-center gap-4 sm:gap-6">
           {/* Language Switcher */}
           <div className="hidden md:flex items-center gap-1 bg-slate-100/50 dark:bg-slate-800/80 p-1.5 rounded-2xl shadow-inner border border-slate-200/20 dark:border-white/5 backdrop-blur-md">
-            {['en', 'hi', 'gu'].map((lng) => (
-              <button
-                key={lng}
-                onClick={() => changeLanguage(lng)}
-                className={`px-4 py-2 text-[10px] font-black rounded-xl transition-all uppercase tracking-[0.2em] shadow-none ${
-                  i18n.language === lng 
-                  ? 'bg-white dark:bg-primary shadow-2xl shadow-primary/20 text-primary dark:text-white scale-105' 
-                  : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
-                }`}
-              >
-                {lng}
-              </button>
-            ))}
+            {['en', 'hi', 'gu'].map((lng) => {
+              const currentLng = i18n.language.split('-')[0];
+              return (
+                <button
+                  key={lng}
+                  onClick={() => changeLanguage(lng)}
+                  className={`px-4 py-2 text-[10px] font-black rounded-xl transition-all uppercase tracking-[0.2em] shadow-none ${
+                    currentLng === lng 
+                    ? 'bg-white dark:bg-primary shadow-2xl shadow-primary/20 text-primary dark:text-white scale-105' 
+                    : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                  }`}
+                >
+                  {lng}
+                </button>
+              );
+            })}
           </div>
 
           {/* Theme & Auth Cluster */}
@@ -176,7 +179,7 @@ const Navbar = () => {
             className="lg:hidden absolute top-20 left-0 right-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden z-[55]"
           >
             <div className="p-6 flex flex-col gap-2">
-               {navLinks.map((link) => (
+              {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}

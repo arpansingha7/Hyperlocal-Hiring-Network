@@ -70,8 +70,13 @@ const App = () => {
       try {
         const response = await axios.get("/api/v1/user/getuser", { withCredentials: true });
         if (isMounted) {
-          setUser(response.data.user);
-          setIsAuthorized(true);
+          if (response.data.success && response.data.user) {
+            setUser(response.data.user);
+            setIsAuthorized(true);
+          } else {
+            setIsAuthorized(false);
+            setUser({});
+          }
         }
       } catch (error) {
         if (isMounted) {

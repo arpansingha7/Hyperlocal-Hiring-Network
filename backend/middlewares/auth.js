@@ -6,13 +6,23 @@ import jwt from "jsonwebtoken";
 export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   const { token } = req.cookies;
   if (!token) {
+    // Gracefully handle the initial authentication check to avoid noisy 401 errors in logs
+    if (req.originalUrl.includes("/getuser")) {
+      return res.status(200).json({
+        success: false,
+        authenticated: false,
+        message: "User not logged in"
+      });
+    }
     return next(new ErrorHandler("User Not Authorized", 401));
   }
-  const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-
-  req.user = await User.findById(decoded.id);
-
-  next();
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    req.user = await User.findById(decoded.id);
+    next();
+  } catch (error) {
+    return next(new ErrorHandler("Session expired, please login again.", 401));
+  }
 });
 
 export const isAdmin = catchAsyncErrors(async (req, res, next) => {
