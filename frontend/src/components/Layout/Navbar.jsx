@@ -137,13 +137,22 @@ const Navbar = () => {
             </button>
             
             {!isAuthorized ? (
-              <Link 
-                to="/login" 
-                className="hidden sm:flex items-center gap-3 px-8 py-3 bg-primary text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all hover:-translate-y-0.5"
-              >
-                <span className="material-symbols-outlined text-lg">login</span>
-                {t("Login")}
-              </Link>
+              <div className="hidden sm:flex items-center gap-4">
+                <Link 
+                  to="/login" 
+                  className="flex items-center gap-3 px-8 py-3 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all hover:bg-slate-50 dark:hover:bg-slate-700 active:scale-95 shadow-sm"
+                >
+                  <span className="material-symbols-outlined text-lg">login</span>
+                  {t("Login")}
+                </Link>
+                <Link 
+                  to="/register" 
+                  className="flex items-center gap-3 px-8 py-3 bg-primary text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all hover:scale-105 active:scale-95"
+                >
+                  <span className="material-symbols-outlined text-lg">person_add</span>
+                  {t("Sign Up")}
+                </Link>
+              </div>
             ) : (
               <button
                 onClick={handleLogout}
