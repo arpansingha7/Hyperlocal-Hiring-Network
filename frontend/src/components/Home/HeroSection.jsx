@@ -12,28 +12,28 @@ const HeroSection = () => {
   const details = [
     {
       id: 1,
-      title: "1,23,441",
+      title: "1,234",
       subTitle: t("Live Jobs"),
       icon: <FaSuitcase className="text-3xl text-primary" />,
       color: "from-primary/20",
     },
     {
       id: 2,
-      title: "91,220",
+      title: "450",
       subTitle: t("Companies"),
       icon: <FaBuilding className="text-3xl text-indigo-500" />,
       color: "from-indigo-500/20",
     },
     {
       id: 3,
-      title: "2,34,200",
+      title: "2,350",
       subTitle: t("Job Seekers"),
       icon: <FaUsers className="text-3xl text-purple-500" />,
       color: "from-purple-500/20",
     },
     {
       id: 4,
-      title: "1,03,761",
+      title: "320",
       subTitle: t("Employers"),
       icon: <FaUserPlus className="text-3xl text-pink-500" />,
       color: "from-pink-500/20",
