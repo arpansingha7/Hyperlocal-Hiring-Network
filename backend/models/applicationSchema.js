@@ -64,7 +64,7 @@ const applicationSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["Pending", "Accepted", "Rejected", "Shortlisted"],
+    enum: ["Pending", "Accepted", "Rejected", "Shortlisted", "Hired"],
     default: "Pending",
   },
 });

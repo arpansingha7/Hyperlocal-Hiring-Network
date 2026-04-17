@@ -176,14 +176,9 @@ const Jobs = () => {
           </div>
         </motion.div>
 
-        <AnimatePresence mode="wait">
         {mapView ? (
-          <motion.div 
-            key="map"
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.02 }}
-            className="w-full h-[450px] md:h-[600px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden border border-slate-200/50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-900 shadow-2xl relative z-0"
+          <div 
+            className="w-full h-[450px] md:h-[600px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden border border-slate-200/50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-900 shadow-2xl relative z-0 animate-in fade-in zoom-in duration-500"
           >
              <MapContainer center={userLocation || [20.5937, 78.9629]} zoom={userLocation ? 12 : 5} style={{ height: '100%', width: '100%' }}>
                 <TileLayer
@@ -205,7 +200,7 @@ const Jobs = () => {
                   ) : null
                 ))}
              </MapContainer>
-          </motion.div>
+          </div>
         ) : (
           <motion.div 
             key="list"
@@ -290,7 +285,6 @@ const Jobs = () => {
           )}
         </motion.div>
         )}
-        </AnimatePresence>
       </main>
     </div>
   );

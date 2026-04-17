@@ -11,17 +11,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("Job Seeker");
 
-  const [loginMode, setLoginMode] = useState("password");
-  const [phone, setPhone] = useState("");
-  const [otp, setOtp] = useState("");
-  const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
 
   const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
 
-  const handlePasswordLogin = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
@@ -36,7 +32,6 @@ const Login = () => {
       toast.success(data.message);
       setUser(data.user);
       
-      // Stitch Experience: Slight delay to ensure WOW factor and state sync
       setIsSyncing(true);
       setTimeout(() => {
         setIsAuthorized(true);
@@ -44,49 +39,6 @@ const Login = () => {
       
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSendOtp = async (e) => {
-    e.preventDefault();
-    if (!phone) return toast.error("Please enter a phone number");
-    try {
-      setLoading(true);
-      const { data } = await axios.post(
-        "/api/v1/user/send-otp",
-        { phone, role },
-        { withCredentials: true }
-      );
-      toast.success(data.message);
-      setOtpSent(true);
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to send OTP");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleVerifyOtp = async (e) => {
-    e.preventDefault();
-    if (!otp) return toast.error("Please enter the OTP");
-    try {
-      setLoading(true);
-      const { data } = await axios.post(
-        "/api/v1/user/verify-otp",
-        { phone, role, otp },
-        { withCredentials: true }
-      );
-      toast.success(data.message);
-      setUser(data.user);
-      
-      setIsSyncing(true);
-      setTimeout(() => {
-        setIsAuthorized(true);
-      }, 600);
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Invalid OTP");
     } finally {
       setLoading(false);
     }
@@ -145,122 +97,65 @@ const Login = () => {
              </h1>
           </div>
 
-          <div className="flex bg-black/40 p-2 rounded-[1.5rem] mb-12 border border-white/5 mx-auto max-w-sm">
-            {["password", "otp"].map(mode => (
-              <button 
-                key={mode}
-                type="button"
-                onClick={() => { setLoginMode(mode); setOtpSent(false); }}
-                className={`flex-1 py-4 text-[10px] font-black rounded-xl transition-all uppercase tracking-widest ${
-                    loginMode === mode 
-                    ? "bg-slate-800 text-primary shadow-xl scale-[1.02] border border-white/5" 
-                    : "text-slate-500 hover:text-slate-300"
-                }`}
-              >
-                {mode === "password" ? "Credentials" : "Snapshot OTP"}
-              </button>
-            ))}
-          </div>
-
-          <form onSubmit={loginMode === "password" ? handlePasswordLogin : (otpSent ? handleVerifyOtp : handleSendOtp)} className="space-y-10">
+          <form onSubmit={handleLogin} className="space-y-10">
             <div className="space-y-4">
-              <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Select Role</label>
-              <div className="grid grid-cols-2 gap-4">
-                {["Job Seeker", "Employer"].map(r => (
+              <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block text-center sm:text-left">Identify Your Role</label>
+              <div className="grid grid-cols-1 xs:grid-cols-3 gap-4">
+                {["Job Seeker", "Employer", "Admin"].map(r => (
                   <button
                     key={r}
                     type="button"
                     onClick={() => setRole(r)}
-                    className={`p-8 rounded-[2rem] border-2 transition-all group flex flex-col items-center gap-4 ${
+                    className={`p-6 rounded-[2rem] border-2 transition-all group flex flex-col items-center gap-3 ${
                       role === r 
                       ? "border-primary bg-primary/5 shadow-2xl shadow-primary/10" 
                       : "border-slate-200/50 dark:border-white/5 bg-slate-50 dark:bg-black/20 text-slate-500 hover:border-slate-300 dark:hover:border-white/10"
                     }`}
                   >
-                    <span className={`material-symbols-outlined text-3xl font-bold transition-transform group-hover:scale-110 ${role === r ? "text-primary rotate-12" : "text-slate-400"}`}>
-                        {r === "Job Seeker" ? "person_search" : "storefront"}
+                    <span className={`material-symbols-outlined text-2xl font-bold transition-transform group-hover:scale-110 ${role === r ? "text-primary rotate-12" : "text-slate-400"}`}>
+                        {r === "Job Seeker" ? "person_search" : r === "Employer" ? "storefront" : "shield_person"}
                     </span>
-                    <span className={`text-[10px] font-black uppercase tracking-widest ${role === r ? "text-primary" : "text-slate-500"}`}>{r}</span>
+                    <span className={`text-[8px] font-black uppercase tracking-widest ${role === r ? "text-primary" : "text-slate-500"}`}>{r}</span>
                   </button>
                 ))}
               </div>
             </div>
 
-            <AnimatePresence mode="wait">
-                <motion.div
-                    key={loginMode + (otpSent ? 'otp' : 'init')}
-                    initial={{ opacity: 0, scale: 0.98 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    className="space-y-6"
-                >
-                    {loginMode === "password" ? (
-                        <>
-                            <div className="space-y-3">
-                                <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Email Address</label>
-                                <input
-                                    className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
-                                    placeholder=""
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="space-y-3">
-                                <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Password</label>
-                                <div className="relative">
-                                    <input
-                                        className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner pr-16"
-                                        placeholder=""
-                                        type={showPassword ? "text" : "password"}
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        required
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors"
-                                    >
-                                        <span className="material-symbols-outlined font-black">
-                                            {showPassword ? "visibility_off" : "visibility"}
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <div className="space-y-3">
-                                <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Phone Direct</label>
-                                <input
-                                    className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner disabled:opacity-50"
-                                    placeholder=""
-                                    type="text"
-                                    value={phone}
-                                    onChange={(e) => setPhone(e.target.value)}
-                                    disabled={otpSent}
-                                    required
-                                />
-                            </div>
-                            {otpSent && (
-                                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} className="space-y-3">
-                                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Verification String</label>
-                                    <input
-                                        className="w-full px-8 py-6 rounded-[1.5rem] bg-slate-100 dark:bg-slate-900 border border-primary/30 focus:border-primary outline-none font-black text-center text-3xl tracking-[0.8em] text-primary transition-all shadow-2xl"
-                                        placeholder=""
-                                        maxLength="6"
-                                        value={otp}
-                                        onChange={(e) => setOtp(e.target.value)}
-                                        required
-                                    />
-                                </motion.div>
-                            )}
-                        </>
-                    )}
-                </motion.div>
-            </AnimatePresence>
+            <div className="space-y-6">
+                <div className="space-y-3">
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Email Address</label>
+                    <input
+                        className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
+                        placeholder="network@origin.com"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="space-y-3">
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Secure Access Key</label>
+                    <div className="relative">
+                        <input
+                            className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner pr-16"
+                            placeholder="••••••••"
+                            type={showPassword ? "text" : "password"}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors"
+                        >
+                            <span className="material-symbols-outlined font-black">
+                                {showPassword ? "visibility_off" : "visibility"}
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
             <button
                 type="submit"
@@ -268,7 +163,7 @@ const Login = () => {
                 className="w-full py-6 bg-primary text-white rounded-[2rem] font-black text-sm uppercase tracking-[0.3em] shadow-2xl shadow-primary/30 hover:scale-[1.02] hover:shadow-primary/50 transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-3 mt-10"
             >
                 {loading && <span className="material-symbols-outlined animate-spin">refresh</span>}
-                {loginMode === "password" ? "Login to Account" : (otpSent ? "Verify and Login" : "Send Login OTP")}
+                Access Terminal
             </button>
           </form>
 

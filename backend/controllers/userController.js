@@ -43,6 +43,11 @@ export const login = catchAsyncErrors(async (req, res, next) => {
       new ErrorHandler(`User with provided email and ${role} not found !`, 404)
     );
   }
+
+  if (user.isAccountActive === false) {
+    return next(new ErrorHandler("This account has been suspended by an administrator.", 403));
+  }
+
   sendToken(user, 201, res, "User Logged In Sucessfully !");
 });
 
