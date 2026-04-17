@@ -148,10 +148,10 @@ const HeroSection = () => {
               <div className="w-16 h-16 bg-white dark:bg-slate-700/50 rounded-[1.25rem] shadow-2xl mb-10 flex items-center justify-center transition-transform group-hover:rotate-12 group-hover:scale-110 relative z-10 border border-white/50 dark:border-white/10">
                 {element.icon}
               </div>
-              <h3 className="text-5xl font-black text-slate-900 dark:text-white tracking-[1.2rem] mb-4 relative z-10 italic uppercase -mr-[1.2rem]">
-                {element.title.split(',').join('')}
+              <h3 className="text-6xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 relative z-10 italic uppercase">
+                {element.title}
               </h3>
-              <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em] relative z-10 border-t border-slate-100 dark:border-slate-800 pt-4">
+              <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.2em] relative z-10 border-t border-slate-100 dark:border-slate-800 pt-4">
                 {element.subTitle}
               </p>
             </motion.div>
