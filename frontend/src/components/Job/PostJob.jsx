@@ -81,8 +81,7 @@ const PostJob = () => {
             // setLat(latitude);
             // setLng(longitude);
         }, (error) => {
-            console.log("Geolocation error:", error);
-            // Don't show toast for every error to avoid being annoying, but log for debugging
+            // Log suppressed for production optimization
         });
     }
   }, [isAuthorized, user, navigateTo]);

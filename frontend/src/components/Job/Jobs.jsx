@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -79,7 +79,6 @@ const Jobs = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error(error);
         toast.error("Failed to fetch jobs");
         setLoading(false);
       });
