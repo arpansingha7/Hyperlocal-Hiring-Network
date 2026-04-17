@@ -136,7 +136,7 @@ const PostJob = () => {
             <span className="h-0.5 w-16 bg-primary rounded-full" />
             <p className="text-primary font-black uppercase tracking-[0.4em] text-[10px]">Employer Studio</p>
           </div>
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic leading-none">
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic leading-none px-2">
             Post <span className="text-primary italic">a New Vacancy</span>
           </h1>
         </motion.div>

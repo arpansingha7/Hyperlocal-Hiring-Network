@@ -111,7 +111,7 @@ const HeroSection = () => {
             {t("Direct Neighborhood Matching")}
           </motion.div>
           
-          <h1 className="text-6xl sm:text-8xl md:text-9xl font-black text-slate-900 dark:text-white leading-[0.85] mb-12 tracking-[-0.05em] uppercase italic">
+          <h1 className="text-6xl sm:text-8xl md:text-9xl font-black text-slate-900 dark:text-white leading-[0.85] mb-12 tracking-[-0.05em] uppercase italic px-4">
             Connecting <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-rose-600 dark:from-primary dark:via-orange-400 dark:to-rose-400">
                 Local Workers
