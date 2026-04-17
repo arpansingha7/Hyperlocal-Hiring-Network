@@ -128,7 +128,7 @@ const PostJob = () => {
       // Premium experience: Redirect to dashboard after a short delay
       setTimeout(() => {
           navigateTo("/job/me");
-      }, 1500);
+      }, 600);
     } catch (err) {
       toast.error(err.response?.data?.message || "Internal Server Error");
     } finally {

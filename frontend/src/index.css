@@ -90,6 +90,10 @@
         @apply opacity-100;
     }
 
+    .glass-auth {
+        @apply bg-white/60 dark:bg-slate-900/40 backdrop-blur-3xl border border-slate-200/50 dark:border-white/10 shadow-[0_40px_100px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_40px_100px_-15px_rgba(0,0,0,0.8)];
+    }
+
     .page {
         @apply min-h-screen pt-24 pb-12 px-4 max-w-7xl mx-auto;
     }

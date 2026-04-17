@@ -92,7 +92,7 @@ const Register = () => {
       setIsSyncing(true);
       setTimeout(() => {
         setIsAuthorized(true);
-      }, 1200);
+      }, 600);
     } catch (error) {
       toast.error(error.response?.data?.message || "Registration failed");
     } finally {
@@ -103,7 +103,7 @@ const Register = () => {
   if (isAuthorized) return <Navigate to={"/"} />;
 
   return (
-    <div className="bg-[#05070a] min-h-screen pt-32 pb-20 overflow-x-hidden relative selection:bg-primary/30 selection:text-primary">
+    <div className="bg-background min-h-screen pt-32 pb-20 overflow-x-hidden relative selection:bg-primary/30 selection:text-primary">
       {/* Background Aesthetics */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] animate-blob" />
@@ -115,7 +115,7 @@ const Register = () => {
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center text-center p-10"
+            className="fixed inset-0 z-[100] bg-black/80 dark:bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center text-center p-10"
           >
             <motion.div 
               animate={{ scale: [1, 1.2, 1], rotate: 360 }}
@@ -123,7 +123,7 @@ const Register = () => {
               className="w-24 h-24 border-t-2 border-primary rounded-full mb-10 shadow-[0_0_40px_rgba(239,108,0,0.4)]"
             />
             <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter mb-4">Initializing <span className="text-primary italic">Network</span></h2>
-            <p className="text-slate-500 font-black uppercase tracking-[0.4em] text-[10px]">Your professional silhouette is being rendered...</p>
+            <p className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">Your professional silhouette is being rendered...</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -135,7 +135,7 @@ const Register = () => {
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 text-white font-black text-[10px] uppercase tracking-[0.4em] mb-12 shadow-2xl"
+              className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 dark:border-white/10 text-slate-500 dark:text-white font-black text-[10px] uppercase tracking-[0.4em] mb-12 shadow-2xl"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -143,25 +143,25 @@ const Register = () => {
               </span>
               Verified Registration Hub
             </motion.div>
-            <h1 className="text-7xl sm:text-8xl md:text-9xl font-black text-white leading-[0.85] mb-12 tracking-tighter uppercase italic">
-              The <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-orange-400 italic">Local</span> <br />
-              Standard.
+            <h1 className="text-7xl sm:text-8xl md:text-9xl font-black text-slate-900 dark:text-white leading-[0.85] mb-12 tracking-tighter uppercase italic">
+              Your <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-orange-400 italic">Neighborhood</span> <br />
+              Network.
             </h1>
             <p className="text-xl text-slate-500 font-bold max-w-lg leading-relaxed mb-16 mx-auto lg:mx-0">
-                Join our curated neighborhood network where professional roles meet verified talent. Every connection is a step toward localized growth.
+                Join our curated neighborhood network where professional roles meet local talent. Every connection is a step toward localized growth.
             </p>
             
             <motion.div 
               whileHover={{ y: -5, scale: 1.02 }}
               onClick={startVoiceSetup}
-              className={`bg-slate-900/40 backdrop-blur-3xl border-2 p-10 flex items-center gap-8 cursor-pointer rounded-[2.5rem] group transition-all relative overflow-hidden ${isRecording ? 'border-primary shadow-2xl shadow-primary/20 bg-primary/5' : 'border-white/5 shadow-2xl'}`}
+              className={`glass-auth p-10 flex items-center gap-8 cursor-pointer rounded-[2.5rem] group transition-all relative overflow-hidden ${isRecording ? 'border-primary ring-4 ring-primary/20' : 'shadow-2xl'}`}
             >
               <div className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-2xl transition-all duration-500 ${isRecording ? 'bg-red-500 animate-pulse scale-110' : 'bg-primary'}`}>
                 <span className="material-symbols-outlined text-white text-4xl font-bold">{isRecording ? 'mic' : 'mic_none'}</span>
               </div>
               <div>
-                <h3 className="text-2xl font-black text-white mb-2 uppercase italic">Smart Voice Setup</h3>
+                <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase italic">Smart Voice Setup</h3>
                 <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-loose">
                   {isRecording ? "Processing spoken signature..." : "Auto-fill your profile with one breath."}
                 </p>
@@ -204,13 +204,13 @@ const Register = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                 <div className="space-y-4">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] pl-6 block">Professional Full Name</label>
-                  <input className="w-full px-8 py-5 rounded-[1.5rem] bg-black/40 border border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-white transition-all shadow-inner"
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] pl-6 block">Full Name</label>
+                  <input className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
                     placeholder="Arpan Singha" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
                 </div>
                 <div className="space-y-4">
                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] pl-6 block">Official Email</label>
-                  <input className="w-full px-8 py-5 rounded-[1.5rem] bg-black/40 border border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-white transition-all shadow-inner"
+                  <input className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
                     placeholder="arpan@example.com" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
               </div>
@@ -218,12 +218,12 @@ const Register = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                 <div className="space-y-4">
                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] pl-6 block">Direct Mobile</label>
-                  <input className="w-full px-8 py-5 rounded-[1.5rem] bg-black/40 border border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-white transition-all shadow-inner"
+                  <input className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
                     placeholder="+91 9999999999" type="text" value={phone} onChange={(e) => setPhone(e.target.value)} required />
                 </div>
                 <div className="space-y-4">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] pl-6 block">Master Security Key</label>
-                  <input className="w-full px-8 py-5 rounded-[1.5rem] bg-black/40 border border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-white transition-all shadow-inner"
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] pl-6 block">Password</label>
+                  <input className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
                     placeholder="••••••••" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
               </div>

@@ -38,7 +38,7 @@ const Login = () => {
       setIsSyncing(true);
       setTimeout(() => {
         setIsAuthorized(true);
-      }, 1200);
+      }, 600);
       
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
@@ -79,11 +79,10 @@ const Login = () => {
       toast.success(data.message);
       setUser(data.user);
       
-      // Stitch Experience: State sync delay
       setIsSyncing(true);
       setTimeout(() => {
         setIsAuthorized(true);
-      }, 1200);
+      }, 600);
     } catch (error) {
       toast.error(error.response?.data?.message || "Invalid OTP");
     } finally {
@@ -94,8 +93,8 @@ const Login = () => {
   if (isAuthorized) return <Navigate to="/" />;
 
   return (
-    <div className="bg-[#05070a] min-h-screen flex items-center justify-center p-4 sm:p-6 overflow-hidden relative selection:bg-primary/30 selection:text-primary">
-      {/* Premium Portal Background */}
+    <div className="bg-background min-h-screen flex items-center justify-center p-4 sm:p-6 overflow-hidden relative selection:bg-primary/30 selection:text-primary">
+      {/* Background Aesthetics */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-1/4 -left-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] animate-blob" />
         <div className="absolute top-1/2 -right-1/4 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[120px] animate-blob animation-delay-2000" />
@@ -106,7 +105,7 @@ const Login = () => {
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex flex-col items-center justify-center text-center p-10"
+            className="fixed inset-0 z-[100] bg-black/80 dark:bg-black/90 backdrop-blur-xl flex flex-col items-center justify-center text-center p-10"
           >
             <motion.div 
               animate={{ rotate: 360 }}
@@ -114,7 +113,7 @@ const Login = () => {
               className="w-24 h-24 border-t-2 border-primary rounded-full mb-10 shadow-[0_0_30px_rgba(239,108,0,0.3)]"
             />
             <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter mb-4 px-2">Synchronizing <span className="text-primary italic">Profile</span></h2>
-            <p className="text-slate-500 font-black uppercase tracking-[0.4em] text-[10px]">Connecting to the local network...</p>
+            <p className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">Connecting to the local network...</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -124,7 +123,7 @@ const Login = () => {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-xl relative z-10"
       >
-        <div className="bg-slate-900/40 backdrop-blur-3xl border border-white/10 rounded-[3rem] p-10 sm:p-16 shadow-[0_40px_100px_-15px_rgba(0,0,0,0.8)] relative overflow-hidden group">
+        <div className="glass-auth rounded-[3rem] p-10 sm:p-16 relative overflow-hidden group">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-30" />
           
           <div className="text-center mb-16 relative">
@@ -135,7 +134,7 @@ const Login = () => {
                 </span>
                 Secure Access Portal
              </div>
-             <h1 className="text-6xl md:text-7xl font-black text-white leading-[0.9] tracking-tighter uppercase italic px-2">
+             <h1 className="text-6xl md:text-7xl font-black text-slate-900 dark:text-white leading-[0.9] tracking-tighter uppercase italic px-2">
                 Log <span className="text-primary italic">In.</span>
              </h1>
           </div>
@@ -159,7 +158,7 @@ const Login = () => {
 
           <form onSubmit={loginMode === "password" ? handlePasswordLogin : (otpSent ? handleVerifyOtp : handleSendOtp)} className="space-y-10">
             <div className="space-y-4">
-              <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Identity Context</label>
+              <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Select Role</label>
               <div className="grid grid-cols-2 gap-4">
                 {["Job Seeker", "Employer"].map(r => (
                   <button
@@ -169,10 +168,10 @@ const Login = () => {
                     className={`p-8 rounded-[2rem] border-2 transition-all group flex flex-col items-center gap-4 ${
                       role === r 
                       ? "border-primary bg-primary/5 shadow-2xl shadow-primary/10" 
-                      : "border-white/5 bg-black/20 text-slate-500 hover:border-white/10"
+                      : "border-slate-200/50 dark:border-white/5 bg-slate-50 dark:bg-black/20 text-slate-500 hover:border-slate-300 dark:hover:border-white/10"
                     }`}
                   >
-                    <span className={`material-symbols-outlined text-3xl font-bold transition-transform group-hover:scale-110 ${role === r ? "text-primary rotate-12" : "text-slate-600"}`}>
+                    <span className={`material-symbols-outlined text-3xl font-bold transition-transform group-hover:scale-110 ${role === r ? "text-primary rotate-12" : "text-slate-400"}`}>
                         {r === "Job Seeker" ? "person_search" : "storefront"}
                     </span>
                     <span className={`text-[10px] font-black uppercase tracking-widest ${role === r ? "text-primary" : "text-slate-500"}`}>{r}</span>
@@ -192,9 +191,9 @@ const Login = () => {
                     {loginMode === "password" ? (
                         <>
                             <div className="space-y-3">
-                                <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Email Handle</label>
+                                <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Email Address</label>
                                 <input
-                                    className="w-full px-8 py-5 rounded-[1.5rem] bg-black/40 border border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-white transition-all shadow-inner"
+                                    className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
                                     placeholder="your@email.com"
                                     type="email"
                                     value={email}
@@ -203,9 +202,9 @@ const Login = () => {
                                 />
                             </div>
                             <div className="space-y-3">
-                                <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Security Key</label>
+                                <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Password</label>
                                 <input
-                                    className="w-full px-8 py-5 rounded-[1.5rem] bg-black/40 border border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-white transition-all shadow-inner"
+                                    className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
                                     placeholder="••••••••"
                                     type="password"
                                     value={password}
@@ -219,7 +218,7 @@ const Login = () => {
                             <div className="space-y-3">
                                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Phone Direct</label>
                                 <input
-                                    className="w-full px-8 py-5 rounded-[1.5rem] bg-black/40 border border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-white transition-all shadow-inner disabled:opacity-50"
+                                    className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner disabled:opacity-50"
                                     placeholder="+91 0000000000"
                                     type="text"
                                     value={phone}
@@ -232,7 +231,7 @@ const Login = () => {
                                 <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} className="space-y-3">
                                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Verification String</label>
                                     <input
-                                        className="w-full px-8 py-6 rounded-[1.5rem] bg-slate-900 border border-primary/30 focus:border-primary outline-none font-black text-center text-3xl tracking-[0.8em] text-primary transition-all shadow-2xl"
+                                        className="w-full px-8 py-6 rounded-[1.5rem] bg-slate-100 dark:bg-slate-900 border border-primary/30 focus:border-primary outline-none font-black text-center text-3xl tracking-[0.8em] text-primary transition-all shadow-2xl"
                                         placeholder="000000"
                                         maxLength="6"
                                         value={otp}
@@ -252,7 +251,7 @@ const Login = () => {
                 className="w-full py-6 bg-primary text-white rounded-[2rem] font-black text-sm uppercase tracking-[0.3em] shadow-2xl shadow-primary/30 hover:scale-[1.02] hover:shadow-primary/50 transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-3 mt-10"
             >
                 {loading && <span className="material-symbols-outlined animate-spin">refresh</span>}
-                {loginMode === "password" ? "Verify Hub Credentials" : (otpSent ? "Authorize Session" : "Request Hub OTP")}
+                {loginMode === "password" ? "Login to Account" : (otpSent ? "Verify and Login" : "Send Login OTP")}
             </button>
           </form>
 

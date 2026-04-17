@@ -98,7 +98,7 @@ const Application = () => {
               <form onSubmit={handleApplication} className="space-y-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                   <div className="space-y-4">
-                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] block">Full Identification</label>
+                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] block">Full Name</label>
                     <input
                       type="text"
                       value={name}
@@ -109,7 +109,7 @@ const Application = () => {
                     />
                   </div>
                   <div className="space-y-4">
-                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] block">Contact Email</label>
+                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] block">Email Address</label>
                     <input
                       type="email"
                       value={email}
@@ -148,7 +148,7 @@ const Application = () => {
 
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] block">Value Pitch (Cover Letter)</label>
+                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] block">Cover Letter / Introduction</label>
                     <div className="flex items-center gap-2">
                          <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                          <span className="text-[10px] font-black text-primary uppercase tracking-widest">AI Assisted</span>
@@ -157,7 +157,7 @@ const Application = () => {
                   <textarea
                     value={coverLetter}
                     onChange={(e) => setCoverLetter(e.target.value)}
-                    placeholder="Express why you are the unique fit for this role..."
+                    placeholder="Briefly describe your experience and availability..."
                     className="w-full px-7 py-6 h-72 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-sm text-slate-900 dark:text-white transition-all shadow-inner resize-none whitespace-pre-line"
                     required
                   />

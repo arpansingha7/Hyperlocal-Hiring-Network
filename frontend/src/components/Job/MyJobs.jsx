@@ -165,12 +165,14 @@ const MyJobs = () => {
                           disabled={editingMode !== element._id}
                           className="w-full bg-slate-50 dark:bg-slate-800/50 px-4 py-3 rounded-xl font-bold text-sm text-slate-900 dark:text-white border border-transparent focus:border-primary outline-none appearance-none"
                         >
-                          <option>Food & Beverage</option>
-                          <option>Retail & Sales</option>
-                          <option>Logistics & Delivery</option>
-                          <option>Healthcare</option>
-                          <option>Customer Support</option>
-                          <option>Tech & Digital</option>
+                          <option>Construction & Technical</option>
+                          <option>Retail & Shops</option>
+                          <option>Delivery & Logistics</option>
+                          <option>Healthcare & Care</option>
+                          <option>Security & Guarding</option>
+                          <option>Salon & Beauty</option>
+                          <option>Driving & Transport</option>
+                          <option>Electric & Plumbing</option>
                         </select>
                       </div>
 
