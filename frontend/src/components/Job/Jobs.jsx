@@ -17,14 +17,21 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-// Helper to fix Leaflet map size issues inside hidden/animated containers
+// Helper to fix Leaflet map size issues
 function MapRefresher() {
     const map = useMap();
     useEffect(() => {
-        setTimeout(() => {
-            map.invalidateSize();
-        }, 100);
+        setTimeout(() => { map.invalidateSize(); }, 100);
     }, [map]);
+    return null;
+}
+
+// Helper to center map dynamically
+function ChangeView({ center, zoom }) {
+    const map = useMap();
+    useEffect(() => {
+        if (center) map.setView(center, zoom);
+    }, [center, zoom, map]);
     return null;
 }
 
@@ -33,20 +40,32 @@ const Jobs = () => {
   const [loading, setLoading] = useState(true);
   const [mapView, setMapView] = useState(false);
   const [radius, setRadius] = useState(10); 
+  const [isLocating, setIsLocating] = useState(false);
+  const [userLocation, setUserLocation] = useState(null); // [lat, lng]
 
   useEffect(() => {
     fetchJobs();
   }, []);
 
-  const fetchJobsNearMe = () => {
+  // Re-fetch if radius changes while we have a pinned location
+  useEffect(() => {
+    if (userLocation) {
+        fetchJobsNearMe(true);
+    }
+  }, [radius]);
+
+  const fetchJobsNearMe = (silent = false) => {
     if (!navigator.geolocation) {
       toast.error('Geolocation not supported');
       return;
     }
-    setLoading(true);
+    if (!silent) setIsLocating(true);
+    
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
+        setUserLocation([latitude, longitude]);
+        
         axios
           .get(`/api/v1/job/radius/${radius}/center/${latitude},${longitude}`, {
             withCredentials: true,
@@ -54,17 +73,20 @@ const Jobs = () => {
           .then((res) => {
             setJobs(res.data.jobs || []);
             setLoading(false);
+            setIsLocating(false);
             setMapView(true);
-            toast.success(`Found ${res.data.jobs?.length || 0} jobs near you!`);
+            if (!silent) toast.success(`Found ${res.data.jobs?.length || 0} jobs near you!`);
           })
           .catch((error) => {
             toast.error("Failed to fetch nearby jobs");
             setLoading(false);
+            setIsLocating(false);
           });
       },
       () => {
         toast.error("Unable to retrieve location");
         setLoading(false);
+        setIsLocating(false);
       }
     );
   };
@@ -109,14 +131,31 @@ const Jobs = () => {
             </h1>
           </div>
           
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
+            {/* Radius Selector */}
+            <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50 p-1.5 pl-5 rounded-[2rem] border border-slate-100 dark:border-white/5">
+                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Radius</span>
+                <select 
+                    value={radius} 
+                    onChange={(e) => setRadius(Number(e.target.value))}
+                    className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-[10px] font-black px-4 py-2.5 rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 appearance-none cursor-pointer border-none"
+                >
+                    {[5, 10, 20, 50, 100].map(r => (
+                        <option key={r} value={r}>{r} KM</option>
+                    ))}
+                </select>
+            </div>
+
             <button 
                 onClick={fetchJobsNearMe} 
-                className="group flex items-center gap-3 px-8 py-4 bg-primary text-white rounded-[2rem] text-[10px] font-black uppercase tracking-widest shadow-2xl shadow-primary/20 hover:scale-105 transition-all active:scale-95"
+                className={`group flex items-center gap-3 px-8 py-4 bg-primary text-white rounded-[2rem] text-[10px] font-black uppercase tracking-widest shadow-2xl shadow-primary/20 hover:scale-105 transition-all active:scale-95 ${isLocating ? 'opacity-70 pointer-events-none' : ''}`}
             >
-              <span className="material-symbols-outlined text-lg transition-transform group-hover:scale-110">my_location</span> 
-              Explore Near Me
+              <span className={`material-symbols-outlined text-lg ${isLocating ? 'animate-spin' : 'transition-transform group-hover:scale-110'}`}>
+                {isLocating ? 'refresh' : 'my_location'}
+              </span> 
+              {isLocating ? 'Scanning Neighbors...' : 'Explore Near Me'}
             </button>
+
             <button 
                 onClick={() => setMapView(!mapView)} 
                 className="flex items-center gap-3 px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-100 dark:border-slate-800 rounded-[2rem] text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-700 transition-all active:scale-95"
@@ -124,6 +163,16 @@ const Jobs = () => {
               <span className="material-symbols-outlined text-lg">{mapView ? "grid_view" : "map"}</span> 
               {mapView ? "List View" : "Map View"}
             </button>
+
+            {userLocation && (
+                <button 
+                    onClick={() => { setUserLocation(null); fetchJobs(); }}
+                    className="flex items-center gap-2 group px-6 py-4 bg-rose-50 dark:bg-rose-500/10 text-rose-500 rounded-[2rem] text-[10px] font-black uppercase tracking-widest hover:bg-rose-500 hover:text-white transition-all shadow-xl shadow-rose-500/10"
+                >
+                    <span className="material-symbols-outlined text-lg">close</span>
+                    Reset Systems
+                </button>
+            )}
           </div>
         </motion.div>
 
@@ -136,11 +185,12 @@ const Jobs = () => {
             exit={{ opacity: 0, scale: 1.02 }}
             className="w-full h-[700px] rounded-[3rem] overflow-hidden border border-slate-200/50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-900 shadow-2xl relative z-0"
           >
-             <MapContainer center={[20.5937, 78.9629]} zoom={5} style={{ height: '100%', width: '100%' }}>
+             <MapContainer center={userLocation || [20.5937, 78.9629]} zoom={userLocation ? 12 : 5} style={{ height: '100%', width: '100%' }}>
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <MapRefresher />
+                <ChangeView center={userLocation} zoom={12} />
                 {jobs.map(job => (
                   job.locationPoint?.coordinates?.length === 2 ? (
                     <Marker key={job._id} position={[job.locationPoint.coordinates[1], job.locationPoint.coordinates[0]]}>
