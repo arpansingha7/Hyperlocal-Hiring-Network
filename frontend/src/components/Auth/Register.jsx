@@ -31,7 +31,7 @@ const Register = () => {
 
     recognition.onstart = () => {
       setIsRecording(true);
-      toast.success("Elite AI Listening...", { icon: '🎙️' });
+      toast.success("AI Listening...", { icon: '🎙️' });
     };
 
     recognition.onend = () => {
@@ -48,7 +48,7 @@ const Register = () => {
     recognition.onresult = async (event) => {
       const transcript = event.results[0][0].transcript;
       setIsProcessing(true);
-      const loadingToast = toast.loading("Stitch AI parsing your signature...");
+      const loadingToast = toast.loading("AI parsing your signature...");
       
       try {
         const { data } = await axios.post("/api/v1/user/ai-voice-setup", { transcript });
@@ -88,7 +88,7 @@ const Register = () => {
       toast.success(data.message);
       setUser(data.user);
       
-      // Elite state synchronization
+      // Smart state synchronization
       setIsSyncing(true);
       setTimeout(() => {
         setIsAuthorized(true);
@@ -141,15 +141,15 @@ const Register = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
               </span>
-              Elite Registration Hub
+              Verified Registration Hub
             </motion.div>
             <h1 className="text-7xl sm:text-8xl md:text-9xl font-black text-white leading-[0.85] mb-12 tracking-tighter uppercase italic">
               The <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-orange-400 italic">Elite</span> <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-orange-400 italic">Local</span> <br />
               Standard.
             </h1>
             <p className="text-xl text-slate-500 font-bold max-w-lg leading-relaxed mb-16 mx-auto lg:mx-0">
-                Join our curated neighborhood network where premium roles meet verified talent. Every connection is a step toward localized greatness.
+                Join our curated neighborhood network where professional roles meet verified talent. Every connection is a step toward localized growth.
             </p>
             
             <motion.div 
@@ -161,7 +161,7 @@ const Register = () => {
                 <span className="material-symbols-outlined text-white text-4xl font-bold">{isRecording ? 'mic' : 'mic_none'}</span>
               </div>
               <div>
-                <h3 className="text-2xl font-black text-white mb-2 uppercase italic">Stitch AI Voice</h3>
+                <h3 className="text-2xl font-black text-white mb-2 uppercase italic">Smart Voice Setup</h3>
                 <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-loose">
                   {isRecording ? "Processing spoken signature..." : "Auto-fill your profile with one breath."}
                 </p>
@@ -204,7 +204,7 @@ const Register = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                 <div className="space-y-4">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] pl-6 block">Elite Full Name</label>
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] pl-6 block">Professional Full Name</label>
                   <input className="w-full px-8 py-5 rounded-[1.5rem] bg-black/40 border border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-white transition-all shadow-inner"
                     placeholder="Arpan Singha" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
                 </div>
@@ -231,7 +231,7 @@ const Register = () => {
               <div className="pt-10">
                 <button type="submit" disabled={loading} className="w-full bg-primary text-white py-6 rounded-[2.5rem] font-black text-[10px] shadow-2xl shadow-primary/30 hover:shadow-primary/50 hover:scale-[1.02] active:scale-95 transition-all tracking-[0.5em] uppercase flex items-center justify-center gap-4">
                   {loading && <span className="material-symbols-outlined animate-spin">refresh</span>}
-                  Engrave Profile Profile
+                  Initialize Profile
                 </button>
                 <div className="mt-12 pt-10 border-t border-white/5 text-center">
                     <p className="text-sm font-bold text-slate-500 italic">

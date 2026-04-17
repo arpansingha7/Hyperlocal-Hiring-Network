@@ -95,7 +95,7 @@ const Login = () => {
 
   return (
     <div className="bg-[#05070a] min-h-screen flex items-center justify-center p-4 sm:p-6 overflow-hidden relative selection:bg-primary/30 selection:text-primary">
-      {/* Premium Stitch Background */}
+      {/* Premium Portal Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-1/4 -left-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] animate-blob" />
         <div className="absolute top-1/2 -right-1/4 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[120px] animate-blob animation-delay-2000" />
@@ -114,7 +114,7 @@ const Login = () => {
               className="w-24 h-24 border-t-2 border-primary rounded-full mb-10 shadow-[0_0_30px_rgba(239,108,0,0.3)]"
             />
             <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter mb-4 px-2">Synchronizing <span className="text-primary italic">Profile</span></h2>
-            <p className="text-slate-500 font-black uppercase tracking-[0.4em] text-[10px]">Preparing your elite network experience...</p>
+            <p className="text-slate-500 font-black uppercase tracking-[0.4em] text-[10px]">Connecting to the local network...</p>
           </motion.div>
         )}
       </AnimatePresence>

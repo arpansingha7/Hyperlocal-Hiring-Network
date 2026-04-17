@@ -1,5 +1,4 @@
-import { FaMicrosoft, FaApple } from "react-icons/fa";
-import { SiTesla } from "react-icons/si";
+import { FaIndustry, FaStore, FaMotorcycle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -10,7 +9,7 @@ const PopularCompanies = () => {
       title: "Tata Group",
       location: "Gurugram / Mumbai",
       openPositions: "100+",
-      icon: <FaMicrosoft />,
+      icon: <FaIndustry />,
       color: "text-blue-600",
       hoverRing: "group-hover:ring-blue-500/50"
     },
@@ -19,7 +18,7 @@ const PopularCompanies = () => {
       title: "Reliance Retail",
       location: "Delhi NCR / Pan India",
       openPositions: "500+",
-      icon: <SiTesla />,
+      icon: <FaStore />,
       color: "text-emerald-600",
       hoverRing: "group-hover:ring-emerald-500/50"
     },
@@ -28,7 +27,7 @@ const PopularCompanies = () => {
       title: "Swiggy / Zomato",
       location: "Active Everywhere",
       openPositions: "Limited Slots",
-      icon: <FaApple />,
+      icon: <FaMotorcycle />,
       color: "text-orange-600",
       hoverRing: "group-hover:ring-orange-500/50"
     },
@@ -44,7 +43,7 @@ const PopularCompanies = () => {
           className="text-center mb-16"
         >
           <h3 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter leading-none mb-6">
-            Elite Hiring <span className="text-primary italic px-2 inline-block">Allies</span>
+            Trusted Hiring <span className="text-primary italic inline-block">Partners</span>
           </h3>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-black uppercase tracking-[0.4em] text-[10px]">
             Direct pipelines to neighborhood powerhouses.

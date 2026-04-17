@@ -106,9 +106,9 @@ const HeroSection = () => {
             {t("Direct Neighborhood Matching")}
           </motion.div>
           
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black text-slate-900 dark:text-white leading-[0.9] mb-12 tracking-tight uppercase italic px-6">
+          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black text-slate-900 dark:text-white leading-[0.9] mb-12 tracking-tight uppercase italic">
             Connecting <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-rose-600 dark:from-primary dark:via-orange-400 dark:to-rose-400 pb-2 px-4 inline-block">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-rose-600 dark:from-primary dark:via-orange-400 dark:to-rose-400 pb-2 inline-block">
                 Local Workers
             </span>
           </h1>
@@ -129,7 +129,7 @@ const HeroSection = () => {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 w-full mt-12">
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-8 w-full mt-12">
           {details.map((element, index) => (
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -138,14 +138,14 @@ const HeroSection = () => {
               transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
               whileHover={{ y: -20, scale: 1.05 }}
               key={element.id}
-              className={`glass-card-premium p-12 !rounded-[4rem] group border border-white/30 dark:border-slate-800/50 transition-all shadow-2xl shadow-slate-200/40 dark:shadow-none hover:shadow-primary/10`}
+              className={`glass-card-premium p-10 !rounded-[3rem] group border border-white/30 dark:border-slate-800/50 transition-all shadow-2xl shadow-slate-200/40 dark:shadow-none hover:shadow-primary/10`}
             >
               <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${element.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-[50px]`} />
               
-              <div className="w-20 h-20 bg-white dark:bg-slate-800 rounded-[1.5rem] shadow-xl mb-12 flex items-center justify-center transition-transform group-hover:rotate-12 group-hover:scale-110 relative z-10 border border-white/10">
+              <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl shadow-lg mb-8 flex items-center justify-center transition-transform group-hover:rotate-12 group-hover:scale-110 relative z-10 border border-white/10">
                 {element.icon}
               </div>
-              <h3 className="text-6xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 relative z-10 italic uppercase px-4">
+              <h3 className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 relative z-10 italic uppercase">
                 {element.title}
               </h3>
               <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.2em] relative z-10 border-t border-slate-100 dark:border-slate-800 pt-5">

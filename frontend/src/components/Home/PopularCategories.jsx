@@ -91,7 +91,7 @@ const PopularCategories = () => {
             Hiring Hotspots
           </div>
           <h3 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter leading-none mb-4">
-             Top Job <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-orange-400 px-4 inline-block">Hubs</span>
+             Top Job <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-orange-400 inline-block">Hubs</span>
           </h3>
         </motion.div>
 

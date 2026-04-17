@@ -31,9 +31,9 @@
         --input: 217 33% 17%;
         --ring: 20 86% 51%;
 
-        /* Stitch Elite Tokens */
-        --stitch-obsidian: 222 47% 4%;
-        --stitch-gold: 26 100% 50%;
+        /* Design System Tokens */
+        --portal-obsidian: 222 47% 4%;
+        --portal-gold: 26 100% 50%;
     }
 
     html {
@@ -54,11 +54,11 @@
     h1, h2, h3, h4, h5, h6 {
         font-family: 'Outfit', sans-serif;
         @apply tracking-tighter leading-[1.1] font-black uppercase italic;
-        padding-right: 0.15em; /* Critical: Prevents italic character clipping globally */
+        padding-right: 0.25em; /* Robust protection against italic character clipping */
     }
 
     i, .italic {
-        padding-right: 0.1em; /* Prevents clipping for inline italics */
+        padding-right: 0.2em; /* Prevents clipping for inline italics */
     }
     
     p {
