@@ -35,7 +35,7 @@ const Notifications = () => {
                                 </div>
                                 <div className="ml-4 flex-1">
                                     <p className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">System Message</p>
-                                    <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400 italic">"{data.message}"</p>
+                                    <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400 italic italic-safe">"{data.message}"</p>
                                 </div>
                             </div>
                         </div>
@@ -88,16 +88,16 @@ const Notifications = () => {
                             className="absolute bottom-24 right-0 w-80 md:w-[400px] glass-card overflow-hidden z-50 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)]"
                         >
                             <div className="p-8 border-b border-slate-100 dark:border-slate-800/50 flex items-center justify-between">
-                                <h3 className="font-black text-slate-900 dark:text-white uppercase italic tracking-tighter flex items-center gap-3">
+                                <h3 className="font-black text-slate-900 dark:text-white uppercase italic italic-safe tracking-tighter flex items-center gap-3">
                                     <span className="w-8 h-0.5 bg-primary rounded-full" />
-                                    Telemetry Log
+                                    Activity Alerts
                                 </h3>
                                 {notifications.length > 0 && (
                                     <button 
                                         onClick={() => setNotifications([])} 
                                         className="text-[10px] font-black text-slate-400 hover:text-red-500 uppercase tracking-widest transition-colors"
                                     >
-                                        Purge Log
+                                        Clear All Alerts
                                     </button>
                                 )}
                             </div>
@@ -106,13 +106,13 @@ const Notifications = () => {
                                 {notifications.length === 0 ? (
                                     <div className="p-16 text-center flex flex-col items-center gap-6 opacity-40">
                                         <span className="material-symbols-outlined text-6xl">cloud_done</span>
-                                        <p className="font-black text-[10px] uppercase tracking-[0.3em] text-slate-500">System Nominal</p>
+                                        <p className="font-black text-[10px] uppercase tracking-[0.3em] text-slate-500 italic italic-safe">All Caught Up</p>
                                     </div>
                                 ) : (
                                     <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
                                         {notifications.map(n => (
                                             <div key={n.id} className="p-8 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group">
-                                                <p className="text-sm text-slate-700 dark:text-slate-300 font-bold leading-relaxed italic group-hover:text-primary transition-colors">
+                                                <p className="text-sm text-slate-700 dark:text-slate-300 font-bold leading-relaxed italic italic-safe group-hover:text-primary transition-colors">
                                                     "{n.text}"
                                                 </p>
                                                 <p className="text-[10px] text-slate-400 mt-4 font-black uppercase tracking-widest opacity-60">

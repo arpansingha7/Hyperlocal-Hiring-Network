@@ -21,7 +21,7 @@ function Footer() {
               <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/30 group-hover:rotate-12 transition-transform duration-500">
                 <span className="material-symbols-outlined text-white text-2xl font-bold">work</span>
               </div>
-              <h2 className="text-2xl font-black tracking-tighter uppercase italic">
+              <h2 className="text-2xl font-black tracking-tighter uppercase italic italic-safe">
                 Hyperlocal <span className="text-primary">Hiring</span> Network (HHN)
               </h2>
             </Link>
@@ -100,7 +100,7 @@ function Footer() {
                 { label: "Community", val: "50K+" }
             ].map((stat, i) => (
                 <div key={i} className="text-center md:text-left">
-                    <p className="text-2xl font-black italic uppercase italic leading-none mb-1 tracking-tighter">{stat.val}</p>
+                    <p className="text-2xl font-black italic italic-safe uppercase leading-none mb-1 tracking-tighter">{stat.val}</p>
                     <p className="text-[8px] font-black text-slate-500 uppercase tracking-widest leading-none">{stat.label}</p>
                 </div>
             ))}
@@ -112,9 +112,10 @@ function Footer() {
             &copy; {new Date().getFullYear()} Hyperlocal Hiring Network (HHN). Crafted with Passion.
           </p>
           <div className="flex gap-8">
-            {["Terms", "Privacy", "Cookies", "API"].map(item => (
-              <Link key={item} to="#" className="text-[10px] font-black text-slate-500 hover:text-primary transition-colors uppercase tracking-widest">{item}</Link>
-            ))}
+            <Link to="/terms" className="text-[10px] font-black text-slate-500 hover:text-primary transition-colors uppercase tracking-widest">Terms</Link>
+            <Link to="/privacy" className="text-[10px] font-black text-slate-500 hover:text-primary transition-colors uppercase tracking-widest">Privacy</Link>
+            <Link to="#" className="text-[10px] font-black text-slate-500 hover:text-primary transition-colors uppercase tracking-widest">Cookies</Link>
+            <Link to="#" className="text-[10px] font-black text-slate-500 hover:text-primary transition-colors uppercase tracking-widest">API</Link>
           </div>
         </div>
       </div>

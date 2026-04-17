@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
@@ -88,6 +88,10 @@ const Jobs = () => {
 
   return (
     <div className="bg-white dark:bg-slate-900 min-h-screen pt-28 pb-20 px-4 sm:px-6">
+      <Helmet>
+        <title>HHN | Explore Neighborhood Opportunities</title>
+        <meta name="description" content="Find the best local jobs in your area. Hyperlocal precision for and localized growth." />
+      </Helmet>
       <main className="max-w-7xl mx-auto">
         <motion.div 
             initial={{ opacity: 0, y: -20 }}
@@ -99,8 +103,8 @@ const Jobs = () => {
                 <span className="h-0.5 w-16 bg-primary rounded-full" />
                 <p className="text-primary font-black uppercase tracking-[0.4em] text-[10px]">Marketplace Discovery</p>
             </div>
-            <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic leading-none">
-                Active <span className="text-primary italic">Vacancies</span>
+            <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic italic-safe leading-none">
+                Active <span className="text-primary italic italic-safe">Vacancies</span>
             </h1>
           </div>
           
@@ -141,7 +145,7 @@ const Jobs = () => {
                     <Marker key={job._id} position={[job.locationPoint.coordinates[1], job.locationPoint.coordinates[0]]}>
                       <Popup>
                         <div className="p-4 min-w-[200px] text-center">
-                          <h4 className="font-black text-slate-900 m-0 text-sm mb-1 uppercase italic tracking-tight">{job.title}</h4>
+                          <h4 className="font-black text-slate-900 m-0 text-sm mb-1 uppercase italic italic-safe tracking-tight">{job.title}</h4>
                           <p className="text-[10px] uppercase font-black text-primary m-0 mb-4 tracking-widest">{job.city}</p>
                           <Link to={`/job/${job._id}`} className="block w-full bg-slate-900 text-white py-3 rounded-xl text-[10px] font-black uppercase tracking-widest no-underline transition-all hover:bg-primary">Explore Role</Link>
                         </div>
@@ -186,7 +190,7 @@ const Jobs = () => {
                     </div>
 
                     <div className="mb-10">
-                        <h3 className="font-black text-2xl lg:text-3xl text-slate-900 dark:text-white leading-[1.1] mb-4 group-hover:text-primary transition-colors uppercase italic tracking-tighter">
+                        <h3 className="font-black text-2xl lg:text-3xl text-slate-900 dark:text-white leading-[1.1] mb-4 group-hover:text-primary transition-colors uppercase italic italic-safe tracking-tighter">
                         {element.title}
                         </h3>
                         <p className="text-sm text-slate-500 dark:text-slate-400 font-bold leading-relaxed line-clamp-3">
@@ -198,7 +202,7 @@ const Jobs = () => {
                 <div className="flex items-center justify-between pt-10 border-t border-slate-100 dark:border-slate-800/50">
                   <div className="flex flex-col">
                     <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] mb-1">Monthly Salary</p>
-                    <div className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic">
+                    <div className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic italic-safe">
                         {element.fixedSalary
                         ? `₹${element.fixedSalary.toLocaleString()}`
                         : `₹${element.salaryFrom.toLocaleString()} - ₹${element.salaryTo.toLocaleString()}`}
@@ -225,8 +229,8 @@ const Jobs = () => {
                    <span className="material-symbols-outlined text-7xl text-primary font-bold">radar</span>
                 </div>
               </motion.div>
-              <h4 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter mb-4 leading-none">
-                Searching <span className="text-primary italic">Vacuum</span>
+              <h4 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white uppercase italic italic-safe tracking-tighter mb-4 leading-none">
+                Still <span className="text-primary italic italic-safe">Looking...</span>
               </h4>
               <p className="text-slate-500 font-black uppercase tracking-[0.4em] text-[10px] max-w-md leading-relaxed">
                  No neighborhood opportunities found for this filter. Try expanding your radius.

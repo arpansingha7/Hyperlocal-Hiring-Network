@@ -54,11 +54,14 @@
     h1, h2, h3, h4, h5, h6 {
         font-family: 'Outfit', sans-serif;
         @apply tracking-tighter leading-[1.1] font-black uppercase italic;
-        padding-right: 0.25em; /* Robust protection against italic character clipping */
+        padding-right: 0.3em; /* Increased safety margin for large italic headings */
     }
 
-    i, .italic {
-        padding-right: 0.2em; /* Prevents clipping for inline italics */
+    i, .italic, [class*="italic"] {
+        @apply text-current;
+        padding-right: 0.15em; /* Prevents clipping for inline italics */
+        display: inline-block; /* Essential to ensure padding-right is respected in flex/tight layouts */
+        margin-right: -0.15em; /* Offset the padding to prevent layout shifts */
     }
     
     p {

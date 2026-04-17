@@ -3,6 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import { Context } from "../../main";
 
 const Register = () => {
@@ -16,6 +17,7 @@ const Register = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
 
@@ -104,6 +106,10 @@ const Register = () => {
 
   return (
     <div className="bg-background min-h-screen pt-32 pb-20 overflow-x-hidden relative selection:bg-primary/30 selection:text-primary">
+      <Helmet>
+        <title>HHN | Create Your Professional Profile</title>
+        <meta name="description" content="Join the Hyperlocal Hiring Network and connect with opportunities in your neighborhood." />
+      </Helmet>
       {/* Background Aesthetics */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] animate-blob" />
@@ -122,7 +128,7 @@ const Register = () => {
               transition={{ duration: 2, repeat: Infinity }}
               className="w-24 h-24 border-t-2 border-primary rounded-full mb-10 shadow-[0_0_40px_rgba(239,108,0,0.4)]"
             />
-            <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter mb-4">Initializing <span className="text-primary italic">Network</span></h2>
+            <h2 className="text-4xl font-black text-white uppercase italic italic-safe tracking-tighter mb-4">Initializing <span className="text-primary italic italic-safe">Network</span></h2>
             <p className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">Your professional silhouette is being rendered...</p>
           </motion.div>
         )}
@@ -143,9 +149,9 @@ const Register = () => {
               </span>
               Verified Registration Hub
             </motion.div>
-            <h1 className="text-7xl sm:text-8xl md:text-9xl font-black text-slate-900 dark:text-white leading-[0.85] mb-12 tracking-tighter uppercase italic">
+            <h1 className="text-7xl sm:text-8xl md:text-9xl font-black text-slate-900 dark:text-white leading-[0.85] mb-12 tracking-tighter uppercase italic italic-safe">
               Your <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-orange-400 italic">Neighborhood</span> <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-orange-400 italic italic-safe">Neighborhood</span> <br />
               Network.
             </h1>
             <p className="text-xl text-slate-500 font-bold max-w-lg leading-relaxed mb-16 mx-auto lg:mx-0">
@@ -161,7 +167,7 @@ const Register = () => {
                 <span className="material-symbols-outlined text-white text-4xl font-bold">{isRecording ? 'mic' : 'mic_none'}</span>
               </div>
               <div>
-                <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase italic">Smart Voice Setup</h3>
+                <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase italic italic-safe">Smart Voice Setup</h3>
                 <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-loose">
                   {isRecording ? "Processing spoken signature..." : "Auto-fill your profile with one breath."}
                 </p>
@@ -206,12 +212,12 @@ const Register = () => {
                 <div className="space-y-4">
                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] pl-6 block">Full Name</label>
                   <input className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
-                    placeholder="Arpan Singha" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+                    placeholder="" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
                 </div>
                 <div className="space-y-4">
                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] pl-6 block">Official Email</label>
                   <input className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
-                    placeholder="arpan@example.com" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    placeholder="" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
               </div>
 
@@ -219,12 +225,23 @@ const Register = () => {
                 <div className="space-y-4">
                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] pl-6 block">Direct Mobile</label>
                   <input className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
-                    placeholder="+91 9999999999" type="text" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+                    placeholder="" type="text" value={phone} onChange={(e) => setPhone(e.target.value)} required />
                 </div>
                 <div className="space-y-4">
                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] pl-6 block">Password</label>
-                  <input className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
-                    placeholder="••••••••" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                  <div className="relative">
+                    <input className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner pr-16"
+                      placeholder="" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors"
+                    >
+                        <span className="material-symbols-outlined font-black">
+                            {showPassword ? "visibility_off" : "visibility"}
+                        </span>
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -234,7 +251,7 @@ const Register = () => {
                   Initialize Profile
                 </button>
                 <div className="mt-12 pt-10 border-t border-white/5 text-center">
-                    <p className="text-sm font-bold text-slate-500 italic">
+                    <p className="text-sm font-bold text-slate-500 italic italic-safe">
                         Established member? <Link to="/login" className="text-primary hover:underline font-black not-italic ml-2 uppercase tracking-widest text-[10px]">Log In</Link>
                     </p>
                 </div>

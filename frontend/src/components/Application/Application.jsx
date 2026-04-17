@@ -78,8 +78,8 @@ const Application = () => {
             <span className="h-0.5 w-12 bg-primary rounded-full" />
             <p className="text-primary font-black uppercase tracking-[0.3em] text-[10px]">Talent Pipeline</p>
           </div>
-          <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic">
-            Submit <span className="text-primary underline decoration-primary/20 underline-offset-8">Application</span>
+          <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic italic-safe">
+            Submit <span className="text-primary underline decoration-primary/20 underline-offset-8 italic-safe">Application</span>
           </h1>
           <p className="text-slate-500 dark:text-slate-400 font-bold mt-4 uppercase tracking-[0.3em] text-[10px] max-w-lg leading-relaxed">
             Pitch your expertise to neighborhood teams and secure your next role through our direct connection network.
@@ -103,7 +103,7 @@ const Application = () => {
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="e.g. Arpan Singha"
+                      placeholder=""
                       className="w-full px-6 py-5 rounded-2xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-black text-sm text-slate-900 dark:text-white transition-all shadow-inner uppercase tracking-wider"
                       required
                     />
@@ -114,7 +114,7 @@ const Application = () => {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="arpan@example.com"
+                      placeholder=""
                       className="w-full px-6 py-5 rounded-2xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-black text-sm text-slate-900 dark:text-white transition-all shadow-inner uppercase tracking-wider"
                       required
                     />
@@ -194,7 +194,7 @@ const Application = () => {
                   </div>
                 </div>
 
-                <p className="text-sm font-bold text-slate-600 dark:text-slate-400 mb-12 leading-relaxed italic border-l-2 border-primary/30 pl-5">
+                <p className="text-sm font-bold text-slate-600 dark:text-slate-400 mb-12 leading-relaxed italic italic-safe border-l-2 border-primary/30 pl-5">
                     "Finding the right narrative is key. Our Llama 3 engine creates high-impact cover letters built around your specific expertise."
                 </p>
 

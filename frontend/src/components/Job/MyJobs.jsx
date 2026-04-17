@@ -93,7 +93,7 @@ const MyJobs = () => {
             <span className="h-0.5 w-12 bg-primary rounded-full" />
             <p className="text-primary font-black uppercase tracking-[0.3em] text-[10px]">Employer Dashboard</p>
           </div>
-          <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic">
+          <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic italic-safe">
             Your Active <span className="text-primary">Listings</span>
           </h1>
         </motion.div>
@@ -105,7 +105,7 @@ const MyJobs = () => {
             className="text-center py-24 glass-card border-dashed border-2"
           >
             <span className="material-symbols-outlined text-6xl text-slate-300 mb-4">work_history</span>
-            <p className="text-xl font-black text-slate-900 dark:text-white uppercase italic tracking-tight">No active listings found</p>
+            <p className="text-xl font-black text-slate-900 dark:text-white uppercase italic italic-safe tracking-tight">No active listings found</p>
             <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mt-2">Start by posting your first opportunity.</p>
           </motion.div>
         ) : (
@@ -129,7 +129,7 @@ const MyJobs = () => {
                           disabled={editingMode !== element._id}
                           value={element.title}
                           onChange={(e) => handleInputChange(element._id, "title", e.target.value)}
-                          className={`w-full text-3xl md:text-4xl font-black tracking-tighter uppercase italic bg-transparent border-none outline-none focus:text-primary transition-colors ${editingMode === element._id ? "text-primary underline decoration-primary/20" : "text-slate-900 dark:text-white"}`}
+                          className={`w-full text-3xl md:text-4xl font-black tracking-tighter uppercase italic italic-safe bg-transparent border-none outline-none focus:text-primary transition-colors ${editingMode === element._id ? "text-primary underline decoration-primary/20" : "text-slate-900 dark:text-white"}`}
                         />
                       </div>
                       

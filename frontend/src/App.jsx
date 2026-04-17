@@ -24,6 +24,8 @@ const MyApplications = lazy(() => import("./components/Application/MyApplication
 const PostJob = lazy(() => import("./components/Job/PostJob"));
 const MyJobs = lazy(() => import("./components/Job/MyJobs"));
 const Dashboard = lazy(() => import("./components/Admin/Dashboard"));
+const Terms = lazy(() => import("./components/Legal/Terms"));
+const Privacy = lazy(() => import("./components/Legal/Privacy"));
 const NotFound = lazy(() => import("./components/NotFound/NotFound"));
 
 const AnimatedRoutes = () => {
@@ -36,6 +38,8 @@ const AnimatedRoutes = () => {
           <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
           <Route path="/register" element={<PageWrapper><Register /></PageWrapper>} />
           <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+          <Route path="/terms" element={<PageWrapper><Terms /></PageWrapper>} />
+          <Route path="/privacy" element={<PageWrapper><Privacy /></PageWrapper>} />
           <Route path="/job/getall" element={<PageWrapper><Jobs /></PageWrapper>} />
           <Route path="/job/:id" element={<PageWrapper><JobDetails /></PageWrapper>} />
           <Route path="/application/:id" element={<PageWrapper><Application /></PageWrapper>} />
@@ -60,6 +64,8 @@ const PageWrapper = ({ children }) => (
     {children}
   </motion.div>
 );
+
+import ErrorBoundary from "./components/Layout/ErrorBoundary";
 
 const App = () => {
   const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
@@ -96,12 +102,14 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <Navbar />
-      <AnimatedRoutes />
-      <Footer />
-      <Toaster position="top-center" reverseOrder={false} />
-      <Notifications />
+      <ErrorBoundary>
+        <ScrollToTop />
+        <Navbar />
+        <AnimatedRoutes />
+        <Footer />
+        <Toaster position="top-center" reverseOrder={false} />
+        <Notifications />
+      </ErrorBoundary>
     </BrowserRouter>
   );
 };

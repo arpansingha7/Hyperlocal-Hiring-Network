@@ -42,8 +42,8 @@ const PopularCompanies = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h3 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter leading-none mb-6">
-            Trusted Hiring <span className="text-primary italic inline-block">Partners</span>
+          <h3 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white uppercase italic italic-safe tracking-tighter leading-none mb-6">
+            Trusted Hiring <span className="text-primary italic italic-safe inline-block">Partners</span>
           </h3>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-black uppercase tracking-[0.4em] text-[10px]">
             Direct pipelines to neighborhood powerhouses.
@@ -71,7 +71,7 @@ const PopularCompanies = () => {
               
               <div className="space-y-6">
                 <div>
-                  <h4 className="text-3xl font-black text-slate-900 dark:text-white mb-2 uppercase italic tracking-tight">{company.title}</h4>
+                  <h4 className="text-3xl font-black text-slate-900 dark:text-white mb-2 uppercase italic italic-safe tracking-tight">{company.title}</h4>
                   <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 flex items-center gap-2 uppercase tracking-widest border-t border-slate-100 dark:border-slate-800/50 pt-4">
                     <span className="material-symbols-outlined text-sm">location_on</span> {company.location}
                   </p>

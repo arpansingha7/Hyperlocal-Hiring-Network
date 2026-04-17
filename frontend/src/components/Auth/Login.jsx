@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import { Context } from "../../main";
 import { Link, Navigate } from "react-router-dom";
 
@@ -15,6 +16,7 @@ const Login = () => {
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
 
   const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
@@ -94,6 +96,10 @@ const Login = () => {
 
   return (
     <div className="bg-background min-h-screen flex items-center justify-center p-4 sm:p-6 overflow-hidden relative selection:bg-primary/30 selection:text-primary">
+      <Helmet>
+        <title>HHN | Secure Access Portal</title>
+        <meta name="description" content="Securely log in to the Hyperlocal Hiring Network." />
+      </Helmet>
       {/* Background Aesthetics */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-1/4 -left-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] animate-blob" />
@@ -112,7 +118,7 @@ const Login = () => {
               transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
               className="w-24 h-24 border-t-2 border-primary rounded-full mb-10 shadow-[0_0_30px_rgba(239,108,0,0.3)]"
             />
-            <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter mb-4 px-2">Synchronizing <span className="text-primary italic">Profile</span></h2>
+            <h2 className="text-4xl font-black text-white uppercase italic italic-safe tracking-tighter mb-4 px-2">Synchronizing <span className="text-primary italic italic-safe">Profile</span></h2>
             <p className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">Connecting to the local network...</p>
           </motion.div>
         )}
@@ -134,8 +140,8 @@ const Login = () => {
                 </span>
                 Secure Access Portal
              </div>
-             <h1 className="text-6xl md:text-7xl font-black text-slate-900 dark:text-white leading-[0.9] tracking-tighter uppercase italic px-2">
-                Log <span className="text-primary italic">In.</span>
+             <h1 className="text-6xl md:text-7xl font-black text-slate-900 dark:text-white leading-[0.9] tracking-tighter uppercase italic italic-safe px-2">
+                Log <span className="text-primary italic italic-safe">In.</span>
              </h1>
           </div>
 
@@ -194,7 +200,7 @@ const Login = () => {
                                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Email Address</label>
                                 <input
                                     className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
-                                    placeholder="your@email.com"
+                                    placeholder=""
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -203,14 +209,25 @@ const Login = () => {
                             </div>
                             <div className="space-y-3">
                                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Password</label>
-                                <input
-                                    className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner"
-                                    placeholder="••••••••"
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    required
-                                />
+                                <div className="relative">
+                                    <input
+                                        className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner pr-16"
+                                        placeholder=""
+                                        type={showPassword ? "text" : "password"}
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors"
+                                    >
+                                        <span className="material-symbols-outlined font-black">
+                                            {showPassword ? "visibility_off" : "visibility"}
+                                        </span>
+                                    </button>
+                                </div>
                             </div>
                         </>
                     ) : (
@@ -219,7 +236,7 @@ const Login = () => {
                                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Phone Direct</label>
                                 <input
                                     className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none font-bold text-slate-900 dark:text-white transition-all shadow-inner disabled:opacity-50"
-                                    placeholder="+91 0000000000"
+                                    placeholder=""
                                     type="text"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
@@ -232,7 +249,7 @@ const Login = () => {
                                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-6 block">Verification String</label>
                                     <input
                                         className="w-full px-8 py-6 rounded-[1.5rem] bg-slate-100 dark:bg-slate-900 border border-primary/30 focus:border-primary outline-none font-black text-center text-3xl tracking-[0.8em] text-primary transition-all shadow-2xl"
-                                        placeholder="000000"
+                                        placeholder=""
                                         maxLength="6"
                                         value={otp}
                                         onChange={(e) => setOtp(e.target.value)}
@@ -256,7 +273,7 @@ const Login = () => {
           </form>
 
           <div className="mt-16 pt-10 border-t border-white/5 text-center">
-            <p className="text-sm font-bold text-slate-500 italic">
+            <p className="text-sm font-bold text-slate-500 italic italic-safe">
                 Awaiting access? <Link to="/register" className="text-primary hover:underline ml-2 uppercase tracking-widest font-black not-italic text-[10px]">Create Profile</Link>
             </p>
           </div>

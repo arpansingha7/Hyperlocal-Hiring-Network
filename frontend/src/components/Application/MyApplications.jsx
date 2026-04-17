@@ -90,10 +90,10 @@ const MyApplications = () => {
             animate={{ opacity: 1, y: 0 }}
             className="mb-16 text-center"
         >
-          <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic">
-            My <span className="text-primary italic">Applications</span>
+          <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic italic-safe">
+            My <span className="text-primary italic italic-safe">Applications</span>
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-bold mt-2 uppercase tracking-[0.3em] text-[10px]">
+          <p className="text-slate-500 dark:text-slate-400 font-bold mt-2 uppercase tracking-[0.3em] text-[10px] italic italic-safe">
             {user?.role === "Employer" ? "Manage Your Hiring Process" : "Your Local Job Journey"}
           </p>
         </motion.div>
@@ -107,8 +107,8 @@ const MyApplications = () => {
             <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-300 dark:text-slate-600">
                 <span className="material-symbols-outlined text-4xl">inbox</span>
             </div>
-            <p className="text-xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic mb-2">The Pipeline is Empty</p>
-            <p className="text-slate-500 font-bold text-xs uppercase tracking-widest">No active applications found at this time.</p>
+            <p className="text-xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic italic-safe mb-2">No Applications Yet</p>
+            <p className="text-slate-500 font-bold text-xs uppercase tracking-widest">Start exploring your neighborhood and apply for roles today!</p>
           </motion.div>
         ) : (
           <div className="grid grid-cols-1 gap-8">
@@ -130,7 +130,7 @@ const MyApplications = () => {
                           {element.name.charAt(0)}
                         </div>
                         <div className="space-y-1">
-                          <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-none italic">{element.name}</h3>
+                          <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-none italic italic-safe">{element.name}</h3>
                           <p className="text-slate-500 font-bold text-xs uppercase tracking-widest">{element.email}</p>
                         </div>
                       </div>
@@ -159,7 +159,7 @@ const MyApplications = () => {
 
                     <div className="space-y-4">
                       <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Professional Pitch</label>
-                      <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed p-6 bg-slate-50 dark:bg-slate-950 rounded-[2rem] border border-slate-100 dark:border-slate-800 italic font-medium">
+                      <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed p-6 bg-slate-50 dark:bg-slate-950 rounded-[2rem] border border-slate-100 dark:border-slate-800 italic italic-safe font-medium">
                         "{element.coverLetter}"
                       </p>
                     </div>

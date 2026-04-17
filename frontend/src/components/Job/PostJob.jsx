@@ -148,8 +148,8 @@ const PostJob = () => {
             <span className="h-0.5 w-16 bg-primary rounded-full" />
             <p className="text-primary font-black uppercase tracking-[0.4em] text-[10px]">Employer Studio</p>
           </div>
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic leading-none px-2">
-            Post <span className="text-primary italic">a New Vacancy</span>
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic italic-safe leading-none px-2">
+            Post <span className="text-primary italic italic-safe">a New Vacancy</span>
           </h1>
         </motion.div>
 
@@ -362,7 +362,7 @@ const PostJob = () => {
                     <span className="material-symbols-outlined text-primary text-2xl font-bold">distance</span>
                 </div>
                 <div>
-                    <h3 className="font-black text-xl tracking-tight leading-none italic uppercase">Geotagging</h3>
+                    <h3 className="font-black text-xl tracking-tight leading-none italic italic-safe uppercase">Geotagging</h3>
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Hyperlocal Precision</p>
                 </div>
               </div>
@@ -425,8 +425,8 @@ const PostJob = () => {
                 <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center mb-10 shadow-lg shadow-primary/30">
                     <span className="material-symbols-outlined text-white text-2xl font-bold">auto_awesome</span>
                 </div>
-                <h4 className="font-black text-2xl mb-4 uppercase italic tracking-tight leading-none">Smart Dispatch</h4>
-                <p className="text-sm font-medium text-slate-400 leading-relaxed italic border-l-2 border-primary pl-4">"Our matching engine will instantly reveal your role to high-intent candidates within 10km of your tagged location."</p>
+                <h4 className="font-black text-2xl mb-4 uppercase italic italic-safe tracking-tight leading-none">Smart Dispatch</h4>
+                <p className="text-sm font-medium text-slate-400 leading-relaxed italic italic-safe border-l-2 border-primary pl-4">"Our matching engine will instantly reveal your role to high-intent candidates within 10km of your tagged location."</p>
               </div>
               <span className="material-symbols-outlined absolute -right-10 -bottom-10 text-white/5 text-[15rem] rotate-12 transition-transform group-hover:scale-110 group-hover:rotate-0 duration-700">radar</span>
             </div>

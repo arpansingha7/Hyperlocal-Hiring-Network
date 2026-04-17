@@ -90,7 +90,7 @@ const PopularCategories = () => {
           <div className="inline-block px-4 py-2 mb-6 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-[10px] uppercase tracking-[0.4em]">
             Hiring Hotspots
           </div>
-          <h3 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter leading-none mb-4">
+          <h3 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white uppercase italic italic-safe tracking-tighter leading-none mb-4">
              Top Job <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-orange-400 inline-block">Hubs</span>
           </h3>
         </motion.div>
@@ -110,7 +110,7 @@ const PopularCategories = () => {
                 {category.icon}
               </div>
               <div className="space-y-3">
-                <h4 className="text-xl font-black text-slate-900 dark:text-white uppercase italic tracking-tight">{category.title}</h4>
+                <h4 className="text-xl font-black text-slate-900 dark:text-white uppercase italic italic-safe tracking-tight">{category.title}</h4>
                 <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest border-t border-slate-100 dark:border-slate-800 pt-4">{category.subTitle}</p>
               </div>
             </motion.div>

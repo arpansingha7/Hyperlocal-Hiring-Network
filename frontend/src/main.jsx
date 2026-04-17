@@ -9,6 +9,8 @@ const isDevelopment = window.location.hostname === "localhost" || window.locatio
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || (isDevelopment ? "http://localhost:4000" : `${window.location.origin}/_/backend`);
 axios.defaults.withCredentials = true;
 
+import { HelmetProvider } from "react-helmet-async";
+
 export const Context = createContext({
   isAuthorized: false,
 });
@@ -18,16 +20,18 @@ const AppWrapper = () => {
   const [user, setUser] = useState({});
 
   return (
-    <Context.Provider
-      value={{
-        isAuthorized,
-        setIsAuthorized,
-        user,
-        setUser,
-      }}
-    >
-      <App />
-    </Context.Provider>
+    <HelmetProvider>
+      <Context.Provider
+        value={{
+          isAuthorized,
+          setIsAuthorized,
+          user,
+          setUser,
+        }}
+      >
+        <App />
+      </Context.Provider>
+    </HelmetProvider>
   );
 };
 

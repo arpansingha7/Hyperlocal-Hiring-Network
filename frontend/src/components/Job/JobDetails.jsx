@@ -110,7 +110,7 @@ const JobDetails = () => {
                         Posted {new Date(job.jobPostedOn).toLocaleDateString()}
                     </span>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tighter leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tighter leading-tight italic-safe">
                     {job.title}
                 </h1>
                 <div className="flex items-center gap-2 text-slate-500 font-bold uppercase tracking-widest text-xs">
@@ -139,7 +139,7 @@ const JobDetails = () => {
                         <span className="material-symbols-outlined text-white text-2xl">near_me</span>
                     </div>
                     <div>
-                        <h4 className="text-blue-900 dark:text-blue-100 font-black text-xl italic tracking-tight">Hyperlocal Match Found!</h4>
+                        <h4 className="text-blue-900 dark:text-blue-100 font-black text-xl italic italic-safe tracking-tight">Hyperlocal Match Found!</h4>
                         <p className="text-blue-600 dark:text-blue-400 text-sm font-bold uppercase tracking-widest opacity-80">Only {distanceKm} km from your door</p>
                     </div>
                   </div>
@@ -186,7 +186,7 @@ const JobDetails = () => {
             className="glass-card p-10 sm:p-14"
         >
           <div className="flex items-center justify-between mb-12">
-            <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-3 uppercase italic">
+            <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-3 uppercase italic italic-safe">
                 <span className="w-8 h-1 bg-primary rounded-full" />
                 Employer Trust & Ratings
             </h3>
@@ -215,7 +215,7 @@ const JobDetails = () => {
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-sm font-black text-slate-900 dark:text-white">{rev.reviewerId?.name}</span>
-                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">{rev.reviewerId?.role}</span>
+                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic italic-safe">{rev.reviewerId?.role}</span>
                             </div>
                         </div>
                         <div className="flex items-center text-yellow-400 gap-0.5">
@@ -229,7 +229,7 @@ const JobDetails = () => {
               </motion.div>
             )) : (
               <div className="col-span-full py-10 text-center opacity-50">
-                <p className="text-slate-500 font-bold italic">No reviews for this employer yet. Be the first!</p>
+                <p className="text-slate-500 font-bold italic italic-safe text-sm">No reviews for this employer yet. Be the first!</p>
               </div>
             )}
           </div>
@@ -245,11 +245,11 @@ const JobDetails = () => {
                     onChange={e => setRating(Number(e.target.value))}
                     className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 font-black text-xs uppercase tracking-widest focus:border-primary outline-none transition-all cursor-pointer shadow-inner"
                   >
-                    <option value={5}>5 - Extraordinary</option>
+                    <option value={5}>5 - Exceptional Service</option>
                     <option value={4}>4 - Professional</option>
                     <option value={3}>3 - Satisfactory</option>
-                    <option value={2}>2 - Underwhelming</option>
-                    <option value={1}>1 - Disruptive</option>
+                    <option value={2}>2 - Poor Experience</option>
+                    <option value={1}>1 - Unreliable</option>
                   </select>
                 </div>
                 <div className="md:col-span-2 flex flex-col sm:flex-row gap-4">

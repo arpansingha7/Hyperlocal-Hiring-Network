@@ -23,11 +23,11 @@ const NotFound = () => {
           <span className="material-symbols-outlined text-[5rem] font-bold">explore_off</span>
         </motion.div>
 
-        <h1 className="text-9xl font-black text-slate-900 dark:text-white tracking-tighter mb-4 italic uppercase opacity-10 leading-none">
+        <h1 className="text-9xl font-black text-slate-900 dark:text-white tracking-tighter mb-4 italic italic-safe uppercase opacity-10 leading-none">
           404
         </h1>
         
-        <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white mb-6 uppercase italic tracking-tighter leading-tight">
+        <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white mb-6 uppercase italic italic-safe tracking-tighter leading-tight">
           Neighborhood <span className="text-primary">Not Found</span>
         </h2>
         

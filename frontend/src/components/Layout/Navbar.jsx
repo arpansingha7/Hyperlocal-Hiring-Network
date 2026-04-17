@@ -85,8 +85,8 @@ const Navbar = () => {
             <div className="w-11 h-11 bg-primary rounded-2xl flex items-center justify-center shadow-lg shadow-primary/30 transition-transform group-hover:rotate-12 group-hover:scale-110">
               <span className="material-symbols-outlined text-white text-2xl font-bold">work</span>
             </div>
-            <h2 className="text-xl font-black tracking-tighter uppercase italic text-slate-900 dark:text-white hidden sm:block">
-              Hyperlocal <span className="text-primary italic">Hiring</span> Network
+            <h2 className="text-xl font-black tracking-tighter uppercase italic italic-safe text-slate-900 dark:text-white hidden sm:block">
+              Hyperlocal <span className="text-primary italic italic-safe">Hiring</span> Network
             </h2>
           </Link>
 
@@ -107,7 +107,8 @@ const Navbar = () => {
         <div className="flex items-center gap-4 sm:gap-6">
           {/* Language Switcher */}
           <div className="hidden md:flex items-center gap-1 bg-slate-100/50 dark:bg-slate-800/80 p-1.5 rounded-2xl shadow-inner border border-slate-200/20 dark:border-white/5 backdrop-blur-md">
-            {['en', 'hi', 'gu'].map((lng) => {
+            {['en', 'hi', 'gu'].map((lng, index) => {
+              const labels = ['English', 'हिंदी', 'ગુજરાતી'];
               const currentLng = i18n.language.split('-')[0];
               return (
                 <button
@@ -119,7 +120,7 @@ const Navbar = () => {
                     : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
                   }`}
                 >
-                  {lng}
+                  {labels[index]}
                 </button>
               );
             })}

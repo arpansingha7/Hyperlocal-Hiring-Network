@@ -50,9 +50,9 @@ const HowItWorks = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-6 uppercase italic tracking-tighter leading-none"
+            className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-6 uppercase italic italic-safe tracking-tighter leading-none"
           >
-             How <span className="text-primary italic inline-block">HHN</span> Works
+             How <span className="text-primary italic italic-safe inline-block">HHN</span> Works
           </motion.h3>
           <motion.p 
             initial={{ opacity: 0 }}
@@ -79,7 +79,7 @@ const HowItWorks = () => {
                 {element.icon}
               </div>
               <p className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4">{element.subTitle}</p>
-              <h4 className="text-3xl font-black text-slate-900 dark:text-white mb-6 uppercase italic tracking-tight">{element.title}</h4>
+              <h4 className="text-3xl font-black text-slate-900 dark:text-white mb-6 uppercase italic italic-safe tracking-tight">{element.title}</h4>
               <p className="text-slate-500 dark:text-slate-400 font-bold text-sm leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-6">
                 {element.description}
               </p>
