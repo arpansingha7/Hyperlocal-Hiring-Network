@@ -15,7 +15,7 @@ const Register = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const { isAuthorized, setIsAuthorized } = useContext(Context);
+  const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
 
   const startVoiceSetup = () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -83,6 +83,7 @@ const Register = () => {
         }
       );
       toast.success(data.message);
+      setUser(data.user);
       setIsAuthorized(true);
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");

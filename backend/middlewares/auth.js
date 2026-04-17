@@ -25,6 +25,20 @@ export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
+export const isAuthorized = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new ErrorHandler(
+          `${req.user.role} not allowed to access this resource.`,
+          403
+        )
+      );
+    }
+    next();
+  };
+};
+
 export const isAdmin = catchAsyncErrors(async (req, res, next) => {
   if (req.user.role !== "Admin") {
     return next(new ErrorHandler("Access Denied: Admins Only", 403));

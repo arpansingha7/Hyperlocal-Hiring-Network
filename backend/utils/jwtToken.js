@@ -7,8 +7,8 @@ export const sendToken = (user, statusCode, res, message) => {
       Date.now() + cookieExpireDays * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? "none" : "lax",
+    secure: true, // Always true for Vercel https
+    sameSite: "none",
     path: "/",
   };
 

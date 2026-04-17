@@ -16,7 +16,7 @@ const Login = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { isAuthorized, setIsAuthorized } = useContext(Context);
+  const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
 
   const handlePasswordLogin = async (e) => {
     e.preventDefault();
@@ -31,6 +31,7 @@ const Login = () => {
         }
       );
       toast.success(data.message);
+      setUser(data.user);
       setIsAuthorized(true);
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
@@ -69,6 +70,7 @@ const Login = () => {
         { withCredentials: true }
       );
       toast.success(data.message);
+      setUser(data.user);
       setIsAuthorized(true);
     } catch (error) {
       toast.error(error.response?.data?.message || "Invalid OTP");

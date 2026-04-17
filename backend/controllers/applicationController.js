@@ -103,6 +103,12 @@ export const jobseekerDeleteApplication = catchAsyncErrors(
     if (!application) {
       return next(new ErrorHandler("Application not found!", 404));
     }
+
+    // Ownership Check: Ensure the applicant is the one deleting their own application
+    if (application.applicantID.user.toString() !== req.user._id.toString()) {
+      return next(new ErrorHandler("Unauthorized: You can only delete your own applications.", 403));
+    }
+
     await application.deleteOne();
     res.status(200).json({
       success: true,
@@ -162,6 +168,11 @@ export const updateApplicationStatus = catchAsyncErrors(async (req, res, next) =
   let application = await Application.findById(id);
   if (!application) {
     return next(new ErrorHandler("Application not found!", 404));
+  }
+
+  // Ownership Check: Ensure the employer is the owner of the job being applied for
+  if (application.employerID.user.toString() !== req.user._id.toString()) {
+    return next(new ErrorHandler("Unauthorized: You can only manage applications for your own job listings.", 403));
   }
 
   application.status = status;

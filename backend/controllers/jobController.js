@@ -96,6 +96,12 @@ export const updateJob = catchAsyncErrors(async (req, res, next) => {
   if (!job) {
     return next(new ErrorHandler("OOPS! Job not found.", 404));
   }
+  
+  // Ownership Check: Ensure only the employer who posted the job can update it
+  if (job.postedBy.toString() !== req.user._id.toString()) {
+    return next(new ErrorHandler("Unauthorized: You cannot update someone else's job listing.", 403));
+  }
+
   job = await Job.findByIdAndUpdate(id, req.body, {
     new: true,
     runValidators: true,
@@ -119,6 +125,12 @@ export const deleteJob = catchAsyncErrors(async (req, res, next) => {
   if (!job) {
     return next(new ErrorHandler("OOPS! Job not found.", 404));
   }
+
+  // Ownership Check: Ensure only the employer who posted the job can delete it
+  if (job.postedBy.toString() !== req.user._id.toString()) {
+    return next(new ErrorHandler("Unauthorized: You cannot delete someone else's job listing.", 403));
+  }
+
   await job.deleteOne();
   res.status(200).json({
     success: true,
