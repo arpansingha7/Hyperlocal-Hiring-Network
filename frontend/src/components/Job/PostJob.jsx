@@ -19,8 +19,21 @@ L.Marker.prototype.options.icon = DefaultIcon;
 // Helper to center map
 function ChangeView({ center, zoom }) {
   const map = useMap();
-  map.setView(center, zoom);
+  useEffect(() => {
+    map.setView(center, zoom);
+  }, [center, zoom, map]);
   return null;
+}
+
+// Helper to fix Leaflet map size issues inside hidden/animated containers
+function MapRefresher() {
+    const map = useMap();
+    useEffect(() => {
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 100);
+    }, [map]);
+    return null;
 }
 
 function LocationMarker({ lat, lng, setLat, setLng }) {
@@ -366,6 +379,7 @@ const PostJob = () => {
                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                     <LocationMarker lat={lat} lng={lng} setLat={setLat} setLng={setLng} />
                     <ChangeView center={mapCenter} zoom={12} />
+                    <MapRefresher />
                   </MapContainer>
                   
                   <AnimatePresence>

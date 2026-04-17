@@ -125,7 +125,7 @@ const Application = () => {
                   <div className="space-y-4">
                     <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] block">Direct Phone</label>
                     <input
-                      type="number"
+                      type="text"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+91 00000 00000"

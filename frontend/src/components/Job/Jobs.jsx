@@ -16,6 +16,17 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
+// Helper to fix Leaflet map size issues inside hidden/animated containers
+function MapRefresher() {
+    const map = useMap();
+    useEffect(() => {
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 100);
+    }, [map]);
+    return null;
+}
+
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -125,6 +136,7 @@ const Jobs = () => {
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+                <MapRefresher />
                 {jobs.map(job => (
                   job.locationPoint?.coordinates?.length === 2 ? (
                     <Marker key={job._id} position={[job.locationPoint.coordinates[1], job.locationPoint.coordinates[0]]}>

@@ -50,6 +50,11 @@
     h1, h2, h3, h4, h5, h6 {
         font-family: 'Outfit', sans-serif;
         @apply tracking-tighter leading-[1.1] font-black uppercase italic;
+        padding-right: 0.15em; /* Critical: Prevents italic character clipping globally */
+    }
+
+    i, .italic {
+        padding-right: 0.1em; /* Prevents clipping for inline italics */
     }
     
     p {
@@ -58,6 +63,8 @@
 }
 
 @layer components {
+    /* Selection State moved to base for cleaner hierarchy if needed, but keeping it simple here */
+    
     .glass {
         @apply bg-white/70 dark:bg-slate-900/80 backdrop-blur-2xl border border-white/20 dark:border-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)];
     }
@@ -85,6 +92,7 @@
 
     .section-title {
         @apply text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-10 tracking-tighter uppercase italic leading-[0.9];
+        padding-right: 0.2em;
     }
 
     .desi-heading {
@@ -96,17 +104,22 @@
     }
 }
 
-/* Custom Scrollbar */
+/* Premium Scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    @apply bg-transparent;
+    @apply bg-slate-50 dark:bg-slate-900;
 }
 
 ::-webkit-scrollbar-thumb {
-    @apply bg-slate-200 dark:bg-slate-800 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors;
+    @apply bg-slate-300 dark:bg-slate-700 rounded-full transition-all;
+    background-image: linear-gradient(to bottom, transparent, hsl(var(--primary) / 0.5), transparent);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary;
 }
 
 /* Animations */

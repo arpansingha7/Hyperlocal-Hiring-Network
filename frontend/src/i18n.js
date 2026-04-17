@@ -11,7 +11,8 @@ const resources = {
             "Logout": "Logout",
             "Post New Job": "Post New Job",
             "View Your Jobs": "View Your Jobs",
-            "My Applications": "My Applications"
+            "My Applications": "My Applications",
+            "Applicant's Applications": "Applicant's Applications"
         }
     },
     hi: {
@@ -23,7 +24,8 @@ const resources = {
             "Logout": "लॉग आउट",
             "Post New Job": "नई नौकरी पोस्ट करें",
             "View Your Jobs": "अपनी नौकरियां देखें",
-            "My Applications": "मेरे आवेदन"
+            "My Applications": "मेरे आवेदन",
+            "Applicant's Applications": "आवेदक के आवेदन"
         }
     },
     gu: {
@@ -35,7 +37,8 @@ const resources = {
             "Logout": "લૉગઆઉટ",
             "Post New Job": "નવી નોકરી પોસ્ટ કરો",
             "View Your Jobs": "તમારી નોકરીઓ જુઓ",
-            "My Applications": "મારી અરજીઓ"
+            "My Applications": "મારી અરજીઓ",
+            "Applicant's Applications": "આરજી કરનારના અરજીઓ"
         }
     }
 };
