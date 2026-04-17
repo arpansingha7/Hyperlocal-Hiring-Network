@@ -67,22 +67,22 @@ const Navbar = () => {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 py-4 ${
+      className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-700 ${
         isScrolled 
-        ? "px-4 sm:px-6 lg:px-8" 
-        : "px-0"
+        ? "py-4 px-4 sm:px-6 lg:px-8" 
+        : "py-6 px-0"
       }`}
     >
       <div 
-        className={`mx-auto flex h-20 max-w-7xl items-center justify-between px-8 transition-all duration-500 ${
+        className={`mx-auto flex h-20 max-w-7xl items-center justify-between px-8 transition-all duration-700 ${
           isScrolled 
-          ? "glass rounded-[2rem] shadow-2xl shadow-primary/5 border border-white/20 dark:border-white/10" 
+          ? "glass rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/20 dark:border-white/10" 
           : "bg-transparent border-b border-transparent"
         }`}
       >
         <div className="flex items-center gap-12">
           <Link to="/" className="flex items-center gap-3 group transition-transform hover:scale-105 active:scale-95">
-            <div className="w-11 h-11 bg-primary rounded-2xl flex items-center justify-center shadow-lg shadow-primary/30 transition-transform group-hover:rotate-12">
+            <div className="w-11 h-11 bg-primary rounded-2xl flex items-center justify-center shadow-lg shadow-primary/30 transition-transform group-hover:rotate-12 group-hover:scale-110">
               <span className="material-symbols-outlined text-white text-2xl font-bold">work</span>
             </div>
             <h2 className="text-xl font-black tracking-tighter uppercase italic text-slate-900 dark:text-white hidden sm:block">
@@ -164,9 +164,9 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Progress Bar */}
+      {/* Progress Bar - Fixed to absolute top */}
       <motion.div 
-        className="h-1 bg-primary origin-left"
+        className="fixed top-0 left-0 right-0 h-[3px] bg-primary origin-left z-[70] shadow-[0_0_10px_#ef6c00]"
         style={{ scaleX: scrollYProgress }}
       />
 
