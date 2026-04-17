@@ -33,6 +33,17 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
   if (!name || !email || !coverLetter || !phone || !address) {
     return next(new ErrorHandler("Please fill all fields.", 400));
   }
+
+  // Duplicate Application Prevention (One-Tap constraint)
+  const existingApplication = await Application.findOne({
+    "applicantID.user": req.user._id,
+    jobId: jobId
+  });
+
+  if (existingApplication) {
+    return next(new ErrorHandler("You have already applied for this job.", 400));
+  }
+
   const application = await Application.create({
     name,
     email,
@@ -41,6 +52,7 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
     address,
     applicantID,
     employerID,
+    jobId,
   });
 
   // Emit live socket.io notification to the employer

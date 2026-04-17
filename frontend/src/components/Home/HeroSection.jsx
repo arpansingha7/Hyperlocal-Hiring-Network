@@ -44,39 +44,39 @@ const HeroSection = () => {
   ];
 
   const seekerCTAs = (
-    <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
-      <Link to="/job/getall" className="w-full sm:w-auto px-14 py-7 bg-primary text-white rounded-[2.5rem] font-black text-sm uppercase tracking-widest shadow-2xl shadow-primary/40 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3">
-          <span className="material-symbols-outlined">my_location</span>
+    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 w-full px-4 sm:px-0">
+      <Link to="/job/getall" className="w-full sm:w-auto px-8 py-5 sm:px-14 sm:py-7 bg-primary text-white rounded-[2rem] sm:rounded-[2.5rem] font-black text-xs sm:text-sm uppercase tracking-widest shadow-2xl shadow-primary/40 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 sm:gap-3">
+          <span className="material-symbols-outlined text-lg sm:text-xl">my_location</span>
           {t("Explore Near Me")}
       </Link>
-      <Link to="/applications/me" className="w-full sm:w-auto px-14 py-7 glass-card border-none dark:bg-slate-800/50 text-slate-900 dark:text-white rounded-[2.5rem] font-black text-sm uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 flex items-center justify-center gap-3">
-          <span className="material-symbols-outlined">work_history</span>
+      <Link to="/applications/me" className="w-full sm:w-auto px-8 py-5 sm:px-14 sm:py-7 glass-card border-none dark:bg-slate-800/50 text-slate-900 dark:text-white rounded-[2rem] sm:rounded-[2.5rem] font-black text-xs sm:text-sm uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 flex items-center justify-center gap-2 sm:gap-3">
+          <span className="material-symbols-outlined text-lg sm:text-xl">work_history</span>
           {t("My Applications")}
       </Link>
     </div>
   );
 
   const employerCTAs = (
-    <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
-      <Link to="/job/post" className="w-full sm:w-auto px-14 py-7 bg-primary text-white rounded-[2.5rem] font-black text-sm uppercase tracking-widest shadow-2xl shadow-primary/40 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3">
-          <span className="material-symbols-outlined">add_circle</span>
+    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 w-full px-4 sm:px-0">
+      <Link to="/job/post" className="w-full sm:w-auto px-8 py-5 sm:px-14 sm:py-7 bg-primary text-white rounded-[2rem] sm:rounded-[2.5rem] font-black text-xs sm:text-sm uppercase tracking-widest shadow-2xl shadow-primary/40 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 sm:gap-3">
+          <span className="material-symbols-outlined text-lg sm:text-xl">add_circle</span>
           {t("Post a Vacancy")}
       </Link>
-      <Link to="/applications/me" className="w-full sm:w-auto px-14 py-7 glass-card border-none dark:bg-slate-800/50 text-slate-900 dark:text-white rounded-[2.5rem] font-black text-sm uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 flex items-center justify-center gap-3">
-          <span className="material-symbols-outlined">group</span>
+      <Link to="/applications/me" className="w-full sm:w-auto px-8 py-5 sm:px-14 sm:py-7 glass-card border-none dark:bg-slate-800/50 text-slate-900 dark:text-white rounded-[2rem] sm:rounded-[2.5rem] font-black text-xs sm:text-sm uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 flex items-center justify-center gap-2 sm:gap-3">
+          <span className="material-symbols-outlined text-lg sm:text-xl">group</span>
           {t("Manage Applicants")}
       </Link>
     </div>
   );
 
   const guestCTAs = (
-    <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
-      <Link to="/job/getall" className="w-full sm:w-auto px-14 py-7 bg-primary text-white rounded-[2.5rem] font-black text-sm uppercase tracking-widest shadow-2xl shadow-primary/40 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3">
-          <span className="material-symbols-outlined">explore</span>
+    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 w-full px-4 sm:px-0">
+      <Link to="/job/getall" className="w-full sm:w-auto px-8 py-5 sm:px-14 sm:py-7 bg-primary text-white rounded-[2rem] sm:rounded-[2.5rem] font-black text-xs sm:text-sm uppercase tracking-widest shadow-2xl shadow-primary/40 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 sm:gap-3">
+          <span className="material-symbols-outlined text-lg sm:text-xl">explore</span>
           {t("Explore All Roles")}
       </Link>
-      <Link to="/register" className="w-full sm:w-auto px-14 py-7 glass-card border-none dark:bg-slate-800/50 text-slate-900 dark:text-white rounded-[2.5rem] font-black text-sm uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 flex items-center justify-center gap-3">
-          <span className="material-symbols-outlined">person_add</span>
+      <Link to="/register" className="w-full sm:w-auto px-8 py-5 sm:px-14 sm:py-7 glass-card border-none dark:bg-slate-800/50 text-slate-900 dark:text-white rounded-[2rem] sm:rounded-[2.5rem] font-black text-xs sm:text-sm uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 flex items-center justify-center gap-2 sm:gap-3">
+          <span className="material-symbols-outlined text-lg sm:text-xl">person_add</span>
           {t("Join the Network")}
       </Link>
     </div>
@@ -109,7 +109,7 @@ const HeroSection = () => {
           <motion.div 
             animate={{ y: [0, -15, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="hidden xl:flex absolute -left-28 top-20 items-center gap-4 glass-card-premium !p-5 rotate-[-8deg] shadow-2xl"
+            className="hidden lg:flex absolute -left-4 lg:-left-20 xl:-left-28 top-20 items-center gap-4 glass-card-premium !p-5 rotate-[-8deg] shadow-2xl scale-75 lg:scale-90 xl:scale-100 origin-bottom-right"
           >
             <div className="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center">
                 <span className="material-symbols-outlined text-emerald-500 text-2xl">verified</span>
@@ -124,7 +124,7 @@ const HeroSection = () => {
           <motion.div 
             animate={{ y: [0, 15, 0] }}
             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="hidden xl:flex absolute -right-28 bottom-20 items-center gap-4 glass-card-premium !p-5 rotate-[10deg] shadow-2xl"
+            className="hidden lg:flex absolute -right-4 lg:-right-20 xl:-right-28 bottom-20 items-center gap-4 glass-card-premium !p-5 rotate-[10deg] shadow-2xl scale-75 lg:scale-90 xl:scale-100 origin-bottom-left"
           >
             <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center">
                 <span className="material-symbols-outlined text-primary text-2xl font-bold">distance</span>
@@ -139,7 +139,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="inline-flex items-center gap-3 px-8 py-3 mb-12 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black text-[10px] uppercase tracking-[0.4em] shadow-xl"
+            className="inline-flex items-center gap-3 px-6 py-2.5 sm:px-8 sm:py-3 mb-8 sm:mb-12 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black text-[8px] sm:text-[10px] uppercase tracking-[0.4em] shadow-xl"
           >
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -148,14 +148,14 @@ const HeroSection = () => {
             {t("Direct Neighborhood Matching")}
           </motion.div>
           
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black text-slate-900 dark:text-white leading-[0.9] mb-12 tracking-tight uppercase italic italic-safe">
-            Connecting <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-rose-600 dark:from-primary dark:via-orange-400 dark:to-rose-400 pb-2 inline-block italic italic-safe">
+          <h1 className="text-4xl xs:text-5xl sm:text-7xl md:text-8xl lg:text-[6rem] xl:text-[7.5rem] font-black text-slate-900 dark:text-white leading-[0.9] mb-8 sm:mb-12 tracking-tight uppercase italic italic-safe px-2 sm:px-0">
+            Connecting <br className="hidden sm:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-rose-600 dark:from-primary dark:via-orange-400 dark:to-rose-400 pb-2 inline-block italic italic-safe mt-2 sm:mt-0">
                 Local Workers
             </span>
           </h1>
           
-          <p className="text-lg md:text-xl text-slate-500 dark:text-slate-400 font-bold max-w-2xl mx-auto leading-relaxed mb-16">
+          <p className="text-base sm:text-lg md:text-xl text-slate-500 dark:text-slate-400 font-bold max-w-2xl mx-auto leading-relaxed mb-12 sm:mb-16 px-4">
             The bridge between neighborhood shops and skilled workers. Find jobs, hire locals, and grow together in your own area.
           </p>
 

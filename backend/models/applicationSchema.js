@@ -57,9 +57,14 @@ const applicationSchema = new mongoose.Schema({
       required: true,
     },
   },
+  jobId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Job",
+    required: true,
+  },
   status: {
     type: String,
-    enum: ["Pending", "Accepted", "Rejected"],
+    enum: ["Pending", "Accepted", "Rejected", "Shortlisted"],
     default: "Pending",
   },
 });

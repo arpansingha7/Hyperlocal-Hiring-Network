@@ -157,17 +157,26 @@ export const getSingleJob = catchAsyncErrors(async (req, res, next) => {
 export const getJobsWithinRadius = catchAsyncErrors(async (req, res, next) => {
   const { radius, lat, lng } = req.params;
 
-  // Calculate radius using radians. Earth Radius = 6,378 km
-  const radiusInRadians = radius / 6378;
+  const radiusInMeters = Number(radius) * 1000;
+  const latitude = Number(lat);
+  const longitude = Number(lng);
+
+  if (isNaN(latitude) || isNaN(longitude) || isNaN(radiusInMeters)) {
+    return next(new ErrorHandler("Invalid coordinates or radius parameter.", 400));
+  }
 
   const jobs = await Job.find({
     locationPoint: {
-      $geoWithin: {
-        $centerSphere: [[lng, lat], radiusInRadians]
+      $near: {
+        $geometry: {
+          type: "Point",
+          coordinates: [longitude, latitude]
+        },
+        $maxDistance: radiusInMeters
       }
     },
     expired: false
-  }).sort({ jobPostedOn: -1 });
+  }); // Notes: $near automatically sorts results by shortest distance first
 
   res.status(200).json({
     success: true,

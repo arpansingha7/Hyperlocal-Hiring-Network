@@ -119,26 +119,26 @@ const Jobs = () => {
         <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16"
+            className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12 lg:mb-16"
         >
-          <div>
-            <div className="flex items-center gap-4 mb-4">
+          <div className="w-full lg:w-auto text-center lg:text-left">
+            <div className="flex items-center justify-center lg:justify-start gap-4 mb-4">
                 <span className="h-0.5 w-16 bg-primary rounded-full" />
                 <p className="text-primary font-black uppercase tracking-[0.4em] text-[10px]">Marketplace Discovery</p>
             </div>
-            <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic italic-safe leading-none">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic italic-safe leading-none">
                 Active <span className="text-primary italic italic-safe">Vacancies</span>
             </h1>
           </div>
           
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center lg:justify-end gap-3 sm:gap-4 w-full lg:w-auto">
             {/* Radius Selector */}
-            <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50 p-1.5 pl-5 rounded-[2rem] border border-slate-100 dark:border-white/5">
-                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Radius</span>
+            <div className="flex items-center justify-between sm:justify-start gap-3 bg-slate-50 dark:bg-slate-800/50 p-1.5 pl-5 rounded-[2rem] border border-slate-100 dark:border-white/5 w-full sm:w-auto shrink-0">
+                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest min-w-max">Radius</span>
                 <select 
                     value={radius} 
                     onChange={(e) => setRadius(Number(e.target.value))}
-                    className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-[10px] font-black px-4 py-2.5 rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 appearance-none cursor-pointer border-none"
+                    className="w-full sm:w-auto bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-[10px] font-black px-4 py-3 sm:py-2.5 rounded-[1.5rem] outline-none focus:ring-2 focus:ring-primary/20 appearance-none cursor-pointer border-none text-center sm:text-left"
                 >
                     {[5, 10, 20, 50, 100].map(r => (
                         <option key={r} value={r}>{r} KM</option>
@@ -148,29 +148,29 @@ const Jobs = () => {
 
             <button 
                 onClick={fetchJobsNearMe} 
-                className={`group flex items-center gap-3 px-8 py-4 bg-primary text-white rounded-[2rem] text-[10px] font-black uppercase tracking-widest shadow-2xl shadow-primary/20 hover:scale-105 transition-all active:scale-95 ${isLocating ? 'opacity-70 pointer-events-none' : ''}`}
+                className={`w-full sm:w-auto justify-center group flex items-center gap-3 px-6 sm:px-8 py-4 bg-primary text-white rounded-[2rem] text-[10px] font-black uppercase tracking-widest shadow-2xl shadow-primary/20 hover:scale-105 transition-all active:scale-95 ${isLocating ? 'opacity-70 pointer-events-none' : ''}`}
             >
               <span className={`material-symbols-outlined text-lg ${isLocating ? 'animate-spin' : 'transition-transform group-hover:scale-110'}`}>
                 {isLocating ? 'refresh' : 'my_location'}
               </span> 
-              {isLocating ? 'Scanning Neighbors...' : 'Explore Near Me'}
+              <span className="whitespace-nowrap">{isLocating ? 'Scanning Neighbors...' : 'Explore Near Me'}</span>
             </button>
 
             <button 
                 onClick={() => setMapView(!mapView)} 
-                className="flex items-center gap-3 px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-100 dark:border-slate-800 rounded-[2rem] text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-700 transition-all active:scale-95"
+                className="w-full sm:w-auto justify-center flex items-center gap-3 px-6 sm:px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-100 dark:border-slate-800 rounded-[2rem] text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-700 transition-all active:scale-95 shrink-0"
             >
               <span className="material-symbols-outlined text-lg">{mapView ? "grid_view" : "map"}</span> 
-              {mapView ? "List View" : "Map View"}
+              <span className="whitespace-nowrap">{mapView ? "List View" : "Map View"}</span>
             </button>
 
             {userLocation && (
                 <button 
                     onClick={() => { setUserLocation(null); fetchJobs(); }}
-                    className="flex items-center gap-2 group px-6 py-4 bg-rose-50 dark:bg-rose-500/10 text-rose-500 rounded-[2rem] text-[10px] font-black uppercase tracking-widest hover:bg-rose-500 hover:text-white transition-all shadow-xl shadow-rose-500/10"
+                    className="w-full sm:w-auto justify-center flex items-center gap-2 group px-6 py-4 bg-rose-50 dark:bg-rose-500/10 text-rose-500 rounded-[2rem] text-[10px] font-black uppercase tracking-widest hover:bg-rose-500 hover:text-white transition-all shadow-xl shadow-rose-500/10 shrink-0"
                 >
                     <span className="material-symbols-outlined text-lg">close</span>
-                    Reset Systems
+                    <span className="whitespace-nowrap">Reset Systems</span>
                 </button>
             )}
           </div>
@@ -183,7 +183,7 @@ const Jobs = () => {
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.02 }}
-            className="w-full h-[700px] rounded-[3rem] overflow-hidden border border-slate-200/50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-900 shadow-2xl relative z-0"
+            className="w-full h-[450px] md:h-[600px] lg:h-[700px] rounded-[2rem] lg:rounded-[3rem] overflow-hidden border border-slate-200/50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-900 shadow-2xl relative z-0"
           >
              <MapContainer center={userLocation || [20.5937, 78.9629]} zoom={userLocation ? 12 : 5} style={{ height: '100%', width: '100%' }}>
                 <TileLayer
@@ -220,40 +220,40 @@ const Jobs = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="glass-card group p-10 flex flex-col justify-between"
+                className="glass-card group p-6 sm:p-8 lg:p-10 flex flex-col justify-between h-full"
               >
                 <div>
-                    <div className="flex items-start justify-between mb-10">
-                    <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center transition-all group-hover:rotate-12 group-hover:scale-110 shadow-inner">
-                        <span className="material-symbols-outlined text-primary text-3xl font-bold">work</span>
+                    <div className="flex items-start justify-between mb-6 sm:mb-8">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-primary/10 flex items-center justify-center transition-all group-hover:rotate-12 group-hover:scale-110 shadow-inner shrink-0">
+                        <span className="material-symbols-outlined text-primary text-2xl sm:text-3xl font-bold">work</span>
                     </div>
                     <div className="flex flex-col items-end">
-                        <span className="px-4 py-1.5 rounded-full bg-primary text-white text-[8px] font-black uppercase tracking-[0.2em] mb-3">
+                        <span className="px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-primary text-white text-[8px] font-black uppercase tracking-[0.2em] mb-2 sm:mb-3 whitespace-nowrap text-right max-w-[120px] truncate">
                             {element.category}
                         </span>
                         <div className="flex items-center gap-1 text-slate-400">
-                            <span className="material-symbols-outlined text-sm">location_on</span>
-                            <p className="text-[10px] font-bold uppercase tracking-widest">
+                            <span className="material-symbols-outlined text-[10px] sm:text-sm">location_on</span>
+                            <p className="text-[8px] sm:text-[10px] font-bold uppercase tracking-widest text-right">
                                 {element.city}
                             </p>
                         </div>
                     </div>
                     </div>
 
-                    <div className="mb-10">
-                        <h3 className="font-black text-2xl lg:text-3xl text-slate-900 dark:text-white leading-[1.1] mb-4 group-hover:text-primary transition-colors uppercase italic italic-safe tracking-tighter">
+                    <div className="mb-8">
+                        <h3 className="font-black text-xl sm:text-2xl lg:text-3xl text-slate-900 dark:text-white leading-[1.1] mb-3 group-hover:text-primary transition-colors uppercase italic italic-safe tracking-tighter">
                         {element.title}
                         </h3>
-                        <p className="text-sm text-slate-500 dark:text-slate-400 font-bold leading-relaxed line-clamp-3">
+                        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-bold leading-relaxed line-clamp-3">
                         {element.description}
                         </p>
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-10 border-t border-slate-100 dark:border-slate-800/50">
+                <div className="flex items-center justify-between pt-6 sm:pt-8 border-t border-slate-100 dark:border-slate-800/50 mt-auto">
                   <div className="flex flex-col">
-                    <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] mb-1">Monthly Salary</p>
-                    <div className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic italic-safe">
+                    <p className="text-[8px] sm:text-[10px] font-black text-primary uppercase tracking-[0.3em] mb-1">Monthly Salary</p>
+                    <div className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic italic-safe">
                         {element.fixedSalary
                         ? `₹${element.fixedSalary.toLocaleString()}`
                         : `₹${element.salaryFrom.toLocaleString()} - ₹${element.salaryTo.toLocaleString()}`}
@@ -261,9 +261,9 @@ const Jobs = () => {
                   </div>
                   <Link
                     to={`/job/${element._id}`}
-                    className="w-14 h-14 flex items-center justify-center bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl transition-all group-hover:bg-primary group-hover:text-white group-hover:-translate-y-2 shadow-xl active:scale-95"
+                    className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl sm:rounded-2xl transition-all group-hover:bg-primary group-hover:text-white group-hover:-translate-y-1 sm:group-hover:-translate-y-2 shadow-xl active:scale-95 shrink-0 ml-2"
                   >
-                    <span className="material-symbols-outlined font-black">arrow_forward</span>
+                    <span className="material-symbols-outlined font-black text-lg sm:text-xl">arrow_forward</span>
                   </Link>
                 </div>
               </motion.div>
