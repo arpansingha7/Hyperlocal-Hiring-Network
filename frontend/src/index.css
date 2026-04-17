@@ -30,6 +30,10 @@
         --border: 217 33% 17%;
         --input: 217 33% 17%;
         --ring: 20 86% 51%;
+
+        /* Stitch Elite Tokens */
+        --stitch-obsidian: 222 47% 4%;
+        --stitch-gold: 26 100% 50%;
     }
 
     html {
