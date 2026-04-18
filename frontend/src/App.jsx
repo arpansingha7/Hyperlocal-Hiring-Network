@@ -12,6 +12,7 @@ import Footer from "./components/Layout/Footer";
 import Notifications from "./components/Notifications";
 import ScrollToTop from "./components/Layout/ScrollToTop";
 import Loading from "./components/Layout/Loading";
+import ErrorBoundary from "./components/Layout/ErrorBoundary";
 
 // Lazy Loaded Page Components
 const Home = lazy(() => import("./components/Home/Home"));
@@ -65,7 +66,6 @@ const PageWrapper = ({ children }) => (
   </motion.div>
 );
 
-import ErrorBoundary from "./components/Layout/ErrorBoundary";
 
 const App = () => {
   const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);

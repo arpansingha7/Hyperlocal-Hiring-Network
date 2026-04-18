@@ -48,13 +48,13 @@ export const login = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("This account has been suspended by an administrator.", 403));
   }
 
-  sendToken(user, 201, res, "User Logged In Sucessfully !");
+  sendToken(user, 200, res, "User Logged In Sucessfully !");
 });
 
 export const logout = catchAsyncErrors(async (req, res, next) => {
   const isProduction = process.env.NODE_ENV === "production" || !process.env.NODE_ENV;
   res
-    .status(201)
+    .status(200)
     .cookie("token", "", {
       httpOnly: true,
       expires: new Date(Date.now()),

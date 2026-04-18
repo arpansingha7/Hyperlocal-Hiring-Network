@@ -61,7 +61,8 @@ const JobDetails = () => {
           const jobLat = job.locationPoint.coordinates[1];
           const dist = calculateDistance(userLat, userLng, jobLat, jobLng);
           setDistanceKm(dist.toFixed(1));
-        }
+        },
+        () => {} // silently handle denial
       );
     }
   }, [job]);

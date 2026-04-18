@@ -49,7 +49,7 @@ function LocationMarker({ lat, lng, setLat, setLng }) {
 const PostJob = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("Food & Beverage");
+  const [category, setCategory] = useState("Retail & Shops");
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [location, setLocation] = useState("");

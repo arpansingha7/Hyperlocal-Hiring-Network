@@ -160,7 +160,7 @@ const MyApplications = () => {
                     <div className="space-y-4">
                       <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Professional Pitch</label>
                       <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed p-6 bg-slate-50 dark:bg-slate-950 rounded-[2rem] border border-slate-100 dark:border-slate-800 italic italic-safe font-medium">
-                        "{element.coverLetter}"
+                        &ldquo;{element.coverLetter}&rdquo;
                       </p>
                     </div>
 
