@@ -41,6 +41,7 @@ const Navbar = () => {
       const response = await axios.get("/api/v1/user/logout", { withCredentials: true });
       toast.success(response.data.message);
       setIsAuthorized(false);
+      localStorage.removeItem("token");
       navigateTo("/login");
     } catch (error) {
       toast.error(error.response?.data?.message || "Logout failed");

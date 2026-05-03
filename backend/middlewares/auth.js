@@ -4,7 +4,7 @@ import ErrorHandler from "./error.js";
 import jwt from "jsonwebtoken";
 
 export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
-  const { token } = req.cookies;
+  const token = req.cookies?.token || (req.headers.authorization && req.headers.authorization.startsWith("Bearer ") ? req.headers.authorization.split(" ")[1] : null);
   if (!token) {
     // Gracefully handle the initial authentication check to avoid noisy 401 errors in logs
     if (req.originalUrl.includes("/getuser")) {

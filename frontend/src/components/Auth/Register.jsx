@@ -89,6 +89,9 @@ const Register = () => {
       );
       toast.success(data.message);
       setUser(data.user);
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+      }
       
       // Smart state synchronization
       setIsSyncing(true);

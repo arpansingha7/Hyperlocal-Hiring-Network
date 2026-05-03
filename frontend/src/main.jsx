@@ -9,6 +9,16 @@ const isDevelopment = window.location.hostname === "localhost" || window.locatio
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || (isDevelopment ? "http://localhost:4000" : `${window.location.origin}/_/backend`);
 axios.defaults.withCredentials = true;
 
+axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
 import { HelmetProvider } from "react-helmet-async";
 
 export const Context = createContext({
