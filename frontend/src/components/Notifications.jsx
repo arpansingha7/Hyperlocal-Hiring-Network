@@ -15,7 +15,9 @@ const Notifications = () => {
     useEffect(() => {
         if (isAuthorized && user && user._id) {
             const isDevelopment = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-            socket = io(import.meta.env.VITE_API_BASE_URL || (isDevelopment ? "http://localhost:4000" : `${window.location.origin}/_/backend`), {
+            const rawUrl = import.meta.env.VITE_API_BASE_URL || (isDevelopment ? "http://localhost:4000" : `${window.location.origin}/_/backend`);
+            const socketUrl = rawUrl ? rawUrl.replace(/\/api\/v1\/?$/, "").replace(/\/+$/, "") : "";
+            socket = io(socketUrl, {
                 withCredentials: true,
             });
 
@@ -35,6 +37,37 @@ const Notifications = () => {
                                 </div>
                                 <div className="ml-4 flex-1">
                                     <p className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">System Message</p>
+                                    <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400 italic italic-safe">"{data.message}"</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex border-l border-slate-100 dark:border-slate-800">
+                            <button
+                                onClick={() => toast.dismiss(t.id)}
+                                className="w-full border border-transparent rounded-none p-6 flex items-center justify-center text-[10px] font-black uppercase tracking-widest text-primary hover:bg-primary/5 transition-all"
+                            >
+                                Dismiss
+                            </button>
+                        </div>
+                    </div>
+                ), { duration: 5000 });
+
+                setNotifications((prev) => [{ id: Date.now(), text: data.message, time: new Date() }, ...prev]);
+                setUnreadCount((c) => c + 1);
+            });
+
+            socket.on("application_status_update", (data) => {
+                toast.custom((t) => (
+                    <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} max-w-md w-full glass-card p-0 overflow-hidden pointer-events-auto flex shadow-2xl ring-1 ring-primary/20`}>
+                        <div className="flex-1 w-0 p-6">
+                            <div className="flex items-start">
+                                <div className="flex-shrink-0 pt-0.5">
+                                    <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                                        <span className="material-symbols-outlined font-black">check_circle</span>
+                                    </div>
+                                </div>
+                                <div className="ml-4 flex-1">
+                                    <p className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">Status Update</p>
                                     <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400 italic italic-safe">"{data.message}"</p>
                                 </div>
                             </div>

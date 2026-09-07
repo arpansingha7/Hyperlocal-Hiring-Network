@@ -18,16 +18,25 @@ export const getPlatformStats = catchAsyncErrors(async (req, res, next) => {
     const sixMonthsAgo = new Date();
     sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
     
-    const userGrowth = await User.aggregate([
+    const monthNames = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const rawGrowth = await User.aggregate([
         { $match: { createdAt: { $gte: sixMonthsAgo } } },
         {
             $group: {
-                _id: { $month: "$createdAt" },
+                _id: {
+                    year: { $year: "$createdAt" },
+                    month: { $month: "$createdAt" }
+                },
                 count: { $sum: 1 }
             }
         },
-        { $sort: { "_id": 1 } }
+        { $sort: { "_id.year": 1, "_id.month": 1 } }
     ]);
+
+    const userGrowth = rawGrowth.map(item => ({
+        _id: monthNames[item._id.month] || `M${item._id.month}`,
+        count: item.count
+    }));
 
     // Job category distribution
     const categoryDistribution = await Job.aggregate([

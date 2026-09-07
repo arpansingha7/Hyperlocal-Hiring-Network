@@ -7,12 +7,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import Loading from "../Layout/Loading";
 
 const MyApplications = () => {
-  const { user, isAuthorized } = useContext(Context);
+  const { user, isAuthorized, isLoading } = useContext(Context);
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigateTo = useNavigate();
 
   useEffect(() => {
+    if (isLoading) return;
     if (!isAuthorized) {
       return navigateTo("/");
     }
@@ -25,7 +26,7 @@ const MyApplications = () => {
           : "/api/v1/application/jobseeker/getall";
           
         const { data } = await axios.get(endpoint, { withCredentials: true });
-        setApplications(data.applications);
+        setApplications(data.applications || []);
       } catch (error) {
         toast.error(error.response?.data?.message || "Failed to fetch applications");
       } finally {
@@ -34,7 +35,7 @@ const MyApplications = () => {
     };
     
     fetchApps();
-  }, [isAuthorized, user, navigateTo]);
+  }, [isAuthorized, user, isLoading, navigateTo]);
 
   const deleteApplication = async (id) => {
     try {
@@ -64,13 +65,17 @@ const MyApplications = () => {
     const s = status || "Pending";
     const styles = {
         Accepted: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
+        Shortlisted: "bg-blue-500/10 text-blue-500 border-blue-500/20",
+        Hired: "bg-emerald-600/10 text-emerald-600 border-emerald-600/30",
         Rejected: "bg-red-500/10 text-red-500 border-red-500/20",
         Pending: "bg-amber-500/10 text-amber-500 border-amber-500/20"
     };
 
     const statusLabels = {
-        Accepted: "Shortlisted",
-        Rejected: "Try Again",
+        Accepted: "Accepted",
+        Shortlisted: "Shortlisted",
+        Hired: "Hired 🎉",
+        Rejected: "Declined",
         Pending: "Reviewing"
     };
     return (
@@ -80,7 +85,7 @@ const MyApplications = () => {
     );
   };
 
-  if (loading) return <Loading />;
+  if (isLoading || loading) return <Loading />;
 
   return (
     <div className="bg-white dark:bg-slate-900 min-h-screen pt-28 pb-20 px-4 sm:px-6">
@@ -169,15 +174,27 @@ const MyApplications = () => {
                         <>
                           <button 
                             onClick={() => updateStatus(element._id, "Rejected")} 
-                            className="px-8 py-4 bg-white dark:bg-slate-900 text-red-500 border border-red-500/20 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all shadow-lg shadow-red-500/5"
+                            className="px-6 py-3.5 bg-white dark:bg-slate-900 text-red-500 border border-red-500/20 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all shadow-lg shadow-red-500/5"
                           >
-                            Decline Entry
+                            Decline
+                          </button>
+                          <button 
+                            onClick={() => updateStatus(element._id, "Shortlisted")} 
+                            className="px-6 py-3.5 bg-blue-500/10 text-blue-500 border border-blue-500/20 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-blue-500 hover:text-white transition-all shadow-lg shadow-blue-500/5"
+                          >
+                            Shortlist
                           </button>
                           <button 
                             onClick={() => updateStatus(element._id, "Accepted")} 
-                            className="px-10 py-4 bg-primary text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-2xl shadow-primary/30 hover:brightness-110 active:scale-[0.98] transition-all"
+                            className="px-6 py-3.5 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-emerald-500 hover:text-white transition-all"
                           >
-                            Approve Candidate
+                            Accept
+                          </button>
+                          <button 
+                            onClick={() => updateStatus(element._id, "Hired")} 
+                            className="px-8 py-3.5 bg-primary text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-2xl shadow-primary/30 hover:brightness-110 active:scale-[0.98] transition-all"
+                          >
+                            Hire Candidate 🎉
                           </button>
                         </>
                       ) : (

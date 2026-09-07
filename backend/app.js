@@ -1,5 +1,4 @@
 import express from "express";
-import dbConnection from "./database/dbConnection.js";
 import jobRouter from "./routes/jobRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import applicationRouter from "./routes/applicationRoutes.js";
@@ -58,11 +57,6 @@ app.use(
   })
 );
 
-// Ensure DB is connected before processing any request (critical for serverless)
-app.use(async (req, res, next) => {
-  await dbConnection();
-  next();
-});
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/job", jobRouter);

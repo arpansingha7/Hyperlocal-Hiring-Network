@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../main";
+import Loading from "../Layout/Loading";
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -16,11 +17,17 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-// Helper to center map
+// Helper to center map only when coordinates change
 function ChangeView({ center, zoom }) {
   const map = useMap();
+  const lastCenterRef = React.useRef(null);
   useEffect(() => {
-    map.setView(center, zoom);
+    if (!center || !center[0] || !center[1]) return;
+    const centerKey = `${center[0]},${center[1]}`;
+    if (lastCenterRef.current !== centerKey) {
+      lastCenterRef.current = centerKey;
+      map.setView(center, zoom);
+    }
   }, [center, zoom, map]);
   return null;
 }
@@ -64,12 +71,14 @@ const PostJob = () => {
   const [mapCenter, setMapCenter] = useState([22.5726, 88.3639]); // Default Kolkata
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { isAuthorized, user } = useContext(Context);
+  const { isAuthorized, user, isLoading } = useContext(Context);
   const navigateTo = useNavigate();
 
   useEffect(() => {
+    if (isLoading) return;
     if (!isAuthorized || (user && user.role !== "Employer")) {
       navigateTo("/");
+      return;
     }
 
     // Try to get user location for map centering
@@ -77,14 +86,11 @@ const PostJob = () => {
         navigator.geolocation.getCurrentPosition((position) => {
             const { latitude, longitude } = position.coords;
             setMapCenter([latitude, longitude]);
-            // Optional: Auto-set coordinates if user hasn't clicked yet
-            // setLat(latitude);
-            // setLng(longitude);
         }, (error) => {
             // Log suppressed for production optimization
         });
     }
-  }, [isAuthorized, user, navigateTo]);
+  }, [isAuthorized, user, isLoading, navigateTo]);
 
   const handleJobPost = async (e) => {
     e.preventDefault();
@@ -135,6 +141,8 @@ const PostJob = () => {
       setIsSubmitting(false);
     }
   };
+
+  if (isLoading) return <Loading />;
 
   return (
     <div className="bg-white dark:bg-slate-900 min-h-screen pt-28 pb-20 px-4 sm:px-6">

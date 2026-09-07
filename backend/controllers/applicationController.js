@@ -56,10 +56,12 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
   });
 
   // Emit live socket.io notification to the employer
-  io.to(employerID.user.toString()).emit("new_application", {
-    message: `New application received from ${name} for your recent job post!`,
-    applicationId: application._id,
-  });
+  if (io && typeof io.to === "function") {
+    io.to(employerID.user.toString()).emit("new_application", {
+      message: `New application received from ${name} for your recent job post!`,
+      applicationId: application._id,
+    });
+  }
 
   res.status(200).json({
     success: true,
@@ -191,11 +193,13 @@ export const updateApplicationStatus = catchAsyncErrors(async (req, res, next) =
   await application.save();
 
   // Optionally emit socket event to applicant
-  io.to(application.applicantID.user.toString()).emit("application_status_update", {
-    message: `Your application status was updated to ${status}!`,
-    applicationId: application._id,
-    status
-  });
+  if (io && typeof io.to === "function") {
+    io.to(application.applicantID.user.toString()).emit("application_status_update", {
+      message: `Your application status was updated to ${status}!`,
+      applicationId: application._id,
+      status
+    });
+  }
 
   res.status(200).json({
     success: true,

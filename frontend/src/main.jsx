@@ -6,7 +6,8 @@ import "./index.css";
 import axios from "axios";
 
 const isDevelopment = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || (isDevelopment ? "http://localhost:4000" : `${window.location.origin}/_/backend`);
+const rawBaseUrl = import.meta.env.VITE_API_BASE_URL || (isDevelopment ? "http://localhost:4000" : `${window.location.origin}/_/backend`);
+axios.defaults.baseURL = rawBaseUrl ? rawBaseUrl.replace(/\/api\/v1\/?$/, "").replace(/\/+$/, "") : "";
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use((config) => {
@@ -23,11 +24,13 @@ import { HelmetProvider } from "react-helmet-async";
 
 export const Context = createContext({
   isAuthorized: false,
+  isLoading: true,
 });
 
 const AppWrapper = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [user, setUser] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <HelmetProvider>
@@ -37,6 +40,8 @@ const AppWrapper = () => {
           setIsAuthorized,
           user,
           setUser,
+          isLoading,
+          setIsLoading,
         }}
       >
         <App />

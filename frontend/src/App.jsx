@@ -68,7 +68,7 @@ const PageWrapper = ({ children }) => (
 
 
 const App = () => {
-  const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
+  const { isAuthorized, setIsAuthorized, setUser, setIsLoading } = useContext(Context);
 
   useEffect(() => {
     let isMounted = true;
@@ -89,16 +89,17 @@ const App = () => {
           setIsAuthorized(false);
           setUser({});
         }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
-    
-    // Only fetch if we aren't already authorized or if it's the first mount
-    if (!isAuthorized) {
-        fetchUser();
-    }
+
+    fetchUser();
     
     return () => { isMounted = false; };
-  }, [isAuthorized, setIsAuthorized, setUser]);
+  }, [setIsAuthorized, setUser, setIsLoading]);
 
   return (
     <BrowserRouter>

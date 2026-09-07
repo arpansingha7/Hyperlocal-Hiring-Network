@@ -42,6 +42,7 @@ const Navbar = () => {
       toast.success(response.data.message);
       setIsAuthorized(false);
       localStorage.removeItem("token");
+      setShow(false);
       navigateTo("/login");
     } catch (error) {
       toast.error(error.response?.data?.message || "Logout failed");
@@ -58,6 +59,9 @@ const Navbar = () => {
   ];
 
   if (isAuthorized) {
+    if (user?.role === "Admin") {
+      navLinks.push({ name: t("Admin Terminal"), path: "/admin" });
+    }
     navLinks.push({ 
       name: user?.role === "Employer" ? t("Applicant's Applications") : t("My Applications"), 
       path: "/applications/me" 
@@ -202,7 +206,17 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
-              {!isAuthorized && (
+              {isAuthorized ? (
+                <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center justify-center gap-3 p-4 rounded-xl text-sm font-black text-white bg-rose-500 uppercase tracking-widest active:scale-95 shadow-lg shadow-rose-500/20"
+                  >
+                    <span className="material-symbols-outlined text-lg">logout</span>
+                    {t("Logout")}
+                  </button>
+                </div>
+              ) : (
                 <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
                   <Link
                     to="/login"

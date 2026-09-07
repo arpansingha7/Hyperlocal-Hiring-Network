@@ -40,7 +40,8 @@ const JobDetails = () => {
         setLoading(false);
       })
       .catch((error) => {
-        navigateTo("/notfound");
+        toast.error("Job listing not found");
+        navigateTo("/");
       });
   }, [id, navigateTo]);
 

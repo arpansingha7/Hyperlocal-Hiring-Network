@@ -251,7 +251,9 @@ const Jobs = () => {
                     <div className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic italic-safe">
                         {element.fixedSalary
                         ? `₹${element.fixedSalary.toLocaleString()}`
-                        : `₹${element.salaryFrom.toLocaleString()} - ₹${element.salaryTo.toLocaleString()}`}
+                        : element.salaryFrom && element.salaryTo
+                        ? `₹${element.salaryFrom.toLocaleString()} - ₹${element.salaryTo.toLocaleString()}`
+                        : "Negotiable"}
                     </div>
                   </div>
                   <Link

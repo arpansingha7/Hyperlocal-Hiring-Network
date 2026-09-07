@@ -12,7 +12,7 @@ import {
 const COLORS = ["#EF6C00", "#3B82F6", "#8B5CF6", "#10B981", "#F43F5E"];
 
 const Dashboard = () => {
-    const { user, isAuthorized } = useContext(Context);
+    const { user, isAuthorized, isLoading } = useContext(Context);
     const [activeTab, setActiveTab] = useState("insights");
     const [stats, setStats] = useState(null);
     const [users, setUsers] = useState([]);
@@ -80,6 +80,7 @@ const Dashboard = () => {
         }
     };
 
+    if (isLoading) return <div className="min-h-screen bg-slate-900 flex items-center justify-center"><motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }} className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full" /></div>;
     if (!isAuthorized || user?.role !== "Admin") return <Navigate to="/" />;
     if (loading) return <div className="min-h-screen bg-slate-900 flex items-center justify-center"><motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }} className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full" /></div>;
 

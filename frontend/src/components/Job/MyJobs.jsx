@@ -10,7 +10,7 @@ const MyJobs = () => {
   const [myJobs, setMyJobs] = useState([]);
   const [editingMode, setEditingMode] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { isAuthorized, user } = useContext(Context);
+  const { isAuthorized, user, isLoading } = useContext(Context);
 
   const navigateTo = useNavigate();
 
@@ -29,14 +29,18 @@ const MyJobs = () => {
         setLoading(false);
       }
     };
-    fetchJobs();
-  }, []);
+
+    if (!isLoading && isAuthorized && user?.role === "Employer") {
+      fetchJobs();
+    }
+  }, [isLoading, isAuthorized, user]);
 
   useEffect(() => {
+    if (isLoading) return;
     if (!isAuthorized || (user && user.role !== "Employer")) {
       navigateTo("/");
     }
-  }, [isAuthorized, user, navigateTo]);
+  }, [isAuthorized, user, isLoading, navigateTo]);
 
   const handleEnableEdit = (jobId) => {
     setEditingMode(jobId);
@@ -79,7 +83,7 @@ const MyJobs = () => {
     );
   };
 
-  if (loading) return <Loading />;
+  if (loading || isLoading) return <Loading />;
 
   return (
     <div className="bg-white dark:bg-slate-900 min-h-screen pt-28 pb-20 px-4 sm:px-6">

@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Context } from "../../main";
+import Loading from "../Layout/Loading";
 
 const Application = () => {
   const [name, setName] = useState("");
@@ -15,7 +16,7 @@ const Application = () => {
   const [skills, setSkills] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
 
-  const { isAuthorized, user } = useContext(Context);
+  const { isAuthorized, user, isLoading } = useContext(Context);
   const navigateTo = useNavigate();
   const { id } = useParams();
 
@@ -61,10 +62,13 @@ const Application = () => {
   };
 
   useEffect(() => {
+    if (isLoading) return;
     if (!isAuthorized || (user && user.role === "Employer")) {
       navigateTo("/");
     }
-  }, [isAuthorized, user, navigateTo]);
+  }, [isAuthorized, user, isLoading, navigateTo]);
+
+  if (isLoading) return <Loading />;
 
   return (
     <div className="bg-white dark:bg-slate-900 min-h-screen pt-28 pb-20 px-4 sm:px-6">
