@@ -11,6 +11,8 @@ import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import mongoose from "mongoose";
+import dbConnection from "./database/dbConnection.js";
 
 import path from "path";
 import { fileURLToPath } from "url";
@@ -64,11 +66,31 @@ app.use(
 );
 
 
-app.use("/api/v1/user", userRouter);
-app.use("/api/v1/job", jobRouter);
-app.use("/api/v1/application", applicationRouter);
-app.use("/api/v1/admin", adminRouter);
-app.use("/api/v1/review", reviewRouter);
+// Ensure database connection for serverless / Vercel functions
+app.use(async (req, res, next) => {
+  try {
+    await dbConnection();
+    next();
+  } catch (err) {
+    console.error("Database connection error in request:", err.message);
+    next(err);
+  }
+});
+
+// Health check endpoint for Vercel / deployment verification
+app.get(["/api", "/api/v1", "/api/health"], (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Hyperlocal Hiring Network API is running successfully.",
+    database: mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+  });
+});
+
+app.use(["/api/v1/user", "/v1/user"], userRouter);
+app.use(["/api/v1/job", "/v1/job"], jobRouter);
+app.use(["/api/v1/application", "/v1/application"], applicationRouter);
+app.use(["/api/v1/admin", "/v1/admin"], adminRouter);
+app.use(["/api/v1/review", "/v1/review"], reviewRouter);
 
 app.use(errorMiddleware);
 export default app;

@@ -6,7 +6,7 @@ import "./index.css";
 import axios from "axios";
 
 const isDevelopment = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-const rawBaseUrl = import.meta.env.VITE_API_BASE_URL || (isDevelopment ? "http://localhost:4000" : `${window.location.origin}/_/backend`);
+const rawBaseUrl = import.meta.env.VITE_API_BASE_URL || (isDevelopment ? "http://localhost:4000" : "");
 axios.defaults.baseURL = rawBaseUrl ? rawBaseUrl.replace(/\/api\/v1\/?$/, "").replace(/\/+$/, "") : "";
 axios.defaults.withCredentials = true;
 

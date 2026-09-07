@@ -15,10 +15,16 @@ const Notifications = () => {
     useEffect(() => {
         if (isAuthorized && user && user._id) {
             const isDevelopment = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-            const rawUrl = import.meta.env.VITE_API_BASE_URL || (isDevelopment ? "http://localhost:4000" : `${window.location.origin}/_/backend`);
+            const rawUrl = import.meta.env.VITE_API_BASE_URL || (isDevelopment ? "http://localhost:4000" : "");
             const socketUrl = rawUrl ? rawUrl.replace(/\/api\/v1\/?$/, "").replace(/\/+$/, "") : "";
-            socket = io(socketUrl, {
+            socket = io(socketUrl || window.location.origin, {
                 withCredentials: true,
+                transports: ["polling", "websocket"],
+                reconnectionAttempts: 3,
+            });
+
+            socket.on("connect_error", () => {
+                // Silently fallback in environments where persistent WebSockets are unavailable
             });
 
             socket.on("connect", () => {
