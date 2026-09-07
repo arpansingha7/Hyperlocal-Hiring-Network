@@ -78,7 +78,7 @@ app.use(async (req, res, next) => {
 });
 
 // Health check endpoint for Vercel / deployment verification
-app.get(["/api", "/api/v1", "/api/health"], (req, res) => {
+app.get(["/api", "/api/v1", "/api/health", "/health"], (req, res) => {
   res.status(200).json({
     success: true,
     message: "Hyperlocal Hiring Network API is running successfully.",
@@ -86,11 +86,11 @@ app.get(["/api", "/api/v1", "/api/health"], (req, res) => {
   });
 });
 
-app.use(["/api/v1/user", "/v1/user"], userRouter);
-app.use(["/api/v1/job", "/v1/job"], jobRouter);
-app.use(["/api/v1/application", "/v1/application"], applicationRouter);
-app.use(["/api/v1/admin", "/v1/admin"], adminRouter);
-app.use(["/api/v1/review", "/v1/review"], reviewRouter);
+app.use(["/api/v1/user", "/v1/user", "/user"], userRouter);
+app.use(["/api/v1/job", "/v1/job", "/job"], jobRouter);
+app.use(["/api/v1/application", "/v1/application", "/application"], applicationRouter);
+app.use(["/api/v1/admin", "/v1/admin", "/admin"], adminRouter);
+app.use(["/api/v1/review", "/v1/review", "/review"], reviewRouter);
 
 app.use(errorMiddleware);
 export default app;
