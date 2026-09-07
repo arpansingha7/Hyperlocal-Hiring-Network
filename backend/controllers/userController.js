@@ -9,11 +9,11 @@ import axios from "axios";
 export const register = catchAsyncErrors(async (req, res, next) => {
   const { name, email, phone, password, role } = req.body;
   if (!name || !email || !phone || !password || !role) {
-    return next(new ErrorHandler("Please fill full form !"));
+    return next(new ErrorHandler("Please fill full form !", 400));
   }
   const isEmail = await User.findOne({ email });
   if (isEmail) {
-    return next(new ErrorHandler("Email already registered !"));
+    return next(new ErrorHandler("Email already registered !", 400));
   }
   const user = await User.create({
     name,
@@ -28,7 +28,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
 export const login = catchAsyncErrors(async (req, res, next) => {
   const { email, password, role } = req.body;
   if (!email || !password || !role) {
-    return next(new ErrorHandler("Please provide email ,password and role !"));
+    return next(new ErrorHandler("Please provide email ,password and role !", 400));
   }
   const user = await User.findOne({ email }).select("+password");
   if (!user) {
@@ -52,7 +52,7 @@ export const login = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const logout = catchAsyncErrors(async (req, res, next) => {
-  const isProduction = process.env.NODE_ENV === "production" || !process.env.NODE_ENV;
+  const isProduction = process.env.NODE_ENV === "production";
   res
     .status(200)
     .cookie("token", "", {
@@ -167,7 +167,25 @@ export const aiVoiceSetup = catchAsyncErrors(async (req, res, next) => {
   // Use the GitHub token provided by the user for the GitHub Models API
   const githubToken = process.env.GITHUB_TOKEN;
   if (!githubToken) {
-    return next(new ErrorHandler("GitHub LLM Token is not configured.", 500));
+    // Graceful heuristic extraction fallback when LLM token is not configured
+    const emailMatch = transcript.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+    const phoneMatch = transcript.match(/(?:\+?\d{1,3}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}|\d{10}/);
+    let name = "";
+    const nameMatch = transcript.match(/(?:my name is|i am|name is)\s+([A-Za-z\s]+?)(?=\s+(?:and|my|email|phone|role|$))/i);
+    if (nameMatch) {
+      name = nameMatch[1].trim();
+    }
+    const role = transcript.toLowerCase().includes("employer") ? "Employer" : "Job Seeker";
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        name: name || "",
+        email: emailMatch ? emailMatch[0] : "",
+        phone: phoneMatch ? phoneMatch[0].replace(/\D/g, "") : "",
+        role: role
+      }
+    });
   }
 
   try {

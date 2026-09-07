@@ -19,9 +19,14 @@ import dotenv from "dotenv";
 import dbConnection from "./database/dbConnection.js";
 import http from "http";
 import { Server } from "socket.io";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // load environment variables
-dotenv.config({ path: "./config/config.env" });
+dotenv.config({ path: path.resolve(__dirname, "config", "config.env") });
 
 // connect database
 dbConnection();

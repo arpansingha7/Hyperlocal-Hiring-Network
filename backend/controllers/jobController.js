@@ -157,7 +157,8 @@ export const getSingleJob = catchAsyncErrors(async (req, res, next) => {
 export const getJobsWithinRadius = catchAsyncErrors(async (req, res, next) => {
   const { radius, lat, lng } = req.params;
 
-  const radiusInMeters = Number(radius) * 1000;
+  const radiusInKm = Number(radius);
+  const radiusInMeters = radiusInKm * 1000;
   const latitude = Number(lat);
   const longitude = Number(lng);
 
@@ -165,18 +166,41 @@ export const getJobsWithinRadius = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Invalid coordinates or radius parameter.", 400));
   }
 
-  const jobs = await Job.find({
-    locationPoint: {
-      $near: {
-        $geometry: {
-          type: "Point",
-          coordinates: [longitude, latitude]
-        },
-        $maxDistance: radiusInMeters
+  let jobs = [];
+  try {
+    jobs = await Job.find({
+      locationPoint: {
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: [longitude, latitude]
+          },
+          $maxDistance: radiusInMeters
+        }
+      },
+      expired: false
+    });
+  } catch (geoError) {
+    console.warn("GeoNear query error, falling back to manual distance calculation:", geoError.message);
+    const allJobs = await Job.find({ expired: false });
+    const R = 6371; // Earth radius in km
+    jobs = allJobs.filter((job) => {
+      if (job.locationPoint?.coordinates?.length === 2) {
+        const jLng = job.locationPoint.coordinates[0];
+        const jLat = job.locationPoint.coordinates[1];
+        const dLat = (jLat - latitude) * (Math.PI / 180);
+        const dLon = (jLng - longitude) * (Math.PI / 180);
+        const a =
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(latitude * (Math.PI / 180)) * Math.cos(jLat * (Math.PI / 180)) *
+          Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const distance = R * c;
+        return distance <= radiusInKm;
       }
-    },
-    expired: false
-  }); // Notes: $near automatically sorts results by shortest distance first
+      return false;
+    });
+  }
 
   res.status(200).json({
     success: true,

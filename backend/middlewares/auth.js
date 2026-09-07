@@ -19,6 +19,12 @@ export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
     req.user = await User.findById(decoded.id);
+    if (!req.user) {
+      return next(new ErrorHandler("User not found or session invalid.", 401));
+    }
+    if (req.user.isAccountActive === false) {
+      return next(new ErrorHandler("This account has been suspended by an administrator.", 403));
+    }
     next();
   } catch (error) {
     return next(new ErrorHandler("Session expired, please login again.", 401));

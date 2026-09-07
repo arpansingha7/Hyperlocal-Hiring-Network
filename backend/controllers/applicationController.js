@@ -149,6 +149,17 @@ export const aiGenerateCoverLetter = catchAsyncErrors(async (req, res, next) => 
 
   const prompt = `Write a professional, concise, and modern cover letter for the position of "${job.title}" in the "${job.category}" industry. The applicant's name is ${userName || req.user.name || 'the applicant'}. They have the following skills: ${skills || 'relevant skills that make me a great fit for this position'}. Make it highly convincing but under 200 words. Do not use [Brackets] for anything, write a generic company name if needed or omit it entirely. End with Sincerely, ${userName || req.user.name || 'Applicant'}.`;
 
+  const applicant = userName || req.user?.name || 'Applicant';
+
+  if (!process.env.GROQ_API_KEY) {
+    const fallbackCoverLetter = `Dear Hiring Team,\n\nI am enthusiastic about applying for the position of ${job.title}. With a strong background in ${skills || 'the required qualifications'} and familiarity with ${job.category}, I am confident in my capability to make an immediate, meaningful contribution to your operations in ${job.city}.\n\nMy attention to detail, reliability, and collaborative work ethic make me an ideal match for your team. I look forward to the possibility of discussing this opportunity further.\n\nSincerely,\n${applicant}`;
+
+    return res.status(200).json({
+      success: true,
+      coverLetter: fallbackCoverLetter,
+    });
+  }
+
   try {
     const groqRes = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
       model: "llama3-8b-8192",
@@ -165,8 +176,13 @@ export const aiGenerateCoverLetter = catchAsyncErrors(async (req, res, next) => 
       coverLetter: groqRes.data.choices[0].message.content,
     });
   } catch (error) {
-    console.error("Groq API error:", error.response?.data || error.message);
-    return next(new ErrorHandler("Failed to generate AI Cover Letter.", 500));
+    console.warn("Groq API error, using fallback cover letter:", error.response?.data || error.message);
+    const fallbackCoverLetter = `Dear Hiring Team,\n\nI am writing to express my strong interest in the ${job.title} role. With proven experience in ${skills || 'core industry responsibilities'} across the ${job.category} space, I am well-prepared to deliver high-quality results for your team.\n\nThank you for considering my application. I look forward to speaking with you soon.\n\nSincerely,\n${applicant}`;
+
+    res.status(200).json({
+      success: true,
+      coverLetter: fallbackCoverLetter,
+    });
   }
 });
 

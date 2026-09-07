@@ -12,8 +12,14 @@ import fileUpload from "express-fileupload";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
-config({ path: "./config/config.env" });
+config({ path: path.resolve(__dirname, "config", "config.env") });
 
 app.use(helmet());
 app.set("trust proxy", 1);

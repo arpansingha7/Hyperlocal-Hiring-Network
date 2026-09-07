@@ -13,7 +13,9 @@ const dbConnection = async () => {
 
     mongoose.set('strictQuery', true);
 
-    connectionPromise = mongoose.connect(process.env.DB_URL, {
+    const dbUri = process.env.DB_URL || "mongodb://127.0.0.1:27017/hyperlocal_hiring_network";
+
+    connectionPromise = mongoose.connect(dbUri, {
         dbName: "Job_Portal",
         serverSelectionTimeoutMS: 8000,
         socketTimeoutMS: 45000,
